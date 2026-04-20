@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mentions légales — Chalet du Tornet</title>
+<meta name="robots" content="index, follow">
+<meta name="description" content="Mentions légales du Chalet du Tornet — informations sur l'éditeur, l'hébergeur et les conditions d'utilisation du site.">
+<link rel="icon" type="image/jpeg" href="logo.jpg">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap');
+:root{--green:#3B6B4C;--green2:#2f5740;--cream:#f5f1e8;--gold:#c9913a;--sand:#ede8de;--white:#ffffff;--text:#2b3a2e;--muted:#6f7a6f;--radius:12px;--shadow:0 4px 24px rgba(59,107,76,.12)}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--text);min-height:100vh}
+
+.site-header{background:var(--green);padding:1.25rem 2rem;display:flex;align-items:center;justify-content:space-between;gap:1rem}
+.logo{font-family:'Cormorant Garamond',serif;font-size:1.35rem;font-weight:300;color:var(--cream);letter-spacing:.04em;line-height:1.2;text-decoration:none;display:flex;align-items:center;gap:.6rem}
+.logo img{width:34px;height:34px;border-radius:50%;object-fit:cover;border:1.5px solid rgba(255,255,255,.3)}
+.logo span{color:var(--gold)}
+.header-phone{display:flex;align-items:center;gap:.5rem;background:var(--gold);color:#fff;font-weight:500;font-size:.85rem;padding:.55rem 1rem;border-radius:999px;text-decoration:none;white-space:nowrap}
+
+.hero{background:linear-gradient(135deg,var(--green) 0%,var(--green2) 100%);padding:3rem 2rem 2.5rem;text-align:center;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none'%3E%3Cg fill='%23c9913a' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");opacity:.4}
+.hero-content{position:relative;z-index:1}
+.hero-eyebrow{font-size:.72rem;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin-bottom:.75rem}
+.hero h1{font-family:'Cormorant Garamond',serif;font-size:clamp(1.8rem,5vw,2.6rem);font-weight:300;color:var(--white);line-height:1.2;margin-bottom:.6rem}
+.hero h1 em{color:var(--gold);font-style:italic}
+.hero p{color:rgba(245,241,232,.75);font-size:.9rem;max-width:480px;margin:0 auto;line-height:1.6}
+
+.page-wrap{max-width:740px;margin:0 auto;padding:2.5rem 1.5rem 4rem}
+
+.back-link{display:inline-flex;align-items:center;gap:.5rem;font-size:.83rem;color:var(--muted);text-decoration:none;margin-bottom:2rem;transition:color .2s}
+.back-link:hover{color:var(--green)}
+.back-link svg{flex-shrink:0}
+
+.policy-card{background:var(--white);border-radius:16px;padding:2.25rem 2.5rem;box-shadow:var(--shadow);margin-bottom:1.5rem}
+@media(max-width:520px){.policy-card{padding:1.5rem 1.25rem}}
+
+.policy-card h2{font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:400;color:var(--green);margin-bottom:1rem;padding-bottom:.65rem;border-bottom:1.5px solid var(--sand);display:flex;align-items:center;gap:.6rem}
+.policy-card h2 .icon{font-size:1.1rem}
+
+.policy-card p{font-size:.93rem;color:var(--text);line-height:1.75;margin-bottom:.85rem}
+.policy-card p:last-child{margin-bottom:0}
+.policy-card ul{list-style:none;margin:.5rem 0 .85rem;padding:0}
+.policy-card ul li{font-size:.93rem;color:var(--text);line-height:1.7;padding:.2rem 0 .2rem 1.4rem;position:relative}
+.policy-card ul li::before{content:'—';position:absolute;left:0;color:var(--gold);font-weight:600}
+
+.policy-card a{color:var(--gold);font-weight:500;text-decoration:none}
+.policy-card a:hover{text-decoration:underline}
+
+.highlight-box{background:var(--cream);border-radius:8px;border:1.5px solid var(--sand);padding:1rem 1.25rem;margin:.75rem 0 .85rem}
+.highlight-box p{font-size:.88rem;color:var(--muted);line-height:1.7;margin:0}
+.highlight-box strong{color:var(--green)}
+
+.info-grid{display:grid;grid-template-columns:1fr;gap:.75rem;margin:.75rem 0}
+.info-row{display:flex;justify-content:space-between;align-items:baseline;gap:1rem;padding:.6rem 0;border-bottom:1px solid var(--sand);font-size:.9rem}
+.info-row:last-child{border-bottom:none}
+.info-row .k{color:var(--muted);font-weight:500;flex-shrink:0;min-width:40%}
+.info-row .v{color:var(--green);font-weight:600;text-align:right;word-break:break-word}
+.info-row .v.todo{color:var(--gold);font-style:italic;font-weight:500}
+
+.update-note{text-align:center;font-size:.78rem;color:var(--muted);margin-top:2rem;line-height:1.6}
+
+.site-footer{background:var(--green);padding:2rem;text-align:center}
+.site-footer p{font-size:.78rem;color:rgba(245,241,232,.55);line-height:1.7}
+.site-footer a{color:var(--gold);text-decoration:none}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <a href="/" class="logo"><img src="logo.jpg" alt="" onerror="this.style.display='none'">Chalet du <span>Tornet</span></a>
+  <a href="tel:+33438802251" class="header-phone">
+    <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 10.8a19.79 19.79 0 01-3.07-8.67A2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 7.91a16 16 0 006.16 6.16l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+    +33 4 38 80 22 51
+  </a>
+</header>
+
+<section class="hero">
+  <div class="hero-content">
+    <p class="hero-eyebrow">Informations réglementaires</p>
+    <h1>Mentions <em>légales</em></h1>
+    <p>Informations sur l'éditeur du site, l'hébergement et les conditions d'utilisation.</p>
+  </div>
+</section>
+
+<div class="page-wrap">
+
+  <a href="/" class="back-link">
+    <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+    Retour à l'accueil
+  </a>
+
+  <!-- 1 — Éditeur -->
+  <div class="policy-card">
+    <h2><span class="icon">🏢</span> Éditeur du site</h2>
+    <p>Le présent site est édité et publié par :</p>
+    <div class="info-grid">
+      <div class="info-row"><span class="k">Raison sociale</span><span class="v">RCD2</span></div>
+      <div class="info-row"><span class="k">Nom commercial</span><span class="v">Chalet du Tornet</span></div>
+      <div class="info-row"><span class="k">Forme juridique</span><span class="v">Société par actions simplifiée (SAS)</span></div>
+      <div class="info-row"><span class="k">Capital social</span><span class="v">1 000 € (fixe)</span></div>
+      <div class="info-row"><span class="k">Adresse du siège</span><span class="v">161 Route de Paris<br>74330 La Balme-de-Sillingy, France</span></div>
+      <div class="info-row"><span class="k">SIREN</span><span class="v">938 604 758</span></div>
+      <div class="info-row"><span class="k">SIRET (siège)</span><span class="v">938 604 758 00012</span></div>
+      <div class="info-row"><span class="k">N° TVA intracommunautaire</span><span class="v">FR25 938 604 758</span></div>
+      <div class="info-row"><span class="k">Code APE / NAF</span><span class="v">56.10A — Restauration traditionnelle</span></div>
+      <div class="info-row"><span class="k">Convention collective</span><span class="v">HCR (IDCC 1979)</span></div>
+      <div class="info-row"><span class="k">Date de création</span><span class="v">1er janvier 2025</span></div>
+      <div class="info-row"><span class="k">Licence d'exploitation</span><span class="v todo">[À COMPLÉTER · numéro de licence de débit de boissons]</span></div>
+      <div class="info-row"><span class="k">Téléphone</span><span class="v"><a href="tel:+33438802251">+33 4 38 80 22 51</a></span></div>
+      <div class="info-row"><span class="k">Email</span><span class="v"><a href="mailto:chaletdutornet74@gmail.com">chaletdutornet74@gmail.com</a></span></div>
+    </div>
+  </div>
+
+  <!-- 2 — Direction -->
+  <div class="policy-card">
+    <h2><span class="icon">👤</span> Direction &amp; représentation</h2>
+    <div class="info-grid">
+      <div class="info-row"><span class="k">Présidente</span><span class="v">Pauline Chirol</span></div>
+      <div class="info-row"><span class="k">Directeurs généraux</span><span class="v">Sarah Corboz<br>David Dubreu<br>Eddie Raset</span></div>
+      <div class="info-row"><span class="k">Directeur de la publication</span><span class="v">Eddie Raset</span></div>
+    </div>
+    <p style="margin-top:1rem">Le directeur de la publication est responsable du contenu éditorial du site.</p>
+  </div>
+
+  <!-- 3 — Hébergeur -->
+  <div class="policy-card">
+    <h2><span class="icon">🌐</span> Hébergement</h2>
+    <p>Le présent site est hébergé par :</p>
+    <div class="info-grid">
+      <div class="info-row"><span class="k">Société</span><span class="v">Netlify, Inc.</span></div>
+      <div class="info-row"><span class="k">Adresse</span><span class="v">512 2nd Street, Suite 200<br>San Francisco, CA 94107<br>United States</span></div>
+      <div class="info-row"><span class="k">Site web</span><span class="v"><a href="https://www.netlify.com" target="_blank" rel="noopener">www.netlify.com</a></span></div>
+    </div>
+    <div class="highlight-box">
+      <p>Les transferts de données vers les États-Unis dans le cadre de l'hébergement sont encadrés par les <strong>clauses contractuelles types</strong> adoptées par la Commission européenne, conformément au RGPD.</p>
+    </div>
+  </div>
+
+  <!-- 4 — Propriété intellectuelle -->
+  <div class="policy-card">
+    <h2><span class="icon">©️</span> Propriété intellectuelle</h2>
+    <p>L'ensemble du contenu de ce site (textes, images, photographies, vidéos, logos, graphismes, code source) est la propriété exclusive de la société <strong>RCD2</strong> (nom commercial : Chalet du Tornet) ou de ses ayants droit, sauf mention contraire.</p>
+    <p>Toute reproduction, représentation, modification, publication, transmission ou dénaturation, totale ou partielle, du site ou de son contenu, par quelque procédé que ce soit et sur quelque support que ce soit, est interdite sans l'autorisation écrite préalable de l'éditeur.</p>
+    <p>Toute exploitation non autorisée est susceptible de constituer une contrefaçon sanctionnée par les articles L.335-2 et suivants du Code de la propriété intellectuelle.</p>
+  </div>
+
+  <!-- 5 — Liens -->
+  <div class="policy-card">
+    <h2><span class="icon">🔗</span> Liens hypertextes</h2>
+    <p>Le site peut contenir des liens vers des sites tiers (réseaux sociaux, cartographie, sites institutionnels du Domaine du Tornet et de la commune de La Balme-de-Sillingy). L'éditeur n'exerce aucun contrôle sur le contenu de ces sites et décline toute responsabilité quant à leurs contenus, politiques de confidentialité ou pratiques.</p>
+    <p>La création de liens hypertextes pointant vers ce site est libre, sous réserve de ne pas porter atteinte à l'image ou aux intérêts de l'éditeur.</p>
+  </div>
+
+  <!-- 6 — Données personnelles -->
+  <div class="policy-card">
+    <h2><span class="icon">🔐</span> Données personnelles</h2>
+    <p>Le traitement des données personnelles collectées sur ce site est détaillé dans notre <a href="politique-confidentialite.html">politique de confidentialité</a>, conforme au RGPD et à la loi Informatique et Libertés.</p>
+    <p>Pour toute demande relative à vos données (accès, rectification, suppression, portabilité, opposition), contactez-nous à <a href="mailto:chaletdutornet74@gmail.com">chaletdutornet74@gmail.com</a>.</p>
+  </div>
+
+  <!-- 7 — Domaine du Tornet -->
+  <div class="policy-card">
+    <h2><span class="icon">🏞️</span> À propos du Domaine du Tornet</h2>
+    <p>Le Chalet du Tornet est une activité de restauration située au sein du Domaine du Tornet, espace public aménagé et géré par la <strong>commune de La Balme-de-Sillingy</strong>. La société RCD2 ne possède ni n'exploite le Domaine lui-même.</p>
+    <p>Les informations présentées sur ce site concernant les équipements du Domaine (lac, aire de jeux, pumptrack, ponton, Parc des Jardins, aire de camping-car, etc.) sont données à titre informatif et proviennent des communications officielles de la commune et des offices de tourisme. Pour toute information précise ou à jour sur le Domaine, nous vous invitons à consulter le site de la <a href="https://www.labalmedesillingy.fr" target="_blank" rel="noopener">commune de La Balme-de-Sillingy</a>.</p>
+  </div>
+
+  <!-- 8 — Loi applicable -->
+  <div class="policy-card">
+    <h2><span class="icon">⚖️</span> Loi applicable &amp; juridiction</h2>
+    <p>Les présentes mentions légales sont soumises au droit français. Tout litige relatif à leur interprétation ou à leur exécution relève de la compétence exclusive des tribunaux du ressort du siège social de la société, sauf disposition légale contraire.</p>
+  </div>
+
+  <!-- 9 — Contact -->
+  <div class="policy-card">
+    <h2><span class="icon">✉️</span> Contact</h2>
+    <p>Pour toute question relative au site, à son contenu ou à ces mentions légales :</p>
+    <div class="highlight-box">
+      <p><strong>Chalet du Tornet — RCD2</strong><br>
+      161 Route de Paris, 74330 La Balme-de-Sillingy<br>
+      Email : <a href="mailto:chaletdutornet74@gmail.com">chaletdutornet74@gmail.com</a><br>
+      Téléphone : <a href="tel:+33438802251">+33 4 38 80 22 51</a></p>
+    </div>
+  </div>
+
+  <p class="update-note">
+    Dernière mise à jour : avril 2026
+  </p>
+
+</div>
+
+<footer class="site-footer">
+  <p>
+    © 2026 bleu-canard édition, Edmaster &amp; Claudius, tout droit réservé<br>
+    <a href="/">Retour à l'accueil</a> &nbsp;·&nbsp; <a href="politique-confidentialite.html">Politique de confidentialité</a>
+  </p>
+</footer>
+
+</body>
+</html>
+
