@@ -97,8 +97,8 @@ nav{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-conte
 @media(min-width:769px){.nav-close,.nav-close-label{display:none}}
 
 /* HERO */
-.hero{background:linear-gradient(to bottom,rgba(13,26,17,0.45) 0%,rgba(13,26,17,0.25) 55%,rgba(13,26,17,0.7) 100%),url('hero-terrasse.jpg') center/cover no-repeat fixed;color:var(--white);min-height:92vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:4rem 2rem;position:relative;overflow:hidden}
-@media(max-width:768px){.hero{background-attachment:scroll;min-height:80vh}}
+.hero{background:linear-gradient(to bottom,rgba(13,26,17,0.45) 0%,rgba(13,26,17,0.25) 55%,rgba(13,26,17,0.7) 100%),url('hero-terrasse.jpg') center 60%/cover no-repeat fixed;color:var(--white);min-height:92vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:4rem 2rem;position:relative;overflow:hidden}
+@media(max-width:768px){.hero{background-attachment:scroll;background-position:center 55%;min-height:80vh}}
 .hero::after{content:'';position:absolute;bottom:0;left:0;right:0;height:120px;background:linear-gradient(to bottom,transparent,var(--cream));pointer-events:none}
 .hero-content{position:relative;z-index:2;max-width:760px;animation:fadeInUp 0.9s ease both}
 .hero-eyebrow{display:inline-block;font-size:0.92rem;letter-spacing:4px;text-transform:uppercase;color:var(--gold-pale);font-weight:700;font-family:'DM Sans',sans-serif;margin-bottom:1.25rem;text-shadow:0 1px 8px rgba(0,0,0,0.4)}
@@ -175,7 +175,11 @@ section{padding:5rem 2rem}
 .expand-btn.active .expand-icon{transform:rotate(45deg)}
 .expand-content{margin-top:1rem;animation:fadeInUp 0.3s ease}
 .expand-content p{font-size:0.9rem;color:var(--muted)}
-.about-highlights{display:grid;grid-template-columns:repeat(2,1fr);gap:0.85rem}
+.about-highlights{display:flex;gap:0.85rem;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;padding:0.5rem 0.25rem 1rem;scrollbar-width:thin;scrollbar-color:var(--green-pale) transparent}
+.about-highlights::-webkit-scrollbar{height:6px}
+.about-highlights::-webkit-scrollbar-track{background:transparent}
+.about-highlights::-webkit-scrollbar-thumb{background:var(--green-pale);border-radius:3px}
+.about-highlights .highlight-card{flex:0 0 260px;scroll-snap-align:start}
 .highlight-card{background:var(--white);border:1px solid rgba(59,107,76,0.08);border-radius:10px;padding:1rem 1rem;display:flex;gap:0.7rem;align-items:flex-start;transition:transform 0.25s,box-shadow 0.25s;border-left:3px solid var(--gold)}
 .highlight-card:hover{transform:translateY(-3px);box-shadow:0 8px 22px rgba(59,107,76,0.12)}
 .highlight-icon{font-size:1.6rem;flex-shrink:0;margin:0;color:var(--green);line-height:1}
@@ -183,8 +187,7 @@ section{padding:5rem 2rem}
 .highlight-card h4{font-size:0.88rem;color:var(--green);margin-bottom:0.15rem;line-height:1.2}
 .highlight-card p{color:var(--muted);font-size:0.78rem;margin:0;line-height:1.45}
 @media(max-width:480px){
-  .about-highlights{grid-template-columns:1fr}
-  .highlight-card{padding:0.9rem}
+  .about-highlights .highlight-card{flex:0 0 230px;padding:0.9rem}
 }
 
 /* GALLERY */
@@ -221,7 +224,11 @@ section{padding:5rem 2rem}
 .menu-card-sig{display:inline-block;background:var(--gold);color:#fff;font-size:0.55rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:0.15rem 0.45rem;border-radius:3px;margin-top:0.35rem;position:relative;z-index:1;align-self:flex-start}
 
 /* ENFANT / FORMULE */
-.formule-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1rem;margin-top:0.5rem}
+.formule-grid{display:flex;gap:1rem;margin-top:0.5rem;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;padding:0.5rem 0.25rem 1rem;scrollbar-width:thin;scrollbar-color:var(--gold-pale) transparent}
+.formule-grid::-webkit-scrollbar{height:6px}
+.formule-grid::-webkit-scrollbar-track{background:transparent}
+.formule-grid::-webkit-scrollbar-thumb{background:var(--gold-pale);border-radius:3px}
+.formule-grid .formule-card{flex:0 0 240px;scroll-snap-align:start}
 .formule-card{background:var(--white);border-radius:10px;padding:1.5rem 1.25rem;border:1.5px solid var(--gold2);text-align:center;position:relative;overflow:hidden;transition:all .25s}
 .formule-card:hover{box-shadow:0 10px 28px rgba(201,145,58,0.2);transform:translateY(-3px)}
 .formule-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--gold),var(--green3))}
@@ -543,6 +550,7 @@ footer .links a:hover{color:var(--gold)}
           </div>
         </div>
       </div>
+      <p style="font-size:0.72rem;color:var(--muted);letter-spacing:1.5px;text-transform:uppercase;margin:1.5rem 0 0.4rem" data-cms="about.highlights.hint">← Faites défiler →</p>
       <div class="about-highlights">
         <div class="highlight-card">
           <span class="highlight-icon"><svg class="lucide" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 2v7c0 1.1.9 2 2 2h1v11a1 1 0 0 0 2 0V11h1c1.1 0 2-.9 2-2V2"/><path d="M7 2v9M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h1v5a1 1 0 0 0 2 0z"/></svg></span>
@@ -569,7 +577,7 @@ footer .links a:hover{color:var(--gold)}
           <span class="highlight-icon"><svg class="lucide" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></span>
           <div>
             <h4 data-cms="highlight.domaine.title">Le Domaine</h4>
-            <p data-cms="highlight.domaine.desc">Aire de jeux, pumptrack, pétanque, tour du lac — à deux pas du Chalet.</p>
+            <p data-cms="highlight.domaine.desc">7 ha de lac, aire de jeux, pumptrack 280 m, fitness, pétanque, ponton, Parc des Jardins et cerisiers d'Asie — en accès libre, toute l'année, juste autour du Chalet. <a href="#domaine" style="color:var(--gold);font-weight:600;white-space:nowrap">En savoir plus →</a></p>
           </div>
         </div>
       </div>
@@ -622,6 +630,7 @@ footer .links a:hover{color:var(--gold)}
           <span class="accordion-toggle">+</span>
         </button>
         <div class="accordion-body">
+          <p style="font-size:0.7rem;color:var(--muted);letter-spacing:1.5px;text-transform:uppercase;margin:0 0 0.2rem 0.25rem" data-cms="formule.hint">← Faites défiler →</p>
           <div class="formule-grid" id="formule-grid">
             <div class="formule-card">
               <div class="formule-name" data-cms="formule.totale.name">La Totale</div>
