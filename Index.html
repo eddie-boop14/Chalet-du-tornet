@@ -261,16 +261,18 @@ section{padding:5rem 2rem}
 /* DOMAINE — the new centerpiece */
 #domaine{background:linear-gradient(180deg,var(--green-mist) 0%,var(--cream) 100%);position:relative;overflow:hidden}
 #domaine::before{content:'';position:absolute;top:-80px;right:-80px;width:300px;height:300px;background:radial-gradient(circle,rgba(59,107,76,0.08),transparent 70%);pointer-events:none}
-.domaine-hero{display:grid;grid-template-columns:1.1fr 1fr;gap:2.5rem;align-items:center;margin-top:1.5rem;margin-bottom:3rem;position:relative;z-index:1;padding:2.5rem 2rem;border-radius:16px;overflow:hidden;isolation:isolate}
-.domaine-hero::before{content:'';position:absolute;inset:0;background:url('domaine-cerisiers.jpg') center 40%/cover no-repeat;opacity:0.22;z-index:-2}
-.domaine-hero::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(238,243,239,0.7) 0%,rgba(245,241,232,0.85) 100%);z-index:-1}
-@media(max-width:820px){.domaine-hero{grid-template-columns:1fr;gap:1.75rem;padding:1.75rem 1.25rem}}
+.domaine-hero{display:block;margin-top:1.5rem;margin-bottom:3rem;position:relative;z-index:1;padding:2.75rem 2rem;border-radius:16px;overflow:hidden;isolation:isolate;box-shadow:0 10px 40px rgba(13,26,17,0.1)}
+.domaine-hero::before{content:'';position:absolute;inset:0;background-image:url('domaine-cerisiers.jpg');background-size:cover;background-position:center 35%;background-repeat:no-repeat;z-index:-2}
+.domaine-hero::after{content:'';position:absolute;inset:0;background:linear-gradient(100deg,rgba(255,255,255,0.86) 0%,rgba(255,255,255,0.72) 45%,rgba(255,255,255,0.38) 100%);z-index:-1}
+.domaine-hero .domaine-lede{max-width:620px}
+@media(max-width:820px){
+  .domaine-hero{padding:1.75rem 1.25rem}
+  .domaine-hero::after{background:linear-gradient(180deg,rgba(255,255,255,0.78) 0%,rgba(255,255,255,0.88) 100%)}
+}
+.domaine-lede{position:relative;z-index:1}
 .domaine-lede p{font-size:1.02rem;color:var(--text);margin-bottom:0.85rem;line-height:1.7}
 .domaine-lede p strong{color:var(--green)}
-.domaine-ownership{font-size:0.78rem;color:var(--muted);background:rgba(255,255,255,0.6);border-left:3px solid var(--gold);padding:0.7rem 1rem;border-radius:0 6px 6px 0;margin:1rem 0;line-height:1.55;font-style:italic}
-.domaine-hero-img{border-radius:12px;overflow:hidden;aspect-ratio:5/4;box-shadow:0 20px 50px rgba(13,26,17,0.18);position:relative}
-.domaine-hero-img img{width:100%;height:100%;object-fit:cover;transition:transform .6s}
-.domaine-hero-img:hover img{transform:scale(1.04)}
+.domaine-ownership{font-size:0.78rem;color:var(--muted);background:rgba(255,255,255,0.78);border-left:3px solid var(--gold);padding:0.7rem 1rem;border-radius:0 6px 6px 0;margin:1rem 0;line-height:1.55;font-style:italic;backdrop-filter:blur(4px);-webkit-backdrop-filter:blur(4px)}
 
 .domaine-section-title{font-family:'Cormorant Garamond',serif;font-size:1.5rem;color:var(--green);margin:2.5rem 0 1.25rem;font-weight:600;display:flex;align-items:center;gap:0.7rem;position:relative;z-index:1}
 .domaine-section-title::before{content:'';width:24px;height:2px;background:var(--gold)}
@@ -875,16 +877,12 @@ footer .links a:hover{color:var(--gold)}
       <div class="title-rule"></div>
     </div>
 
-    <!-- Intro + hero photo -->
+    <!-- Intro (cerisiers background) -->
     <div class="domaine-hero">
       <div class="domaine-lede">
         <p data-cms="domaine.intro"><strong>Sept hectares de lac, en accès libre, toute l'année.</strong> Le Domaine du Tornet, c'est le cœur vivant de La Balme-de-Sillingy : un plan d'eau, un tour à pied, une grande aire de jeux, un pumptrack, un espace fitness, des terrains de pétanque, un ponton sur le lac, et le Parc des Jardins de Haute-Savoie avec sa collection nationale de cerisiers à fleurs d'Asie.</p>
         <p data-cms="domaine.intro2">Le Chalet, c'est notre bout du Domaine. On y passe pour un café avant le tour du lac, un apéro après le pumptrack, un repas en terrasse entre deux trempettes d'enfants dans l'aire de jeux. La cuisine s'arrête à nos murs ; le reste du Domaine, lui, continue autour.</p>
         <div class="domaine-ownership" data-cms="domaine.ownership">Le Domaine est aménagé et géré par la commune de La Balme-de-Sillingy. Nous ne le possédons pas — nous y vivons, tout simplement, depuis notre terrasse.</div>
-      </div>
-      <div class="domaine-hero-img">
-        <!-- TODO: replace with a wide lake/domaine shot once available -->
-        <img src="hero-terrasse.jpg" alt="Terrasse du Chalet face au lac du Tornet" loading="lazy">
       </div>
     </div>
 
@@ -1516,6 +1514,68 @@ footer .links a:hover{color:var(--gold)}
     .then(function(res){ if (!res.ok) throw new Error('no content'); return res.json(); })
     .then(apply)
     .catch(function(){ /* silent — hardcoded fallback */ });
+
+  // ── LIVE CMS (Apps Script) ──
+  // Hydrates any element with data-cms="key" from the Google Sheet.
+  // ⚠ Paste your Apps Script /exec URL here to activate. Leave as-is to keep the hardcoded copy.
+  var CMS_URL = 'PASTE_YOUR_APPS_SCRIPT_EXEC_URL_HERE';
+  var CMS_CACHE_KEY = 'tornet_cms_v1';
+  var CMS_CACHE_TTL = 5 * 60 * 1000; // 5 min
+
+  function applyCmsMap(map){
+    if (!map) return;
+    var nodes = document.querySelectorAll('[data-cms]');
+    for (var i=0;i<nodes.length;i++){
+      var el = nodes[i];
+      var k  = el.getAttribute('data-cms');
+      if (!map.hasOwnProperty(k)) continue;
+      var v = map[k];
+      if (v == null) continue;
+      // If the key came with HTML (has a tag), set innerHTML; otherwise textContent.
+      // Keeps things safe for plain-text keys and allows <strong>/<a> in longer copy.
+      if (typeof v === 'string' && /<[a-z][\s\S]*>/i.test(v)) {
+        el.innerHTML = v;
+      } else {
+        el.textContent = v;
+      }
+    }
+  }
+
+  function toMap(res){
+    var out = {};
+    if (res && res.ok && Array.isArray(res.data)) {
+      for (var i=0;i<res.data.length;i++){
+        var row = res.data[i];
+        if (row && row.key) out[row.key] = row.value != null ? row.value : '';
+      }
+    }
+    return out;
+  }
+
+  function hydrateCms(){
+    if (!CMS_URL || CMS_URL.indexOf('PASTE_') === 0) return;
+
+    // Fast path: paint cached data first so edits don't "pop" in.
+    try {
+      var cached = JSON.parse(localStorage.getItem(CMS_CACHE_KEY) || 'null');
+      if (cached && cached.map) applyCmsMap(cached.map);
+    } catch(_) {}
+
+    fetch(CMS_URL + '?action=getContent', { cache:'no-store' })
+      .then(function(r){ return r.json(); })
+      .then(function(res){
+        var map = toMap(res);
+        applyCmsMap(map);
+        try { localStorage.setItem(CMS_CACHE_KEY, JSON.stringify({ t:Date.now(), map:map })); } catch(_){}
+      })
+      .catch(function(){ /* silent — page already has hardcoded copy */ });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', hydrateCms);
+  } else {
+    hydrateCms();
+  }
 
 })();
 
