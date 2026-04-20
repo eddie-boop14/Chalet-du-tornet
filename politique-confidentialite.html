@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Politique de confidentialité — Chalet du Tornet</title>
+<meta name="robots" content="index, follow">
+<meta name="description" content="Politique de confidentialité du Chalet du Tornet — traitement des données personnelles, cookies, RGPD.">
+<link rel="icon" type="image/jpeg" href="logo.jpg">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap');
+:root{--green:#3B6B4C;--green2:#2f5740;--cream:#f5f1e8;--gold:#c9913a;--sand:#ede8de;--white:#ffffff;--text:#2b3a2e;--muted:#6f7a6f;--radius:12px;--shadow:0 4px 24px rgba(59,107,76,.12)}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--text);min-height:100vh}
+
+.site-header{background:var(--green);padding:1.25rem 2rem;display:flex;align-items:center;justify-content:space-between;gap:1rem}
+.logo{font-family:'Cormorant Garamond',serif;font-size:1.35rem;font-weight:300;color:var(--cream);letter-spacing:.04em;line-height:1.2;text-decoration:none;display:flex;align-items:center;gap:.6rem}
+.logo img{width:34px;height:34px;border-radius:50%;object-fit:cover;border:1.5px solid rgba(255,255,255,.3)}
+.logo span{color:var(--gold)}
+.header-phone{display:flex;align-items:center;gap:.5rem;background:var(--gold);color:#fff;font-weight:500;font-size:.85rem;padding:.55rem 1rem;border-radius:999px;text-decoration:none;white-space:nowrap}
+
+.hero{background:linear-gradient(135deg,var(--green) 0%,var(--green2) 100%);padding:3rem 2rem 2.5rem;text-align:center;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none'%3E%3Cg fill='%23c9913a' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");opacity:.4}
+.hero-content{position:relative;z-index:1}
+.hero-eyebrow{font-size:.72rem;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin-bottom:.75rem}
+.hero h1{font-family:'Cormorant Garamond',serif;font-size:clamp(1.8rem,5vw,2.6rem);font-weight:300;color:var(--white);line-height:1.2;margin-bottom:.6rem}
+.hero h1 em{color:var(--gold);font-style:italic}
+.hero p{color:rgba(245,241,232,.75);font-size:.9rem;max-width:520px;margin:0 auto;line-height:1.6}
+
+.page-wrap{max-width:740px;margin:0 auto;padding:2.5rem 1.5rem 4rem}
+
+.back-link{display:inline-flex;align-items:center;gap:.5rem;font-size:.83rem;color:var(--muted);text-decoration:none;margin-bottom:2rem;transition:color .2s}
+.back-link:hover{color:var(--green)}
+.back-link svg{flex-shrink:0}
+
+.tldr{background:linear-gradient(135deg,var(--green) 0%,var(--green2) 100%);color:#fff;border-radius:16px;padding:1.75rem 2rem;margin-bottom:2rem;box-shadow:var(--shadow)}
+.tldr h2{font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:400;color:var(--gold);margin-bottom:.9rem;display:flex;align-items:center;gap:.5rem}
+.tldr ul{list-style:none;padding:0;margin:0}
+.tldr li{font-size:.9rem;line-height:1.7;padding:.15rem 0 .15rem 1.4rem;position:relative;color:rgba(255,255,255,.9)}
+.tldr li::before{content:'✓';position:absolute;left:0;color:var(--gold);font-weight:700}
+
+.policy-card{background:var(--white);border-radius:16px;padding:2.25rem 2.5rem;box-shadow:var(--shadow);margin-bottom:1.5rem}
+@media(max-width:520px){.policy-card{padding:1.5rem 1.25rem}}
+
+.policy-card h2{font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:400;color:var(--green);margin-bottom:1rem;padding-bottom:.65rem;border-bottom:1.5px solid var(--sand);display:flex;align-items:center;gap:.6rem}
+.policy-card h2 .icon{font-size:1.1rem}
+.policy-card h3{font-family:'DM Sans',sans-serif;font-size:.78rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--green2);margin:1.25rem 0 .5rem}
+.policy-card h3:first-of-type{margin-top:.5rem}
+
+.policy-card p{font-size:.93rem;color:var(--text);line-height:1.75;margin-bottom:.85rem}
+.policy-card p:last-child{margin-bottom:0}
+.policy-card ul{list-style:none;margin:.5rem 0 .85rem;padding:0}
+.policy-card ul li{font-size:.93rem;color:var(--text);line-height:1.7;padding:.2rem 0 .2rem 1.4rem;position:relative}
+.policy-card ul li::before{content:'—';position:absolute;left:0;color:var(--gold);font-weight:600}
+
+.policy-card a{color:var(--gold);font-weight:500;text-decoration:none}
+.policy-card a:hover{text-decoration:underline}
+
+.highlight-box{background:var(--cream);border-radius:8px;border:1.5px solid var(--sand);padding:1rem 1.25rem;margin:.75rem 0 .85rem}
+.highlight-box p{font-size:.88rem;color:var(--muted);line-height:1.7;margin:0}
+.highlight-box strong{color:var(--green)}
+
+.data-table{margin:1rem 0;border-radius:8px;overflow:hidden;border:1px solid var(--sand)}
+.data-row{display:grid;grid-template-columns:170px 1fr;gap:0;border-bottom:1px solid var(--sand)}
+.data-row:last-child{border-bottom:none}
+.data-row .k{background:var(--cream);padding:.75rem 1rem;font-size:.78rem;color:var(--green);font-weight:600;letter-spacing:.02em;text-transform:uppercase;border-right:1px solid var(--sand)}
+.data-row .v{padding:.75rem 1rem;font-size:.88rem;color:var(--text);line-height:1.55}
+@media(max-width:520px){.data-row{grid-template-columns:1fr}.data-row .k{border-right:none;border-bottom:1px solid var(--sand)}}
+
+.update-note{text-align:center;font-size:.78rem;color:var(--muted);margin-top:2rem;line-height:1.6}
+
+.site-footer{background:var(--green);padding:2rem;text-align:center}
+.site-footer p{font-size:.78rem;color:rgba(245,241,232,.55);line-height:1.7}
+.site-footer a{color:var(--gold);text-decoration:none}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <a href="/" class="logo"><img src="logo.jpg" alt="" onerror="this.style.display='none'">Chalet du <span>Tornet</span></a>
+  <a href="tel:+33438802251" class="header-phone">
+    <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 10.8a19.79 19.79 0 01-3.07-8.67A2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 7.91a16 16 0 006.16 6.16l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+    +33 4 38 80 22 51
+  </a>
+</header>
+
+<section class="hero">
+  <div class="hero-content">
+    <p class="hero-eyebrow">Protection des données</p>
+    <h1>Politique de <em>confidentialité</em></h1>
+    <p>Ce que nous faisons — et surtout ce que nous ne faisons pas — avec les informations qui transitent par ce site.</p>
+  </div>
+</section>
+
+<div class="page-wrap">
+
+  <a href="/" class="back-link">
+    <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+    Retour à l'accueil
+  </a>
+
+  <!-- TL;DR -->
+  <div class="tldr">
+    <h2>L'essentiel en 5 points</h2>
+    <ul>
+      <li>Aucun formulaire sur le site — aucun compte, aucune réservation en ligne.</li>
+      <li>Aucun traceur publicitaire, aucun Google Analytics, aucun Meta Pixel.</li>
+      <li>Aucun cookie tiers. Seul stockage local : la fermeture du pop-up d'accueil, gardée dans votre navigateur.</li>
+      <li>Si vous nous écrivez par email ou par téléphone, nous gardons votre message le temps de vous répondre — rien de plus.</li>
+      <li>Vous pouvez à tout moment demander l'accès, la modification ou la suppression de vos données : <a href="mailto:chaletdutornet74@gmail.com" style="color:#fff;text-decoration:underline">chaletdutornet74@gmail.com</a></li>
+    </ul>
+  </div>
+
+  <!-- 1 — Responsable -->
+  <div class="policy-card">
+    <h2><span class="icon">🏢</span> Responsable du traitement</h2>
+    <p>Le responsable du traitement des données personnelles collectées sur ce site est la société <strong>RCD2</strong> (nom commercial : Chalet du Tornet).</p>
+    <div class="highlight-box">
+      <p><strong>RCD2</strong> — SAS au capital de 1 000 €<br>
+      SIREN 938 604 758<br>
+      Siège : 161 Route de Paris, 74330 La Balme-de-Sillingy<br>
+      Email : <a href="mailto:chaletdutornet74@gmail.com">chaletdutornet74@gmail.com</a> · Téléphone : <a href="tel:+33438802251">04 38 80 22 51</a></p>
+    </div>
+    <p>Compte tenu de la taille de notre activité et de la nature limitée des données collectées, nous n'avons pas désigné de Délégué à la Protection des Données (DPO). Pour toute question relative à vos données, adressez-vous directement à l'adresse ci-dessus.</p>
+  </div>
+
+  <!-- 2 — Données collectées -->
+  <div class="policy-card">
+    <h2><span class="icon">📋</span> Quelles données nous collectons</h2>
+
+    <h3>a · Quand vous naviguez sur le site</h3>
+    <p>Le site ne collecte aucune donnée personnelle vous concernant. Il ne dispose d'aucun formulaire de contact, d'inscription ou de commande. Aucun outil d'analyse statistique (Google Analytics, Matomo, etc.) n'est installé.</p>
+
+    <h3>b · Quand vous nous contactez par email ou par téléphone</h3>
+    <p>Si vous utilisez les liens <code>mailto:</code> ou <code>tel:</code> du site pour nous joindre, vous nous transmettez naturellement :</p>
+    <ul>
+      <li>votre adresse email (et votre nom, s'il est visible dans votre signature)</li>
+      <li>votre numéro de téléphone (en cas d'appel)</li>
+      <li>le contenu de votre message et les informations que vous choisissez de partager (réservation, demande de groupe, bon cadeau, etc.)</li>
+    </ul>
+    <p>Ces échanges sont traités sur la base de notre <strong>intérêt légitime</strong> à répondre à votre demande (article 6.1.f du RGPD) ou de l'<strong>exécution d'un contrat</strong> si votre demande aboutit à une réservation ou une commande (article 6.1.b).</p>
+
+    <h3>c · Données techniques côté hébergeur</h3>
+    <p>Notre hébergeur <strong>Netlify, Inc.</strong> enregistre automatiquement, pour des raisons de sécurité et de fonctionnement du service, des données techniques limitées : adresse IP, date et heure des requêtes, pages visitées. Ces journaux sont conservés par Netlify selon sa propre politique et ne sont utilisés que pour assurer le bon fonctionnement du service et détecter d'éventuels abus.</p>
+  </div>
+
+  <!-- 3 — Stockage local -->
+  <div class="policy-card">
+    <h2><span class="icon">💾</span> Stockage local dans votre navigateur</h2>
+    <p>Le site utilise deux petits espaces de stockage dans votre navigateur — <strong>ni cookies, ni envoi à nos serveurs</strong> :</p>
+    <div class="data-table">
+      <div class="data-row">
+        <div class="k">sessionStorage</div>
+        <div class="v"><strong>Un marqueur</strong> pour ne pas vous réafficher le pop-up de bienvenue pendant votre session (durée : environ 6 heures).</div>
+      </div>
+      <div class="data-row">
+        <div class="k">localStorage</div>
+        <div class="v"><strong>Une copie en cache</strong> du contenu textuel du site, gardée 5 minutes pour que les pages s'affichent plus vite.</div>
+      </div>
+    </div>
+    <p>Ces éléments sont <strong>exemptés de consentement</strong> par la CNIL car ils servent strictement à fournir le service que vous avez demandé (afficher la page, ne pas vous réafficher le même pop-up). Vous pouvez les effacer à tout moment depuis les réglages de votre navigateur, sans aucune conséquence sur la navigation.</p>
+  </div>
+
+  <!-- 4 — Cookies -->
+  <div class="policy-card">
+    <h2><span class="icon">🍪</span> Cookies et traceurs</h2>
+    <div class="highlight-box">
+      <p><strong>Ce site ne dépose aucun cookie publicitaire, aucun cookie de mesure d'audience, aucun cookie de réseau social.</strong></p>
+    </div>
+    <p>Aucun bandeau de consentement cookies n'est donc nécessaire. Si nous en ajoutions un jour (par exemple un outil de statistiques, ou une vidéo intégrée YouTube), nous mettrions en place à ce moment-là un bandeau conforme aux recommandations CNIL, avec des boutons <em>accepter</em> et <em>refuser</em> d'égale lisibilité.</p>
+  </div>
+
+  <!-- 5 — Services tiers -->
+  <div class="policy-card">
+    <h2><span class="icon">🌐</span> Services tiers utilisés</h2>
+    <p>Pour fonctionner, le site charge certaines ressources depuis des serveurs tiers. Aucune de ces interactions ne donne lieu à un profilage commercial, mais nous tenons à être transparents :</p>
+    <div class="data-table">
+      <div class="data-row">
+        <div class="k">Google Fonts</div>
+        <div class="v">Les polices d'écriture du site sont chargées depuis les serveurs de Google. Votre adresse IP est visible par Google lors de ce chargement. <em>Base légale : intérêt légitime (présentation du site).</em></div>
+      </div>
+      <div class="data-row">
+        <div class="k">Unsplash</div>
+        <div class="v">Certaines images d'illustration (équipements du Domaine) sont chargées depuis le CDN d'Unsplash. Votre IP est visible par Unsplash lors du chargement.</div>
+      </div>
+      <div class="data-row">
+        <div class="k">Netlify</div>
+        <div class="v">Hébergeur du site (États-Unis). Transferts encadrés par les clauses contractuelles types de la Commission européenne.</div>
+      </div>
+      <div class="data-row">
+        <div class="k">Google Apps Script</div>
+        <div class="v">Nous utilisons un script hébergé par Google pour charger le contenu textuel éditable du site. Aucune donnée vous concernant n'est transmise — seule une requête anonyme de lecture est effectuée.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 6 — Combien de temps -->
+  <div class="policy-card">
+    <h2><span class="icon">⏱️</span> Durées de conservation</h2>
+    <div class="data-table">
+      <div class="data-row">
+        <div class="k">Emails reçus</div>
+        <div class="v">3 ans après notre dernier échange, puis suppression (sauf obligation légale de conservation, par exemple pour une facture).</div>
+      </div>
+      <div class="data-row">
+        <div class="k">Documents liés à une réservation ou un bon cadeau</div>
+        <div class="v">Durée d'exécution du service + durée légale de conservation comptable (10 ans pour les pièces justificatives, conformément au Code de commerce).</div>
+      </div>
+      <div class="data-row">
+        <div class="k">Journaux techniques de l'hébergeur</div>
+        <div class="v">Selon la politique de Netlify — généralement quelques semaines à quelques mois, pour la sécurité du service.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 7 — Vos droits -->
+  <div class="policy-card">
+    <h2><span class="icon">⚖️</span> Vos droits</h2>
+    <p>Conformément au RGPD (articles 15 à 22) et à la loi Informatique et Libertés, vous disposez à tout moment sur vos données personnelles :</p>
+    <ul>
+      <li><strong>D'un droit d'accès</strong> — savoir quelles informations nous détenons sur vous</li>
+      <li><strong>D'un droit de rectification</strong> — corriger une information inexacte</li>
+      <li><strong>D'un droit à l'effacement</strong> ("droit à l'oubli") — faire supprimer vos données</li>
+      <li><strong>D'un droit d'opposition</strong> — vous opposer à un traitement fondé sur notre intérêt légitime</li>
+      <li><strong>D'un droit à la limitation</strong> du traitement</li>
+      <li><strong>D'un droit à la portabilité</strong> — récupérer vos données dans un format réutilisable</li>
+      <li><strong>D'un droit de définir des directives</strong> relatives à la conservation, l'effacement et la communication de vos données après votre décès</li>
+    </ul>
+    <p>Pour exercer l'un de ces droits, écrivez-nous à <a href="mailto:chaletdutornet74@gmail.com">chaletdutornet74@gmail.com</a>. Nous répondons sous un mois maximum. Si vous estimez que vos droits ne sont pas respectés, vous pouvez saisir la <strong>CNIL</strong> (Commission Nationale de l'Informatique et des Libertés) — <a href="https://www.cnil.fr" target="_blank" rel="noopener">www.cnil.fr</a>.</p>
+  </div>
+
+  <!-- 8 — Sécurité -->
+  <div class="policy-card">
+    <h2><span class="icon">🔐</span> Sécurité</h2>
+    <p>Le site est servi en HTTPS (chiffrement TLS) sur l'ensemble de ses pages. Nos boîtes email professionnelles sont protégées par une authentification à deux facteurs. L'espace d'administration du contenu est protégé par une clé d'accès confidentielle.</p>
+    <p>Malgré ces précautions, aucun système informatique n'est totalement invulnérable. En cas d'incident de sécurité susceptible d'affecter vos données, nous vous informerions dans les délais prévus par le RGPD (72 heures pour notifier la CNIL si le risque est avéré).</p>
+  </div>
+
+  <!-- 9 — Mineurs -->
+  <div class="policy-card">
+    <h2><span class="icon">👶</span> Enfants et mineurs</h2>
+    <p>Ce site n'est pas destiné aux mineurs de moins de 15 ans et n'a pas vocation à collecter sciemment leurs données personnelles. Si vous êtes parent ou tuteur et pensez que votre enfant nous a communiqué des informations sans votre consentement, contactez-nous — nous supprimerons ces informations.</p>
+  </div>
+
+  <!-- 10 — Modifications -->
+  <div class="policy-card">
+    <h2><span class="icon">✏️</span> Modifications de cette politique</h2>
+    <p>Cette politique peut évoluer, notamment si nous ajoutons de nouveaux services (formulaire de réservation en ligne, newsletter, outil de statistiques…). La date de dernière mise à jour est indiquée en bas de page. Nous vous invitons à la consulter régulièrement.</p>
+  </div>
+
+  <!-- 11 — Contact -->
+  <div class="policy-card">
+    <h2><span class="icon">✉️</span> Une question ?</h2>
+    <p>Pour toute question relative à cette politique de confidentialité ou au traitement de vos données :</p>
+    <div class="highlight-box">
+      <p><strong>Chalet du Tornet — RCD2</strong><br>
+      161 Route de Paris, 74330 La Balme-de-Sillingy<br>
+      Email : <a href="mailto:chaletdutornet74@gmail.com">chaletdutornet74@gmail.com</a><br>
+      Téléphone : <a href="tel:+33438802251">04 38 80 22 51</a></p>
+    </div>
+    <p>Consultez également nos <a href="mentions-legales.html">mentions légales</a>.</p>
+  </div>
+
+  <p class="update-note">
+    Dernière mise à jour : avril 2026
+  </p>
+
+</div>
+
+<footer class="site-footer">
+  <p>
+    © 2026 bleu-canard édition, Edmaster &amp; Claudius, tout droit réservé<br>
+    <a href="/">Retour à l'accueil</a> &nbsp;·&nbsp; <a href="mentions-legales.html">Mentions légales</a>
+  </p>
+</footer>
+
+</body>
+</html>
+
