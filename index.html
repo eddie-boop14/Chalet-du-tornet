@@ -262,7 +262,7 @@ section{padding:5rem 2rem}
 #domaine{background:linear-gradient(180deg,var(--green-mist) 0%,var(--cream) 100%);position:relative;overflow:hidden}
 #domaine::before{content:'';position:absolute;top:-80px;right:-80px;width:300px;height:300px;background:radial-gradient(circle,rgba(59,107,76,0.08),transparent 70%);pointer-events:none}
 .domaine-hero{display:block;margin-top:1.5rem;margin-bottom:3rem;position:relative;z-index:1;padding:2.75rem 2rem;border-radius:16px;overflow:hidden;isolation:isolate;box-shadow:0 10px 40px rgba(13,26,17,0.1)}
-.domaine-hero::before{content:'';position:absolute;inset:0;background-image:url('domaine-cerisiers.jpg');background-size:cover;background-position:center 35%;background-repeat:no-repeat;z-index:-2}
+.domaine-hero-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 35%;z-index:-2}
 .domaine-hero::after{content:'';position:absolute;inset:0;background:linear-gradient(100deg,rgba(255,255,255,0.86) 0%,rgba(255,255,255,0.72) 45%,rgba(255,255,255,0.38) 100%);z-index:-1}
 .domaine-hero .domaine-lede{max-width:620px}
 @media(max-width:820px){
@@ -283,11 +283,11 @@ section{padding:5rem 2rem}
 .features-grid::-webkit-scrollbar-thumb{background:var(--green-pale);border-radius:3px}
 .features-grid .feature-card{flex:0 0 260px;scroll-snap-align:start}
 @media(min-width:769px){.features-grid .feature-card{flex:0 0 280px}}
-.feature-card{background:var(--white);padding:1.35rem 1.25rem;border-radius:10px;box-shadow:0 2px 14px rgba(13,26,17,0.05);border:1px solid rgba(59,107,76,0.06);transition:all .25s;display:flex;flex-direction:column;gap:0.5rem;position:relative;overflow:hidden;min-height:220px;justify-content:flex-end;color:var(--white);isolation:isolate}
-.feature-card::before{content:'';position:absolute;inset:0;background-image:var(--bg,none);background-size:cover;background-position:center;z-index:-2;transition:transform .5s ease}
+.feature-card{background:#1a2c1f;padding:1.35rem 1.25rem;border-radius:10px;box-shadow:0 2px 14px rgba(13,26,17,0.05);border:1px solid rgba(59,107,76,0.06);transition:all .25s;display:flex;flex-direction:column;gap:0.5rem;position:relative;overflow:hidden;min-height:220px;justify-content:flex-end;color:var(--white);isolation:isolate}
+.feature-card .f-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2;transition:transform .5s ease}
 .feature-card::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(13,26,17,0.25) 0%,rgba(13,26,17,0.55) 55%,rgba(13,26,17,0.88) 100%);z-index:-1}
 .feature-card:hover{transform:translateY(-3px);box-shadow:0 10px 30px rgba(13,26,17,0.25);border-color:rgba(201,145,58,0.35)}
-.feature-card:hover::before{transform:scale(1.06)}
+.feature-card:hover .f-bg{transform:scale(1.06)}
 .feature-card .f-icon{width:36px;height:36px;border-radius:8px;background:rgba(255,255,255,0.15);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);border:1px solid rgba(255,255,255,0.22);display:flex;align-items:center;justify-content:center;color:var(--white);margin-bottom:0.2rem;position:absolute;top:0.9rem;left:0.9rem}
 .feature-card .f-icon svg{width:18px;height:18px}
 .feature-card h4{font-family:'Cormorant Garamond',serif;font-size:1.2rem;color:var(--white);font-weight:600;line-height:1.2;margin:0;text-shadow:0 1px 10px rgba(0,0,0,0.4)}
@@ -472,7 +472,7 @@ footer .links a:hover{color:var(--gold)}
       <span class="nav-close-label" data-cms="nav.close">Fermer</span>
     </ul>
     <div class="nav-cta">
-      <a href="tel:+33438802251" class="btn-call" id="hdrCall">
+      <a href="tel:+33438802251" class="btn-call" id="hdrCall" data-cms-attr="brand.phone_tel">
         <svg class="lucide" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
         <span class="phone-number-header" id="hdrPhone" data-cms="brand.phone">04 38 80 22 51</span>
       </a>
@@ -494,19 +494,19 @@ footer .links a:hover{color:var(--gold)}
       <span class="hero-pill"><svg class="lucide" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 22 13 3l9 17H2z"/><path d="M12 15l2 3"/></svg> <span data-cms="hero.pill.domaine">Au cœur du Domaine</span></span>
     </div>
     <div class="hero-btns">
-      <a href="tel:+33438802251" class="btn-primary" id="heroCallBtn"><svg class="lucide" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg><span><span data-cms="cta.call">Réservation</span> · <span id="heroPhone" data-cms="brand.phone">04 38 80 22 51</span></span></a>
+      <a href="tel:+33438802251" class="btn-primary" id="heroCallBtn" data-cms-attr="brand.phone_tel"><svg class="lucide" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg><span><span data-cms="cta.call">Réservation</span> · <span id="heroPhone" data-cms="brand.phone">04 38 80 22 51</span></span></a>
       <a href="#menu" class="btn-outline"><svg class="lucide" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11v3a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1v-3"/><path d="M12 19v3"/><path d="M4 10h16"/><path d="M8 10V5a4 4 0 0 1 8 0v5"/></svg><span data-cms="cta.menu">Voir la carte</span></a>
     </div>
     <div class="hero-socials">
-      <a href="mailto:chaletdutornet74@gmail.com" class="hero-social-btn mail" id="hero-email" aria-label="Email">
+      <a href="mailto:chaletdutornet74@gmail.com" class="hero-social-btn mail" id="hero-email" aria-label="Email" data-cms-attr="brand.email">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
         <span>Email</span>
       </a>
-      <a href="https://www.instagram.com/chaletdutornet/" target="_blank" rel="noopener" class="hero-social-btn ig" id="hero-ig" aria-label="Instagram">
+      <a href="https://www.instagram.com/chaletdutornet/" target="_blank" rel="noopener" class="hero-social-btn ig" id="hero-ig" aria-label="Instagram" data-cms-attr="social.instagram_url">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg>
         <span>Instagram</span>
       </a>
-      <a href="https://www.facebook.com/chaletdutornet" target="_blank" rel="noopener" class="hero-social-btn fb" id="hero-fb" aria-label="Facebook">
+      <a href="https://www.facebook.com/chaletdutornet" target="_blank" rel="noopener" class="hero-social-btn fb" id="hero-fb" aria-label="Facebook" data-cms-attr="social.facebook_url">
         <svg viewBox="0 0 24 24" fill="currentColor"><path d="M13.5 22v-8h2.7l.4-3.2h-3.1V8.7c0-.9.3-1.6 1.6-1.6h1.7V4.2c-.3 0-1.3-.1-2.4-.1-2.4 0-4 1.4-4 4.1v2.3H7.6V14h2.7v8h3.2z"/></svg>
         <span>Facebook</span>
       </a>
@@ -880,6 +880,7 @@ Le Chalet est posé au cœur de ce poumon vert.  <a href="#domaine" style="color
 
     <!-- Intro (cerisiers background) -->
     <div class="domaine-hero">
+      <img class="domaine-hero-bg" src="domaine-cerisiers.jpg" alt="" loading="lazy">
       <div class="domaine-lede">
         <p data-cms="domaine.intro"><strong>Sept hectares de lac, en accès libre, toute l'année.</strong> Le Domaine du Tornet, c'est le cœur vivant de La Balme-de-Sillingy : un plan d'eau, un tour à pied, une grande aire de jeux, un pumptrack, un espace fitness, des terrains de pétanque, un ponton sur le lac, et le Parc des Jardins de Haute-Savoie avec sa collection nationale de cerisiers à fleurs d'Asie.</p>
         <p data-cms="domaine.intro2">Le Chalet, c'est notre bout du Domaine. On y passe pour un café avant le tour du lac, un apéro après le pumptrack, un repas en terrasse entre deux décentes de tobogan dans l'aire de jeux. La cuisine s'arrête à nos murs ; le reste du Domaine, lui, continue autour.</p>
@@ -891,64 +892,64 @@ Le Chalet est posé au cœur de ce poumon vert.  <a href="#domaine" style="color
     <h3 class="domaine-section-title" data-cms="domaine.features.title">Ce qu'il y a sur le Domaine</h3>
     <p style="font-size:0.72rem;color:var(--muted);letter-spacing:1.5px;text-transform:uppercase;margin-top:-0.5rem;margin-bottom:0.75rem;position:relative;z-index:1" data-cms="domaine.features.hint">← Faites défiler →</p>
     <div class="features-grid">
-      <div class="feature-card" style="--bg:url('https://upload.wikimedia.org/wikipedia/commons/6/61/Lac_de_la_Balme-de-Sillingy_%2851056207707%29.jpg?auto=format&fit=crop&w=800&q=70')">
+      <div class="feature-card" data-feat-idx="0"><img class="f-bg" src="feat-lac.jpg" alt="" loading="lazy" onerror="this.style.opacity=0">
         <span class="f-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg></span>
         <h4 data-cms="feat.lake.t">Le lac (7 ha)</h4>
         <p data-cms="feat.lake.d">Lac privé réservé à la pêche, géré par l'association Balme Pêche Loisirs. Permis obligatoire.</p>
       </div>
-      <div class="feature-card" style="--bg:url('https://upload.wikimedia.org/wikipedia/commons/3/3d/Maro%C5%A1i_-_pumptrack.jpg?auto=format&fit=crop&w=800&q=70')">
+      <div class="feature-card" data-feat-idx="1"><img class="f-bg" src="feat-pumptrack.jpg" alt="" loading="lazy" onerror="this.style.opacity=0">
         <span class="f-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="5" cy="17" r="3"/><circle cx="19" cy="17" r="3"/><path d="M5 17l4-10h6l4 10"/></svg></span>
         <h4 data-cms="feat.pump.t">Pumptrack (280 m)</h4>
         <p data-cms="feat.pump.d">Trois parcours matérialisés par des bandes de couleurs. VTT, BMX, skate, rollers, draisienne, trottinette.</p>
         <span class="f-tag">Ouvert 2023</span>
       </div>
-      <div class="feature-card" style="--bg:url('https://upload.wikimedia.org/wikipedia/commons/c/c8/Outdoor_workout.jpg?auto=format&fit=crop&w=800&q=70')">
+      <div class="feature-card" data-feat-idx="2"><img class="f-bg" src="feat-workout.jpg" alt="" loading="lazy" onerror="this.style.opacity=0">
         <span class="f-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6.5 6.5 17.5 17.5"/><path d="M4 8l4-4 4 4-4 4z"/><path d="M12 16l4-4 4 4-4 4z"/></svg></span>
         <h4 data-cms="feat.workout.t">Street workout</h4>
         <p data-cms="feat.workout.d">Un ensemble de structures pour musculation, gymnastique et freestyle, tous niveaux.</p>
       </div>
-      <div class="feature-card" style="--bg:url('https://upload.wikimedia.org/wikipedia/commons/e/e5/Jogging_couple.jpg?auto=format&fit=crop&w=800&q=70')">
+      <div class="feature-card" data-feat-idx="3"><img class="f-bg" src="feat-fitness.jpg" alt="" loading="lazy" onerror="this.style.opacity=0">
         <span class="f-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8 12l3 3 5-7"/></svg></span>
         <h4 data-cms="feat.fitness.t">Aire de fitness</h4>
         <p data-cms="feat.fitness.d">Espace adulte face au lac, entre la salle Roger Dumas et la piste modes doux.</p>
       </div>
-      <div class="feature-card" style="--bg:url('https://upload.wikimedia.org/wikipedia/commons/b/b2/Children_Playing_in_Playground.jpg?auto=format&fit=crop&w=800&q=70')">
+      <div class="feature-card" data-feat-idx="4"><img class="f-bg" src="feat-aire-jeux.jpg" alt="" loading="lazy" onerror="this.style.opacity=0">
         <span class="f-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 18h16"/><path d="M6 10l2-4 8 0 2 4"/><rect x="4" y="10" width="16" height="8" rx="1"/><path d="M9 14h1M14 14h1"/></svg></span>
         <h4 data-cms="feat.play.t">Aire de jeux enfants</h4>
         <p data-cms="feat.play.d">Nouvelle aire de jeux majeure inaugurée été 2025, + une aire petite enfance dédiée.</p>
         <span class="f-tag">Nouveau 2025</span>
       </div>
-      <div class="feature-card" style="--bg:url('https://upload.wikimedia.org/wikipedia/commons/8/82/Petanque.jpg?auto=format&fit=crop&w=800&q=70')">
+      <div class="feature-card" data-feat-idx="5"><img class="f-bg" src="feat-petanque.jpg" alt="" loading="lazy" onerror="this.style.opacity=0">
         <span class="f-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="14" r="4"/><circle cx="16" cy="10" r="4"/></svg></span>
         <h4 data-cms="feat.petanque.t">Terrains de pétanque</h4>
         <p data-cms="feat.petanque.d">Plusieurs terrains accessibles librement. Boules à prévoir.</p>
       </div>
-      <div class="feature-card" style="--bg:url('https://upload.wikimedia.org/wikipedia/commons/2/2b/ENS_la_Batie_ponton.jpg?auto=format&fit=crop&w=800&q=70')">
+      <div class="feature-card" data-feat-idx="6"><img class="f-bg" src="feat-ponton.jpg" alt="" loading="lazy" onerror="this.style.opacity=0">
         <span class="f-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 20h18"/><path d="M6 20V10l6-4 6 4v10"/><path d="M12 6v14"/></svg></span>
         <h4 data-cms="feat.pontoon.t">Ponton d'observation</h4>
         <p data-cms="feat.pontoon.d">Une avancée en bois sur le lac, posée en 2024 : idéale pour regarder l'eau.</p>
       </div>
-      <div class="feature-card" style="--bg:url('https://images.unsplash.com/photo-1522383225653-ed111181a951?auto=format&fit=crop&w=800&q=70')">
+      <div class="feature-card" data-feat-idx="7"><img class="f-bg" src="feat-jardins.jpg" alt="" loading="lazy" onerror="this.style.opacity=0">
         <span class="f-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v6"/><circle cx="12" cy="14" r="8"/><path d="M12 14l4-3"/></svg></span>
         <h4 data-cms="feat.jardins.t">Parc des Jardins</h4>
         <p data-cms="feat.jardins.d">Le Parc des Jardins de Haute-Savoie et la collection nationale de cerisiers à fleurs d'Asie — spectaculaire en floraison (mars-avril).</p>
       </div>
-      <div class="feature-card" style="--bg:url('https://upload.wikimedia.org/wikipedia/commons/e/e6/1966_DAF_A1600_BB360_%289504896628%29.jpg?auto=format&fit=crop&w=800&q=70')">
+      <div class="feature-card" data-feat-idx="8"><img class="f-bg" src="feat-camping-car.jpg" alt="" loading="lazy" onerror="this.style.opacity=0">
         <span class="f-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="7" width="15" height="11" rx="2"/><path d="M16 10h4l3 3v5h-7"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></span>
         <h4 data-cms="feat.camper.t">Aire de camping-car</h4>
         <p data-cms="feat.camper.d">22 emplacements actuellement, un 23e en cours d'ajout. Accès à pied direct au lac et au Chalet.</p>
       </div>
-      <div class="feature-card" style="--bg:url('https://images.unsplash.com/photo-1485965120184-e220f721d03e?auto=format&fit=crop&w=800&q=70')">
+      <div class="feature-card" data-feat-idx="9"><img class="f-bg" src="feat-velos.jpg" alt="" loading="lazy" onerror="this.style.opacity=0">
         <span class="f-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="15" r="3"/><circle cx="18" cy="15" r="3"/><path d="M6 15l6-10h3l3 10"/></svg></span>
         <h4 data-cms="feat.bike.t">Vélos à assistance électrique</h4>
         <p data-cms="feat.bike.d">Location sur place — idéal pour rejoindre Annecy par la voie verte (La Belle Via).</p>
       </div>
-      <div class="feature-card" style="--bg:url('https://upload.wikimedia.org/wikipedia/commons/b/ba/Car_park_-8.jpg?auto=format&fit=crop&w=800&q=70')">
+      <div class="feature-card" data-feat-idx="10"><img class="f-bg" src="feat-parking.jpg" alt="" loading="lazy" onerror="this.style.opacity=0">
         <span class="f-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M4 12h16M12 4v16"/></svg></span>
         <h4 data-cms="feat.parking.t">Parking gratuit</h4>
         <p data-cms="feat.parking.d">Grand parking repensé fin 2025, bornes de recharge VE, parking bus. Accès éloigné du giratoire pour la sécurité.</p>
       </div>
-      <div class="feature-card" style="--bg:url('https://upload.wikimedia.org/wikipedia/commons/5/5a/Eau_Noire_%40_Camping_Les_Montets.jpg?auto=format&fit=crop&w=800&q=70')">
+      <div class="feature-card" data-feat-idx="11"><img class="f-bg" src="feat-pique-nique.jpg" alt="" loading="lazy" onerror="this.style.opacity=0">
         <span class="f-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2v4M16 2v4"/><rect x="3" y="6" width="18" height="16" rx="2"/><path d="M3 12h18"/></svg></span>
         <h4 data-cms="feat.picnic.t">Tables de pique-nique</h4>
         <p data-cms="feat.picnic.d">Plusieurs tables disposées autour du lac, mobilier de détente tout autour depuis 2024.</p>
@@ -1013,8 +1014,8 @@ Le Chalet est posé au cœur de ce poumon vert.  <a href="#domaine" style="color
       <h2 data-cms="groupes.title">Un repas à plusieurs, une occasion à marquer</h2>
       <p data-cms="groupes.desc">Pour vos évènements, nous proposons des menus de groupe, ainsi que la privatisation d'une partie du restaurant. Écrivez-nous avec votre date, le nombre de convives et vos envies — on vous répond avec une proposition sur mesure.</p>
       <div class="groupes-ctas">
-        <a href="mailto:chaletdutornet74@gmail.com?subject=Demande%20groupe%20%2F%20%C3%A9v%C3%A8nement" class="btn-primary" style="box-shadow:0 4px 16px rgba(201,145,58,0.3)"><svg class="lucide" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg><span data-cms="groupes.cta.email">chaletdutornet74@gmail.com</span></a>
-        <a href="tel:+33438802251" class="btn-outline"><svg class="lucide" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg><span data-cms="brand.phone">04 38 80 22 51</span></a>
+        <a href="mailto:chaletdutornet74@gmail.com?subject=Demande%20groupe%20%2F%20%C3%A9v%C3%A8nement" class="btn-primary" style="box-shadow:0 4px 16px rgba(201,145,58,0.3)" data-cms-attr="brand.email"><svg class="lucide" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg><span data-cms="groupes.cta.email">chaletdutornet74@gmail.com</span></a>
+        <a href="tel:+33438802251" class="btn-outline" data-cms-attr="brand.phone_tel"><svg class="lucide" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg><span data-cms="brand.phone">04 38 80 22 51</span></a>
       </div>
     </div>
   </div>
@@ -1053,7 +1054,7 @@ Le Chalet est posé au cœur de ce poumon vert.  <a href="#domaine" style="color
           <li data-cms="location.perk_3">Aire de jeux, pumptrack à deux pas</li>
           <li data-cms="location.perk_4">Tour du lac accessible poussette/PMR</li>
         </ul>
-        <a href="#" id="map-link" class="map-link" data-cms="map.link">📌 Voir sur Google Maps →</a>
+        <a href="https://maps.app.goo.gl/j1PuTF4Wz87DJm8Z9" target="_blank" rel="noopener" id="map-link" class="map-link" data-cms="map.link" data-cms-attr="brand.gmaps_url">📌 Voir sur Google Maps →</a>
       </div>
     </div>
   </div>
@@ -1075,20 +1076,20 @@ Le Chalet est posé au cœur de ce poumon vert.  <a href="#domaine" style="color
         <div class="contact-icon"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div>
         <h4 data-cms="contact.phone">Téléphone</h4>
         <div class="sub" data-cms="contact.phone.desc">Réservation directe</div>
-        <a href="tel:+33438802251" id="contact-phone" data-cms="brand.phone">04 38 80 22 51</a>
+        <a href="tel:+33438802251" id="contact-phone" data-cms="brand.phone" data-cms-attr="brand.phone_tel">04 38 80 22 51</a>
       </div>
       <div class="contact-card">
         <div class="contact-icon"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></div>
         <h4 data-cms="contact.email">Email</h4>
         <div class="sub" data-cms="contact.email.desc">Groupes & devis</div>
-        <a href="mailto:chaletdutornet74@gmail.com" id="contact-email" data-cms="brand.email">chaletdutornet74@gmail.com</a>
+        <a href="mailto:chaletdutornet74@gmail.com" id="contact-email" data-cms="brand.email" data-cms-attr="brand.email">chaletdutornet74@gmail.com</a>
       </div>
       <div class="contact-card">
         <div class="contact-icon"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg></div>
         <h4 data-cms="contact.social">Réseaux sociaux</h4>
         <div class="sub" data-cms="contact.social.desc">Événement & Menu du jour</div>
-        <a href="https://www.instagram.com/chaletdutornet/" id="contact-ig" style="margin-right:0.4rem">Instagram</a>
-        <a href="https://www.facebook.com/chaletdutornet" id="contact-fb">Facebook</a>
+        <a href="https://www.instagram.com/chaletdutornet/" id="contact-ig" target="_blank" rel="noopener" data-cms-attr="social.instagram_url" style="margin-right:0.4rem">Instagram</a>
+        <a href="https://www.facebook.com/chaletdutornet" id="contact-fb" target="_blank" rel="noopener" data-cms-attr="social.facebook_url">Facebook</a>
       </div>
     </div>
   </div>
@@ -1164,9 +1165,10 @@ Le Chalet est posé au cœur de ce poumon vert.  <a href="#domaine" style="color
   <p><strong data-cms="brand.name">Chalet du Tornet</strong> — <span data-cms="brand.full_addr">161 Route de Paris · 74330 La Balme-de-Sillingy</span></p>
   <p><span data-cms="brand.phone">04 38 80 22 51</span> · <span data-cms="brand.email">chaletdutornet74@gmail.com</span></p>
   <div class="links">
-    <a href="https://maps.app.goo.gl/j1PuTF4Wz87DJm8Z9?g_st=ac" data-cms="footer.domaine">Le Domaine</a>
+    <a href="https://maps.app.goo.gl/j1PuTF4Wz87DJm8Z9?g_st=ac" data-cms="footer.domaine" data-cms-attr="brand.gmaps_url" target="_blank" rel="noopener">Le Domaine</a>
     <a href="#groupes" data-cms="footer.groups">Groupes</a>
     <a href="#contact" data-cms="footer.contact">Contact</a>
+    <a href="#" onclick="event.preventDefault();window.openEventsModal&&openEventsModal();return false" data-cms="footer.cadeaux">🎁 Bons cadeaux</a>
     <a href="politique-confidentialite.html" data-cms="footer.privacy">Confidentialité</a>
     <a href="mentions-legales.html" data-cms="footer.legal">Mentions légales</a>
   </div>
@@ -1174,7 +1176,7 @@ Le Chalet est posé au cœur de ce poumon vert.  <a href="#domaine" style="color
 </footer>
 
 <!-- Floating CTAs -->
-<a href="tel:+33438802251" id="floatingReserveBtn" aria-label="Appeler">
+<a href="tel:+33438802251" id="floatingReserveBtn" aria-label="Appeler" data-cms-attr="brand.phone_tel">
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
   <span data-cms="cta.call">Appeler</span>
 </a>
@@ -1252,8 +1254,8 @@ Le Chalet est posé au cœur de ce poumon vert.  <a href="#domaine" style="color
         </div>
         <div class="cadeaux-custom" data-cms="cadeaux.custom">Autre montant ? Demandez-nous — nous créons le bon cadeau à votre idée.</div>
         <div class="cadeaux-cta-row">
-          <a href="mailto:chaletdutornet74@gmail.com?subject=Commande%20bon%20cadeau%20Chalet%20du%20Tornet&body=Bonjour%2C%0A%0AJe%20souhaite%20commander%20un%20bon%20cadeau%20%3A%0A%0AMontant%20%3A%20...%20%E2%82%AC%0ANom%20du%20b%C3%A9n%C3%A9ficiaire%20%3A%20...%0ANom%20de%20l'exp%C3%A9diteur%20%3A%20...%0AMessage%20personnalis%C3%A9%20(optionnel)%20%3A%20...%0A%0AMerci%20!" class="btn-primary"><svg class="lucide" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg><span data-cms="cadeaux.cta.email">Commander par email</span></a>
-          <a href="tel:+33438802251" class="btn-outline"><svg class="lucide" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg><span data-cms="cadeaux.cta.call">04 38 80 22 51</span></a>
+          <a href="mailto:chaletdutornet74@gmail.com?subject=Commande%20bon%20cadeau%20Chalet%20du%20Tornet&body=Bonjour%2C%0A%0AJe%20souhaite%20commander%20un%20bon%20cadeau%20%3A%0A%0AMontant%20%3A%20...%20%E2%82%AC%0ANom%20du%20b%C3%A9n%C3%A9ficiaire%20%3A%20...%0ANom%20de%20l'exp%C3%A9diteur%20%3A%20...%0AMessage%20personnalis%C3%A9%20(optionnel)%20%3A%20...%0A%0AMerci%20!" class="btn-primary" data-cms-attr="brand.email"><svg class="lucide" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg><span data-cms="cadeaux.cta.email">Commander par email</span></a>
+          <a href="tel:+33438802251" class="btn-outline" data-cms-attr="brand.phone_tel"><svg class="lucide" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg><span data-cms="cadeaux.cta.call">04 38 80 22 51</span></a>
         </div>
         <p class="cadeaux-fine" data-cms="cadeaux.fine">Remis en main propre au restaurant ou par email sous 24h. Valable 12 mois.</p>
       </div>
@@ -1509,6 +1511,7 @@ Le Chalet est posé au cœur de ce poumon vert.  <a href="#domaine" style="color
     if (data.gallery)      renderGallery(data.gallery);
     if (data.faq)          renderFaq(data.faq);
     if (data.surroundings) renderSurroundings(data.surroundings);
+    try { window.dispatchEvent(new CustomEvent('tornet:content-applied', { detail: data })); } catch(_){}
   }
 
   fetch('content-' + RID + '.json', { cache: 'no-store' })
@@ -1610,17 +1613,9 @@ Le Chalet est posé au cœur de ce poumon vert.  <a href="#domaine" style="color
   function initIntroModal(){
     var m = document.getElementById('eventModal');
     if (!m) return;
-    var last = null;
-    try { last = sessionStorage.getItem(MODAL_KEY); } catch(e){}
-    var now = Date.now();
-    if (!last || (now - parseInt(last, 10)) > MODAL_TTL) {
-      m.style.display = 'flex';
-      document.body.style.overflow = 'hidden';
-      try { sessionStorage.setItem(MODAL_KEY, String(now)); } catch(e){}
-    }
-    // Click outside to close
+    // Modal does NOT auto-open. It's only opened via window.openEventsModal()
+    // (e.g., from a CTA button). Wire close handlers though.
     m.addEventListener('click', function(e){ if (e.target === m) window.closeEventModal(); });
-    // Esc to close
     document.addEventListener('keydown', function(e){ if (e.key === 'Escape') window.closeEventModal(); });
   }
 
@@ -1631,5 +1626,38 @@ Le Chalet est posé au cœur de ce poumon vert.  <a href="#domaine" style="color
   }
 })();
 </script>
+
+<script>
+// Auto-compute accordion meta from item count, so "3 choix" / "10 plats"
+// stays accurate when admin adds/removes items.
+(function(){
+  function recount(){
+    document.querySelectorAll('#menuAccordions .accordion').forEach(function(acc){
+      var meta = acc.querySelector('.accordion-meta');
+      if (!meta || meta.hasAttribute('data-cms') || meta.hasAttribute('data-no-autocount')) return;
+      var n = acc.querySelectorAll('.menu-card').length;
+      var head = acc.querySelector('.accordion-head > span:first-child');
+      var label = head ? head.textContent.trim().toLowerCase() : '';
+      var word = 'plats';
+      if (/entrée|dessert/.test(label) || /glace|coupe/.test(label)) word = (n === 1 ? 'choix' : 'choix');
+      else if (/planche/.test(label)) word = (n === 1 ? 'planche' : 'planches');
+      else if (/plat/.test(label))    word = (n === 1 ? 'plat' : 'plats');
+      else                             word = 'éléments';
+      meta.textContent = n + ' ' + word;
+    });
+  }
+  // First pass once the DOM is ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', recount);
+  } else {
+    recount();
+  }
+  // Re-run on content.json hydration. The content loader fires a 'tornet:content-applied' event.
+  window.addEventListener('tornet:content-applied', recount);
+  // Also re-run when admin adds/removes items
+  window.addEventListener('tornet:list-changed', recount);
+})();
+</script>
+
 </body>
 </html>
