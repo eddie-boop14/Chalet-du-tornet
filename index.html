@@ -1359,8 +1359,37 @@ Le Chalet est posé au cœur de ce poumon vert.  <a href="#domaine" style="color
       var key = el.getAttribute('data-cms');
       var val = dict[key];
       if (val === undefined || val === null || val === '') return;
-      el.textContent = val;
+      el.innerHTML = sanitizeForRender(val);
     });
+  }
+
+  // Take a string from content.json (which may be HTML-escaped, may contain
+  // admin-only leftover markup like adm-link-edit-pill spans, or may be plain
+  // text) and return a safe HTML string ready to inject.
+  //
+  // The admin's snapshot can corrupt entries in two ways:
+  //   1. plaintext-only contenteditable serializes back as escaped HTML
+  //      (`<a href=...>` becomes `&lt;a href=...&gt;`)
+  //   2. admin overlay leaves `<span class="adm-link-edit-pill">🔗</span>`
+  //      and similar inside elements during snapshot capture
+  //
+  // This function defends against both so the public site keeps rendering
+  // correctly even when content.json is in a half-broken state.
+  function sanitizeForRender(s){
+    if (typeof s !== 'string') return String(s == null ? '' : s);
+    // Decode HTML entities once. Use a textarea so the browser's parser
+    // handles entities correctly without executing anything.
+    var ta = document.createElement('textarea');
+    ta.innerHTML = s;
+    var decoded = ta.value;
+    // Strip admin-only markup the snapshot may have captured by mistake
+    decoded = decoded.replace(/<span\s+class="adm-link-edit-pill"[^>]*>[\s\S]*?<\/span>/gi, '');
+    decoded = decoded.replace(/<button\s+class="adm-row-toolbar[^"]*"[^>]*>[\s\S]*?<\/button>/gi, '');
+    decoded = decoded.replace(/<div\s+class="adm-row-toolbar"[^>]*>[\s\S]*?<\/div>/gi, '');
+    decoded = decoded.replace(/\s+data-adm-[\w-]+="[^"]*"/gi, '');
+    decoded = decoded.replace(/\s+contenteditable="[^"]*"/gi, '');
+    decoded = decoded.replace(/\s+spellcheck="[^"]*"/gi, '');
+    return decoded;
   }
 
   function applyBranding(b){
