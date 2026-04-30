@@ -23,7 +23,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<title>Admin · Chalet du Tornet</title>
+<title>🔧 ADMIN · Chalet du Tornet</title>
 
 <script type="application/ld+json">
 {"@context":"https://schema.org","@type":"Restaurant","name":"Chalet du Tornet","description":"Restaurant chalet en bord du lac de La Balme-de-Sillingy. Cuisine traditionnelle et savoyarde, bar toute la journée, terrasse face au lac.","address":{"@type":"PostalAddress","streetAddress":"161 Route de Paris","addressLocality":"La Balme-de-Sillingy","postalCode":"74330","addressCountry":"FR"},"telephone":"+33 4 38 80 22 51","email":"chaletdutornet74@gmail.com","priceRange":"$$","servesCuisine":["French","Savoyarde"],"geo":{"@type":"GeoCoordinates","latitude":45.970952,"longitude":6.032109},"currenciesAccepted":"EUR","paymentAccepted":"Cash, Credit Card"}
@@ -2099,6 +2099,61 @@ window.TORNET_I18N = {
   <noscript style="color:#fff;text-align:center;padding:2rem;font-family:sans-serif;">JavaScript requis pour cet admin.</noscript>
 </div>
 
+<!-- Editor-mode banner. Only visible after the PIN gate has been cleared
+     (body.adm-mode is added by enterAdmin()). Sits above all content so it's
+     impossible to mistake admin for the live site. -->
+<div id="adm-editor-banner" aria-hidden="true">
+  <span class="adm-eb-dot" aria-hidden="true"></span>
+  <span class="adm-eb-label">MODE ÉDITEUR</span>
+  <span class="adm-eb-sub">Modifications non publiées tant que vous n'avez pas tapé Publier</span>
+</div>
+
+<style>
+/* ── EDITOR MODE BANNER + CHROME ─────────────────────────────────── */
+/* Hidden by default; revealed once body has .adm-mode (post-PIN). */
+#adm-editor-banner{display:none}
+body.adm-mode #adm-editor-banner{
+  display:flex;align-items:center;gap:.6rem;flex-wrap:wrap;
+  position:fixed;top:0;left:0;right:0;z-index:9998;
+  padding:.45rem .9rem;
+  background:linear-gradient(90deg,#b8761e 0%,#c9913a 50%,#b8761e 100%);
+  color:#fff;font:600 .78rem/1.2 'DM Sans',sans-serif;
+  letter-spacing:.04em;text-transform:uppercase;
+  box-shadow:0 2px 12px rgba(0,0,0,.25);
+  border-bottom:2px solid #8a5612;
+  pointer-events:none; /* banner never blocks clicks */
+}
+.adm-eb-dot{
+  display:inline-block;width:.6rem;height:.6rem;border-radius:50%;
+  background:#fff;box-shadow:0 0 0 0 rgba(255,255,255,.7);
+  animation:adm-eb-pulse 1.6s ease-out infinite;
+}
+@keyframes adm-eb-pulse{
+  0%   { box-shadow:0 0 0 0 rgba(255,255,255,.7); }
+  70%  { box-shadow:0 0 0 8px rgba(255,255,255,0); }
+  100% { box-shadow:0 0 0 0 rgba(255,255,255,0); }
+}
+.adm-eb-label{font-weight:700;font-size:.82rem}
+.adm-eb-sub{
+  font-weight:500;text-transform:none;letter-spacing:0;
+  opacity:.92;font-size:.74rem;
+}
+/* Push body content down so the banner never overlaps content */
+body.adm-mode{padding-top:36px !important}
+/* Soft warm border-glow on the page edges so peripheral vision
+   registers "you're in the editor" without obscuring content. */
+body.adm-mode::before{
+  content:'';position:fixed;inset:0;pointer-events:none;z-index:9997;
+  box-shadow:inset 0 0 0 3px rgba(201,145,58,.55),
+             inset 0 0 24px rgba(201,145,58,.18);
+}
+/* Smaller screens: drop the subtitle to save space */
+@media (max-width: 520px){
+  body.adm-mode #adm-editor-banner .adm-eb-sub{display:none}
+  body.adm-mode #adm-editor-banner{padding:.4rem .7rem}
+}
+</style>
+
 <style>
 /* ── GATE / LOGIN ─────────────────────────────────────────────────── */
 #adm-gate{
@@ -3626,11 +3681,43 @@ function doPublish(){
 
 function buildContentSnapshot(){
   // Plain key/value text from every [data-cms]
+  // Capture-side defense: clone the element, strip every admin-only artefact
+  // (pills, row toolbars, data-adm-* attrs, contenteditable, spellcheck) and
+  // ONLY then read content. Prefer textContent for plain leaves; use innerHTML
+  // only when legitimate semantic markup like <strong>, <em>, <br>, <a> is
+  // present. This stops the snapshot from re-encoding plain text and from
+  // serializing admin chrome into content.json.
+  function captureEditable(el){
+    var clone = el.cloneNode(true);
+    // Remove admin-only nodes
+    clone.querySelectorAll(
+      '.adm-link-edit-pill, .adm-row-toolbar, [data-adm-pill], [data-adm-toolbar]'
+    ).forEach(function(n){ n.parentNode && n.parentNode.removeChild(n); });
+    // Strip admin-only attributes from anything that survives
+    function stripAttrs(node){
+      if (node.nodeType !== 1) return;
+      ['contenteditable','spellcheck'].forEach(function(a){ node.removeAttribute(a); });
+      // Remove every data-adm-* attribute
+      Array.prototype.slice.call(node.attributes || []).forEach(function(at){
+        if (at && at.name && at.name.indexOf('data-adm-') === 0) node.removeAttribute(at.name);
+      });
+      Array.prototype.slice.call(node.children || []).forEach(stripAttrs);
+    }
+    stripAttrs(clone);
+    // Decide: real markup or plain text?
+    // If the cleaned element has any element children (after stripping admin
+    // chrome), keep innerHTML so <strong>/<em>/<br>/<a> survive. Otherwise
+    // use textContent so plain French text round-trips losslessly without
+    // entity escaping ("Horaires & Accès" stays "Horaires & Accès").
+    var hasRealMarkup = clone.children && clone.children.length > 0;
+    return hasRealMarkup ? clone.innerHTML.trim() : clone.textContent.trim();
+  }
+
   var i18n = {};
   $$('[data-cms]').forEach(function(el){
     if (el.querySelector('[data-cms]')) return;
     var k = el.getAttribute('data-cms');
-    i18n[k] = el.innerHTML.trim();
+    i18n[k] = captureEditable(el);
   });
   // Editable link targets — added to the same i18n map (keys are already
   // namespaced like "brand.gmaps_url" so they don't collide)
