@@ -1353,43 +1353,56 @@ Le Chalet est posé au cœur de ce poumon vert.  <a href="#domaine" style="color
   function _esc(s){ return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
   function _escA(s){ return String(s).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 
+  // Defensive renderer for content.json values. The admin's snapshot has
+  // historically passed corrupted strings:
+  //   1. Plain text                                  -> render as text
+  //   2. Legitimate HTML like <strong>foo</strong>   -> render as HTML
+  //   3. HTML-escaped (&lt;a href=...&gt;)           -> decode then render as HTML
+  //   4. Polluted with admin pills (<span class="adm-link-edit-pill">…)
+  //      or row toolbars                             -> strip then render
+  //   5. Double-escaped (&amp;amp;, &amp; for &)     -> decode iteratively
+  // This handles all five so the public site stays clean even when
+  // content.json is mid-corruption.
+  function _sanitizeForRender(s){
+    if (s == null) return '';
+    s = String(s);
+    var ta = document.createElement('textarea');
+    // Decode entities up to 3 passes (handles &amp;amp; -> &amp; -> &)
+    for (var pass = 0; pass < 3; pass++){
+      var before = s;
+      ta.innerHTML = s;
+      s = ta.value;
+      if (s === before) break;
+    }
+    // Strip admin-only markup that may have been captured by mistake
+    s = s.replace(/<span\s+class="adm-link-edit-pill"[^>]*>[\s\S]*?<\/span>/gi, '');
+    s = s.replace(/<button\s+class="adm-row-toolbar[^"]*"[^>]*>[\s\S]*?<\/button>/gi, '');
+    s = s.replace(/<div\s+class="adm-row-toolbar"[^>]*>[\s\S]*?<\/div>/gi, '');
+    s = s.replace(/\s+data-adm-[\w-]+="[^"]*"/gi, '');
+    s = s.replace(/\s+contenteditable="[^"]*"/gi, '');
+    s = s.replace(/\s+spellcheck="[^"]*"/gi, '');
+    return s;
+  }
+  // Expose to the language-switcher IIFE below, which has the same problem
+  window.tornetSanitize = _sanitizeForRender;
+
+  function _renderInto(el, raw){
+    var clean = _sanitizeForRender(raw);
+    if (/<[a-z][\s\S]*?>/i.test(clean)) {
+      el.innerHTML = clean;
+    } else {
+      el.textContent = clean;
+    }
+  }
+
   function applyI18n(dict){
     if (!dict) return;
     document.querySelectorAll('[data-cms]').forEach(function(el){
       var key = el.getAttribute('data-cms');
       var val = dict[key];
       if (val === undefined || val === null || val === '') return;
-      el.innerHTML = sanitizeForRender(val);
+      _renderInto(el, val);
     });
-  }
-
-  // Take a string from content.json (which may be HTML-escaped, may contain
-  // admin-only leftover markup like adm-link-edit-pill spans, or may be plain
-  // text) and return a safe HTML string ready to inject.
-  //
-  // The admin's snapshot can corrupt entries in two ways:
-  //   1. plaintext-only contenteditable serializes back as escaped HTML
-  //      (`<a href=...>` becomes `&lt;a href=...&gt;`)
-  //   2. admin overlay leaves `<span class="adm-link-edit-pill">🔗</span>`
-  //      and similar inside elements during snapshot capture
-  //
-  // This function defends against both so the public site keeps rendering
-  // correctly even when content.json is in a half-broken state.
-  function sanitizeForRender(s){
-    if (typeof s !== 'string') return String(s == null ? '' : s);
-    // Decode HTML entities once. Use a textarea so the browser's parser
-    // handles entities correctly without executing anything.
-    var ta = document.createElement('textarea');
-    ta.innerHTML = s;
-    var decoded = ta.value;
-    // Strip admin-only markup the snapshot may have captured by mistake
-    decoded = decoded.replace(/<span\s+class="adm-link-edit-pill"[^>]*>[\s\S]*?<\/span>/gi, '');
-    decoded = decoded.replace(/<button\s+class="adm-row-toolbar[^"]*"[^>]*>[\s\S]*?<\/button>/gi, '');
-    decoded = decoded.replace(/<div\s+class="adm-row-toolbar"[^>]*>[\s\S]*?<\/div>/gi, '');
-    decoded = decoded.replace(/\s+data-adm-[\w-]+="[^"]*"/gi, '');
-    decoded = decoded.replace(/\s+contenteditable="[^"]*"/gi, '');
-    decoded = decoded.replace(/\s+spellcheck="[^"]*"/gi, '');
-    return decoded;
   }
 
   function applyBranding(b){
@@ -1616,7 +1629,10 @@ Le Chalet est posé au cœur de ce poumon vert.  <a href="#domaine" style="color
   //   4. On network failure, the hardcoded HTML stays visible — the site
   //      never appears broken.
   var CONTENT_API     = 'https://script.google.com/macros/s/AKfycbxYNmLCOka8BypE0VrBoMSBYtCJ3q7h6EZTgtfmpznp5Mmj5eMi5mRBmvuFNqafRlo_KA/exec';
-  var CONTENT_API_KEY = 'tornet_content_v2';
+  var CONTENT_API_KEY = 'tornet_content_v3';
+  // Drop corrupted caches from earlier Index versions on every visit
+  try { localStorage.removeItem('tornet_content_v2'); } catch(_){}
+  try { localStorage.removeItem('tornet_cms_v1'); } catch(_){}
 
   function applyContent(data){
     try { apply(data); }
@@ -1656,18 +1672,21 @@ Le Chalet est posé au cœur de ce poumon vert.  <a href="#domaine" style="color
   function captureFR(){
     if (FR_SNAPSHOT) return;
     FR_SNAPSHOT = {};
+    var sanitize = window.tornetSanitize || function(s){ return s; };
     var nodes = document.querySelectorAll('[data-cms]');
     for (var i=0;i<nodes.length;i++){
       var el = nodes[i];
       if (el.querySelector('[data-cms]')) continue;
       var k = el.getAttribute('data-cms');
-      // Use innerHTML so simple <strong> markup survives
-      FR_SNAPSHOT[k] = el.innerHTML;
+      // Sanitize as we capture so a corrupted CMS hydrate doesn't poison
+      // the FR snapshot — otherwise switching FR<->EN<->FR locks in pollution.
+      FR_SNAPSHOT[k] = sanitize(el.innerHTML);
     }
   }
 
   function applyLang(lang){
     captureFR();
+    var sanitize = window.tornetSanitize || function(s){ return s; };
     var dict = (window.TORNET_I18N && window.TORNET_I18N[lang]) || null;
     var nodes = document.querySelectorAll('[data-cms]');
     for (var i=0;i<nodes.length;i++){
@@ -1683,10 +1702,11 @@ Le Chalet est posé au cœur de ce poumon vert.  <a href="#domaine" style="color
         v = FR_SNAPSHOT[k]; // graceful fallback to FR
       }
       if (v == null) continue;
-      if (typeof v === 'string' && /<[a-z][\s\S]*>/i.test(v)) {
-        el.innerHTML = v;
+      var clean = sanitize(v);
+      if (/<[a-z][\s\S]*?>/i.test(clean)) {
+        el.innerHTML = clean;
       } else {
-        el.textContent = v;
+        el.textContent = clean;
       }
     }
     document.documentElement.setAttribute('lang', lang);
