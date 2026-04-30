@@ -1570,72 +1570,43 @@ Le Chalet est posé au cœur de ce poumon vert.  <a href="#domaine" style="color
     });
   }
 
-  fetch('content-' + RID + '.json', { cache: 'no-store' })
-    .then(function(res){ if (!res.ok) throw new Error('no content'); return res.json(); })
-    .then(apply)
-    .catch(function(){ /* silent — hardcoded fallback */ });
+  // ─── CONTENT HYDRATION ────────────────────────────────────────────
+  // Single source of truth: the Apps Script /exec URL. It serves the
+  // current content.json from GitHub. We don't fetch from a static .json
+  // file because GitHub raw URLs cache aggressively (5+ min stale) and
+  // because Netlify rebuild lag makes content feel stuck. Apps Script
+  // returns fresh data within seconds of every Publier in admin.
+  //
+  // Cache strategy:
+  //   1. On boot, paint from localStorage cache instantly (no flash).
+  //   2. Fetch live in the background.
+  //   3. When live arrives, repaint with the latest and update cache.
+  //   4. On network failure, the hardcoded HTML stays visible — the site
+  //      never appears broken.
+  var CONTENT_API     = 'https://script.google.com/macros/s/AKfycbxYNmLCOka8BypE0VrBoMSBYtCJ3q7h6EZTgtfmpznp5Mmj5eMi5mRBmvuFNqafRlo_KA/exec';
+  var CONTENT_API_KEY = 'tornet_content_v2';
 
-  // ── LIVE CMS (Apps Script) ──
-  // Hydrates any element with data-cms="key" from the Google Sheet.
-  // ⚠ Paste your Apps Script /exec URL here to activate. Leave as-is to keep the hardcoded copy.
-  var CMS_URL = 'PASTE_YOUR_APPS_SCRIPT_EXEC_URL_HERE';
-  var CMS_CACHE_KEY = 'tornet_cms_v1';
-  var CMS_CACHE_TTL = 5 * 60 * 1000; // 5 min
-
-  function applyCmsMap(map){
-    if (!map) return;
-    var nodes = document.querySelectorAll('[data-cms]');
-    for (var i=0;i<nodes.length;i++){
-      var el = nodes[i];
-      var k  = el.getAttribute('data-cms');
-      if (!map.hasOwnProperty(k)) continue;
-      var v = map[k];
-      if (v == null) continue;
-      // If the key came with HTML (has a tag), set innerHTML; otherwise textContent.
-      // Keeps things safe for plain-text keys and allows <strong>/<a> in longer copy.
-      if (typeof v === 'string' && /<[a-z][\s\S]*>/i.test(v)) {
-        el.innerHTML = v;
-      } else {
-        el.textContent = v;
-      }
-    }
+  function applyContent(data){
+    try { apply(data); }
+    catch(err) { /* swallow — hardcoded HTML stays */ console && console.warn && console.warn('[tornet] apply failed', err); }
   }
 
-  function toMap(res){
-    var out = {};
-    if (res && res.ok && Array.isArray(res.data)) {
-      for (var i=0;i<res.data.length;i++){
-        var row = res.data[i];
-        if (row && row.key) out[row.key] = row.value != null ? row.value : '';
-      }
-    }
-    return out;
-  }
+  // 1. Paint from cache for instant render
+  try {
+    var cached = JSON.parse(localStorage.getItem(CONTENT_API_KEY) || 'null');
+    if (cached && cached.data) applyContent(cached.data);
+  } catch(_) {}
 
-  function hydrateCms(){
-    if (!CMS_URL || CMS_URL.indexOf('PASTE_') === 0) return;
-
-    // Fast path: paint cached data first so edits don't "pop" in.
-    try {
-      var cached = JSON.parse(localStorage.getItem(CMS_CACHE_KEY) || 'null');
-      if (cached && cached.map) applyCmsMap(cached.map);
-    } catch(_) {}
-
-    fetch(CMS_URL + '?action=getContent', { cache:'no-store' })
-      .then(function(r){ return r.json(); })
-      .then(function(res){
-        var map = toMap(res);
-        applyCmsMap(map);
-        try { localStorage.setItem(CMS_CACHE_KEY, JSON.stringify({ t:Date.now(), map:map })); } catch(_){}
-      })
-      .catch(function(){ /* silent — page already has hardcoded copy */ });
-  }
-
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', hydrateCms);
-  } else {
-    hydrateCms();
-  }
+  // 2. Fetch live from Apps Script (returns the freshest content.json)
+  fetch(CONTENT_API + '?action=getContent&siteKey=tornet', { cache: 'no-store' })
+    .then(function(r){ if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
+    .then(function(res){
+      if (!res || !res.ok || !res.content) throw new Error('bad response');
+      var data = JSON.parse(res.content);
+      applyContent(data);
+      try { localStorage.setItem(CONTENT_API_KEY, JSON.stringify({ t: Date.now(), data: data })); } catch(_){}
+    })
+    .catch(function(){ /* silent — hardcoded HTML stays */ });
 
 })();
 
