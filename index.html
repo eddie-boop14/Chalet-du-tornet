@@ -74,6 +74,25 @@ nav{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-conte
 .phone-number-header{display:none}
 @media(min-width:768px){.phone-number-header{display:inline}}
 
+/* LANGUAGE SWITCH */
+.lang-switch{display:flex;align-items:center;gap:1px;background:rgba(59,107,76,0.06);border:1px solid rgba(59,107,76,0.12);border-radius:6px;padding:2px;flex-shrink:0}
+.lang-btn{background:transparent;border:none;color:var(--muted);font-family:'DM Sans',sans-serif;font-size:0.7rem;font-weight:600;letter-spacing:0.5px;padding:0.35rem 0.55rem;border-radius:4px;cursor:pointer;transition:all .15s;line-height:1;-webkit-tap-highlight-color:transparent}
+.lang-btn:hover{color:var(--green);background:rgba(59,107,76,0.08)}
+.lang-btn.active{background:var(--green);color:#fff}
+.lang-btn[data-empty="1"]{opacity:0.35;cursor:not-allowed}
+.lang-btn[data-empty="1"]:hover{background:transparent;color:var(--muted)}
+@media(max-width:600px){
+  /* On small screens, collapse to a single button that opens a small dropdown */
+  .lang-switch{position:relative;padding:0;border:none;background:transparent}
+  .lang-switch .lang-btn{display:none}
+  .lang-switch .lang-btn.active{display:flex;align-items:center;gap:0.25rem;background:rgba(59,107,76,0.08);border:1px solid rgba(59,107,76,0.15);color:var(--green);padding:0.45rem 0.6rem;border-radius:6px}
+  .lang-switch .lang-btn.active::after{content:'▾';font-size:0.65rem;opacity:0.6}
+  .lang-switch.open{background:#fff;border:1px solid rgba(59,107,76,0.2);border-radius:6px;box-shadow:0 6px 18px rgba(13,26,17,0.1);padding:3px;flex-direction:column;align-items:stretch;position:absolute;top:0;right:0;z-index:170;min-width:60px}
+  .lang-switch.open .lang-btn{display:block;text-align:left;padding:0.5rem 0.65rem;border-radius:4px;border:none;background:transparent;color:var(--muted)}
+  .lang-switch.open .lang-btn.active{background:var(--green);color:#fff}
+  .lang-switch.open .lang-btn.active::after{display:none}
+}
+
 .hamburger{display:none;flex-direction:column;justify-content:center;gap:5px;background:none;border:none;cursor:pointer;padding:0.4rem;z-index:200}
 .hamburger span{display:block;width:22px;height:2px;background:var(--green);border-radius:2px;transition:all 0.3s}
 .hamburger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
@@ -215,7 +234,7 @@ section{padding:5rem 2rem}
 .carousel::-webkit-scrollbar-track{background:rgba(59,107,76,0.08);border-radius:4px}
 .carousel::-webkit-scrollbar-thumb{background:var(--gold2);border-radius:4px}
 .menu-card{width:230px;min-height:220px;flex-shrink:0;scroll-snap-align:start;background:linear-gradient(145deg,var(--green),var(--green2));border-radius:10px;padding:1.5rem;display:flex;flex-direction:column;justify-content:center;gap:0.4rem;position:relative;overflow:hidden;transition:transform 0.25s,box-shadow 0.25s;border:1px solid rgba(255,255,255,0.08)}
-.menu-card::after{content:attr(data-emoji);position:absolute;font-size:4.5rem;opacity:0.08;bottom:0.25rem;right:0.5rem;pointer-events:none;line-height:1;filter:grayscale(1)}
+.menu-card::after{content:'';position:absolute;bottom:0;right:0;width:60px;height:60px;background:radial-gradient(circle at bottom right,rgba(201,145,58,0.18) 0%,transparent 70%);pointer-events:none;border-radius:0 0 10px 0}
 .menu-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--gold),transparent)}
 .menu-card:hover{transform:translateY(-4px);box-shadow:0 12px 28px rgba(201,145,58,0.2)}
 .menu-card-name{font-family:'Cormorant Garamond',serif;font-size:1.15rem;color:var(--white);font-weight:600;line-height:1.3;position:relative;z-index:1}
@@ -256,13 +275,15 @@ section{padding:5rem 2rem}
   .rhythm-card .rhythm-time{font-size:0.65rem}
 }
 .bar-pills{display:flex;flex-wrap:wrap;gap:0.45rem;justify-content:center;margin-top:2rem;position:relative;z-index:2}
-.bar-pill{background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);color:rgba(255,255,255,0.88);padding:0.35rem 0.8rem;border-radius:20px;font-size:0.74rem;letter-spacing:0.3px;backdrop-filter:blur(4px)}
+.bar-pill{background:rgba(255,255,255,0.1);border:1px solid rgba(255,255,255,0.2);color:rgba(255,255,255,0.88);padding:0.35rem 0.8rem;border-radius:20px;font-size:0.74rem;letter-spacing:0.3px;backdrop-filter:blur(4px);display:inline-flex;align-items:center;gap:0.4rem}
+.bar-pill svg{flex-shrink:0;color:var(--gold-pale);opacity:0.85}
 
 /* DOMAINE — the new centerpiece */
 #domaine{background:linear-gradient(180deg,var(--green-mist) 0%,var(--cream) 100%);position:relative;overflow:hidden}
 #domaine::before{content:'';position:absolute;top:-80px;right:-80px;width:300px;height:300px;background:radial-gradient(circle,rgba(59,107,76,0.08),transparent 70%);pointer-events:none}
 .domaine-hero{display:block;margin-top:1.5rem;margin-bottom:3rem;position:relative;z-index:1;padding:2.75rem 2rem;border-radius:16px;overflow:hidden;isolation:isolate;box-shadow:0 10px 40px rgba(13,26,17,0.1)}
 .domaine-hero-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 35%;z-index:-2}
+.domaine-hero-bg-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 35%;z-index:-2}
 .domaine-hero::after{content:'';position:absolute;inset:0;background:linear-gradient(100deg,rgba(255,255,255,0.86) 0%,rgba(255,255,255,0.72) 45%,rgba(255,255,255,0.38) 100%);z-index:-1}
 .domaine-hero .domaine-lede{max-width:620px}
 @media(max-width:820px){
@@ -285,9 +306,11 @@ section{padding:5rem 2rem}
 @media(min-width:769px){.features-grid .feature-card{flex:0 0 280px}}
 .feature-card{background:#1a2c1f;padding:1.35rem 1.25rem;border-radius:10px;box-shadow:0 2px 14px rgba(13,26,17,0.05);border:1px solid rgba(59,107,76,0.06);transition:all .25s;display:flex;flex-direction:column;gap:0.5rem;position:relative;overflow:hidden;min-height:220px;justify-content:flex-end;color:var(--white);isolation:isolate}
 .feature-card .f-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2;transition:transform .5s ease}
+.feature-card .f-bg-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2;transition:transform .5s ease}
 .feature-card::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(13,26,17,0.25) 0%,rgba(13,26,17,0.55) 55%,rgba(13,26,17,0.88) 100%);z-index:-1}
 .feature-card:hover{transform:translateY(-3px);box-shadow:0 10px 30px rgba(13,26,17,0.25);border-color:rgba(201,145,58,0.35)}
-.feature-card:hover .f-bg{transform:scale(1.06)}
+.feature-card:hover .f-bg,
+.feature-card:hover .f-bg-video{transform:scale(1.06)}
 .feature-card .f-icon{width:36px;height:36px;border-radius:8px;background:rgba(255,255,255,0.15);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);border:1px solid rgba(255,255,255,0.22);display:flex;align-items:center;justify-content:center;color:var(--white);margin-bottom:0.2rem;position:absolute;top:0.9rem;left:0.9rem}
 .feature-card .f-icon svg{width:18px;height:18px}
 .feature-card h4{font-family:'Cormorant Garamond',serif;font-size:1.2rem;color:var(--white);font-weight:600;line-height:1.2;margin:0;text-shadow:0 1px 10px rgba(0,0,0,0.4)}
@@ -472,6 +495,12 @@ footer .links a:hover{color:var(--gold)}
       <span class="nav-close-label" data-cms="nav.close">Fermer</span>
     </ul>
     <div class="nav-cta">
+      <div class="lang-switch" id="lang-switch" role="group" aria-label="Langue">
+        <button type="button" class="lang-btn active" data-lang="fr" aria-pressed="true">FR</button>
+        <button type="button" class="lang-btn" data-lang="en" aria-pressed="false">EN</button>
+        <button type="button" class="lang-btn" data-lang="de" aria-pressed="false">DE</button>
+        <button type="button" class="lang-btn" data-lang="it" aria-pressed="false">IT</button>
+      </div>
       <a href="tel:+33438802251" class="btn-call" id="hdrCall" data-cms-attr="brand.phone_tel">
         <svg class="lucide" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
         <span class="phone-number-header" id="hdrPhone" data-cms="brand.phone">04 38 80 22 51</span>
@@ -857,12 +886,12 @@ Le Chalet est posé au cœur de ce poumon vert.  <a href="#domaine" style="color
     </div>
 
     <div class="bar-pills">
-      <span class="bar-pill">☕ Expresso 1,60€</span>
-      <span class="bar-pill">🍫 Chocolat viennois 4€</span>
-      <span class="bar-pill">🥂 Kir Royal 11€</span>
-      <span class="bar-pill">🌿 Génépi 6€</span>
-      <span class="bar-pill">🟢 Chartreuse verte 8€</span>
-      <span class="bar-pill">☘ Irish Coffee 10€</span>
+      <span class="bar-pill"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 8h1a4 4 0 0 1 0 8h-1"/><path d="M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4z"/><line x1="6" y1="2" x2="6" y2="4"/><line x1="10" y1="2" x2="10" y2="4"/><line x1="14" y1="2" x2="14" y2="4"/></svg> Expresso 1,60€</span>
+      <span class="bar-pill"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4z"/><path d="M3 8h14"/><path d="M10 4v4"/><path d="M14 4v4"/></svg> Chocolat viennois 4€</span>
+      <span class="bar-pill"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2h8l-1 9a3 3 0 0 1-3 3 3 3 0 0 1-3-3z"/><path d="M12 14v6"/><path d="M9 22h6"/></svg> Kir Royal 11€</span>
+      <span class="bar-pill"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/><path d="M2 21c0-3 1.85-5.36 5.08-6"/></svg> Génépi 6€</span>
+      <span class="bar-pill"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"/><path d="M2 21c0-3 1.85-5.36 5.08-6"/></svg> Chartreuse verte 8€</span>
+      <span class="bar-pill"><svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 8h1a4 4 0 0 1 0 8h-1"/><path d="M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4z"/><path d="M9 2c0 2 2 2 2 4"/><path d="M14 2c0 2 2 2 2 4"/></svg> Irish Coffee 10€</span>
     </div>
   </div>
 </section>
@@ -1176,11 +1205,11 @@ Le Chalet est posé au cœur de ce poumon vert.  <a href="#domaine" style="color
 </footer>
 
 <!-- Floating CTAs -->
-<a href="tel:+33438802251" id="floatingReserveBtn" aria-label="Appeler" data-cms-attr="brand.phone_tel">
+<a href="tel:+33438802251" id="floatingReserveBtn" aria-label="Appeler" data-cms-attr="brand.phone_tel" data-float-kind="call" data-float-slot="1">
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
   <span data-cms="cta.call">Appeler</span>
 </a>
-<a href="#domaine" id="floatingEventsBtn" aria-label="Le Domaine">
+<a href="#domaine" id="floatingEventsBtn" aria-label="Le Domaine" data-float-kind="scroll" data-float-slot="2">
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
   <span data-cms="cta.domaine">Domaine</span>
 </a>
@@ -1511,77 +1540,480 @@ Le Chalet est posé au cœur de ce poumon vert.  <a href="#domaine" style="color
     if (data.gallery)      renderGallery(data.gallery);
     if (data.faq)          renderFaq(data.faq);
     if (data.surroundings) renderSurroundings(data.surroundings);
+    if (data.floats)       applyFloats(data.floats);
     try { window.dispatchEvent(new CustomEvent('tornet:content-applied', { detail: data })); } catch(_){}
   }
 
-  fetch('content-' + RID + '.json', { cache: 'no-store' })
-    .then(function(res){ if (!res.ok) throw new Error('no content'); return res.json(); })
-    .then(apply)
-    .catch(function(){ /* silent — hardcoded fallback */ });
+  // Apply admin-edited floating CTA buttons from content.json.
+  // Each entry: { slot: 1|2, kind: 'call'|'modal'|'url'|'scroll'|'email', label, href }
+  function applyFloats(floats){
+    if (!Array.isArray(floats)) return;
+    var ids = ['floatingReserveBtn', 'floatingEventsBtn'];
+    floats.forEach(function(f){
+      var idx = (parseInt(f.slot, 10) || 1) - 1;
+      var btn = document.getElementById(ids[idx]);
+      if (!btn) return;
+      btn.setAttribute('data-float-kind', f.kind || 'scroll');
+      var span = btn.querySelector('span');
+      if (span && f.label) span.textContent = f.label;
+      var href = f.href || '#';
+      if (f.kind === 'call'  && href && href.indexOf('tel:') !== 0)    href = 'tel:' + href.replace(/\s+/g,'');
+      if (f.kind === 'email' && href && href.indexOf('mailto:') !== 0) href = 'mailto:' + href;
+      btn.setAttribute('href', href);
+      if (f.kind === 'url') { btn.setAttribute('target', '_blank'); btn.setAttribute('rel', 'noopener'); }
+      else                  { btn.removeAttribute('target'); }
+      // Re-bind modal handler if needed (only attach once per element)
+      if (f.kind === 'modal' && !btn._tornetFloatModalBound) {
+        btn._tornetFloatModalBound = true;
+        btn.addEventListener('click', function(e){
+          e.preventDefault();
+          if (window.openEventsModal) window.openEventsModal();
+        });
+      }
+    });
+  }
 
-  // ── LIVE CMS (Apps Script) ──
-  // Hydrates any element with data-cms="key" from the Google Sheet.
-  // ⚠ Paste your Apps Script /exec URL here to activate. Leave as-is to keep the hardcoded copy.
-  var CMS_URL = 'PASTE_YOUR_APPS_SCRIPT_EXEC_URL_HERE';
-  var CMS_CACHE_KEY = 'tornet_cms_v1';
-  var CMS_CACHE_TTL = 5 * 60 * 1000; // 5 min
+  // ─── CONTENT HYDRATION ────────────────────────────────────────────
+  // Single source of truth: the Apps Script /exec URL. It serves the
+  // current content.json from GitHub. We don't fetch from a static .json
+  // file because GitHub raw URLs cache aggressively (5+ min stale) and
+  // because Netlify rebuild lag makes content feel stuck. Apps Script
+  // returns fresh data within seconds of every Publier in admin.
+  //
+  // Cache strategy:
+  //   1. On boot, paint from localStorage cache instantly (no flash).
+  //   2. Fetch live in the background.
+  //   3. When live arrives, repaint with the latest and update cache.
+  //   4. On network failure, the hardcoded HTML stays visible — the site
+  //      never appears broken.
+  var CONTENT_API     = 'https://script.google.com/macros/s/AKfycbxYNmLCOka8BypE0VrBoMSBYtCJ3q7h6EZTgtfmpznp5Mmj5eMi5mRBmvuFNqafRlo_KA/exec';
+  var CONTENT_API_KEY = 'tornet_content_v2';
 
-  function applyCmsMap(map){
-    if (!map) return;
+  function applyContent(data){
+    try { apply(data); }
+    catch(err) { /* swallow — hardcoded HTML stays */ console && console.warn && console.warn('[tornet] apply failed', err); }
+  }
+
+  // 1. Paint from cache for instant render
+  try {
+    var cached = JSON.parse(localStorage.getItem(CONTENT_API_KEY) || 'null');
+    if (cached && cached.data) applyContent(cached.data);
+  } catch(_) {}
+
+  // 2. Fetch live from Apps Script (returns the freshest content.json)
+  fetch(CONTENT_API + '?action=getContent&siteKey=tornet', { cache: 'no-store' })
+    .then(function(r){ if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
+    .then(function(res){
+      if (!res || !res.ok || !res.content) throw new Error('bad response');
+      var data = JSON.parse(res.content);
+      applyContent(data);
+      // Cache the parsed object for next visit's instant paint
+      try { localStorage.setItem(CONTENT_API_KEY, JSON.stringify({ t: Date.now(), data: data })); } catch(_){}
+    })
+    .catch(function(){ /* silent — hardcoded HTML stays */ });
+
+})();
+
+// ── LANGUAGE SWITCHER (FR / EN / DE / IT) ──────────────────────────
+// Translations for non-FR languages live in window.TORNET_I18N below
+// (or in content.json's i18n.{lang} maps once admin/CMS supplies them).
+// FR is always the source of truth. Missing keys fall back to FR.
+(function(){
+  'use strict';
+  var LANG_KEY = 'tornet_lang';
+  var FR_SNAPSHOT = null;   // captures the original DOM text once (= FR)
+  var current = 'fr';
+
+  function captureFR(){
+    if (FR_SNAPSHOT) return;
+    FR_SNAPSHOT = {};
     var nodes = document.querySelectorAll('[data-cms]');
     for (var i=0;i<nodes.length;i++){
       var el = nodes[i];
-      var k  = el.getAttribute('data-cms');
-      if (!map.hasOwnProperty(k)) continue;
-      var v = map[k];
+      if (el.querySelector('[data-cms]')) continue;
+      var k = el.getAttribute('data-cms');
+      // Use innerHTML so simple <strong> markup survives
+      FR_SNAPSHOT[k] = el.innerHTML;
+    }
+  }
+
+  function applyLang(lang){
+    captureFR();
+    var dict = (window.TORNET_I18N && window.TORNET_I18N[lang]) || null;
+    var nodes = document.querySelectorAll('[data-cms]');
+    for (var i=0;i<nodes.length;i++){
+      var el = nodes[i];
+      if (el.querySelector('[data-cms]')) continue;
+      var k = el.getAttribute('data-cms');
+      var v;
+      if (lang === 'fr' || !dict) {
+        v = FR_SNAPSHOT[k];
+      } else if (Object.prototype.hasOwnProperty.call(dict, k) && dict[k]) {
+        v = dict[k];
+      } else {
+        v = FR_SNAPSHOT[k]; // graceful fallback to FR
+      }
       if (v == null) continue;
-      // If the key came with HTML (has a tag), set innerHTML; otherwise textContent.
-      // Keeps things safe for plain-text keys and allows <strong>/<a> in longer copy.
       if (typeof v === 'string' && /<[a-z][\s\S]*>/i.test(v)) {
         el.innerHTML = v;
       } else {
         el.textContent = v;
       }
     }
+    document.documentElement.setAttribute('lang', lang);
+    current = lang;
+    try { localStorage.setItem(LANG_KEY, lang); } catch(_){}
+    updateButtons();
   }
 
-  function toMap(res){
-    var out = {};
-    if (res && res.ok && Array.isArray(res.data)) {
-      for (var i=0;i<res.data.length;i++){
-        var row = res.data[i];
-        if (row && row.key) out[row.key] = row.value != null ? row.value : '';
+  function updateButtons(){
+    var btns = document.querySelectorAll('#lang-switch .lang-btn');
+    for (var i=0;i<btns.length;i++){
+      var b = btns[i];
+      var l = b.getAttribute('data-lang');
+      var active = (l === current);
+      b.classList.toggle('active', active);
+      b.setAttribute('aria-pressed', active ? 'true' : 'false');
+      // Mark languages with no translations as visually muted
+      var hasTrans = (l === 'fr') || (window.TORNET_I18N && window.TORNET_I18N[l] && Object.keys(window.TORNET_I18N[l]).length > 0);
+      if (!hasTrans) b.setAttribute('data-empty', '1');
+      else           b.removeAttribute('data-empty');
+    }
+  }
+
+  function init(){
+    var sw = document.getElementById('lang-switch');
+    if (!sw) return;
+
+    // Wire clicks
+    sw.addEventListener('click', function(e){
+      var b = e.target.closest('.lang-btn');
+      if (!b) return;
+      var l = b.getAttribute('data-lang');
+      if (b.hasAttribute('data-empty')) {
+        // Mobile: still let "open" the dropdown to show what's there
+        if (sw.classList.contains('open')) { sw.classList.remove('open'); return; }
+        return;
+      }
+      // Mobile dropdown behaviour
+      if (window.matchMedia('(max-width: 600px)').matches) {
+        if (!sw.classList.contains('open')) {
+          sw.classList.add('open');
+          return;
+        }
+        sw.classList.remove('open');
+      }
+      applyLang(l);
+    });
+
+    // Click outside closes mobile dropdown
+    document.addEventListener('click', function(e){
+      if (!sw.contains(e.target)) sw.classList.remove('open');
+    });
+
+    // Restore saved choice
+    var saved = null;
+    try { saved = localStorage.getItem(LANG_KEY); } catch(_){}
+    // Apply saved language only after CMS has hydrated (so FR snapshot reflects latest content)
+    function applyOnceReady(){
+      // Defer one tick so the live CMS hydrate has run (it fires on DOMContentLoaded too)
+      setTimeout(function(){
+        captureFR();
+        if (saved && saved !== 'fr') applyLang(saved);
+        else updateButtons();
+      }, 60);
+    }
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', applyOnceReady);
+    else applyOnceReady();
+  }
+
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
+  else init();
+})();
+
+// ── MEDIA SWAP (image ↔ video by file extension) ───────────────────
+// If a "replaceable" media element points to an .mp4/.webm, render <video>.
+// If it points to an image, render <img>. Runs at boot AND can be re-run
+// from admin after a replacement.
+(function(){
+  'use strict';
+  var VIDEO_RE = /\.(mp4|webm|mov)(\?|#|$)/i;
+
+  function makeVideo(src, classes, alt){
+    var v = document.createElement('video');
+    v.src = src;
+    v.autoplay = true; v.muted = true; v.loop = true; v.playsInline = true;
+    v.setAttribute('autoplay',''); v.setAttribute('muted','');
+    v.setAttribute('loop',''); v.setAttribute('playsinline','');
+    v.setAttribute('preload','metadata');
+    if (classes) v.className = classes;
+    if (alt) v.setAttribute('aria-label', alt);
+    return v;
+  }
+  function makeImage(src, classes, alt){
+    var i = document.createElement('img');
+    i.src = src;
+    if (classes) i.className = classes;
+    i.setAttribute('alt', alt || '');
+    i.setAttribute('loading','lazy');
+    return i;
+  }
+
+  function swapMedia(root){
+    root = root || document;
+    // For every <img> or <video> inside a known replaceable container,
+    // ensure the right element type matches the src extension.
+    var selectors = [
+      '.gallery-img > img',          '.gallery-img > video',
+      '.modal-plat > img',           '.modal-plat > video',
+      '.intro-hero-block > img',     '.intro-hero-block > video',
+      '.event-image-container > img','.event-image-container > video',
+      '.feature-card > .f-bg',       '.feature-card > .f-bg-video',
+      '.domaine-hero > .domaine-hero-bg', '.domaine-hero > .domaine-hero-bg-video'
+    ];
+    var els = root.querySelectorAll(selectors.join(','));
+    for (var i=0;i<els.length;i++){
+      var el = els[i];
+      var src = el.getAttribute('src') || '';
+      if (!src) continue;
+      var isVideo = VIDEO_RE.test(src);
+      var tag = el.tagName;
+      if (isVideo && tag === 'IMG') {
+        var classes = el.className.replace(/\bf-bg\b/, 'f-bg-video')
+                                   .replace(/\bdomaine-hero-bg\b/, 'domaine-hero-bg-video');
+        var v = makeVideo(src, classes, el.getAttribute('alt') || '');
+        el.parentNode.replaceChild(v, el);
+      } else if (!isVideo && tag === 'VIDEO') {
+        var iclasses = el.className.replace(/\bf-bg-video\b/, 'f-bg')
+                                    .replace(/\bdomaine-hero-bg-video\b/, 'domaine-hero-bg');
+        var im = makeImage(src, iclasses, el.getAttribute('aria-label') || '');
+        el.parentNode.replaceChild(im, el);
       }
     }
-    return out;
   }
 
-  function hydrateCms(){
-    if (!CMS_URL || CMS_URL.indexOf('PASTE_') === 0) return;
-
-    // Fast path: paint cached data first so edits don't "pop" in.
-    try {
-      var cached = JSON.parse(localStorage.getItem(CMS_CACHE_KEY) || 'null');
-      if (cached && cached.map) applyCmsMap(cached.map);
-    } catch(_) {}
-
-    fetch(CMS_URL + '?action=getContent', { cache:'no-store' })
-      .then(function(r){ return r.json(); })
-      .then(function(res){
-        var map = toMap(res);
-        applyCmsMap(map);
-        try { localStorage.setItem(CMS_CACHE_KEY, JSON.stringify({ t:Date.now(), map:map })); } catch(_){}
-      })
-      .catch(function(){ /* silent — page already has hardcoded copy */ });
-  }
-
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', hydrateCms);
-  } else {
-    hydrateCms();
-  }
-
+  window.tornetSwapMedia = swapMedia;
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', function(){ swapMedia(); });
+  else swapMedia();
+  // Re-run after CMS hydration in case content.json points to a video
+  window.addEventListener('tornet:content-applied', function(){ swapMedia(); });
 })();
+
+// ── TRANSLATIONS ────────────────────────────────────────────────────
+// Hardcoded by the developer. Owner doesn't touch these from admin.
+// Add/edit translations here. Empty objects = language tab will be muted
+// in the switcher until real translations are present.
+window.TORNET_I18N = {
+  en: {
+    // Navigation
+    'nav.about': 'About',
+    'nav.menu': 'Menu',
+    'nav.bar': 'Bar',
+    'nav.domaine': 'The Estate',
+    'nav.faq': 'FAQ',
+    'nav.close': 'Close',
+
+    // Hero
+    'hero.eyebrow': 'Restaurant · Bar · Terrace — Lake of La Balme-de-Sillingy',
+    'hero.sub': 'Generous traditional cuisine · Lakeside terrace · Haute-Savoie',
+    'hero.pill.lake': 'Lakeside terrace',
+    'hero.pill.parking': 'Free parking',
+    'hero.pill.bar': 'Bar all day',
+    'hero.pill.domaine': 'Inside the Estate',
+    'cta.call': 'Reservation',
+    'cta.menu': 'See the menu',
+    'cta.domaine': 'Estate',
+
+    // Reviews
+    'reviews.eyebrow': 'They talk about us',
+    'reviews.title': 'What our guests say',
+    'reviews.count': 'Google reviews',
+    'reviews.swipe': 'Swipe',
+    'reviews.cta': 'See all reviews on Google',
+    'reviews.cta.sub': '600+ reviews · 4.0 ★',
+
+    // About
+    'about.tag': 'Our story',
+    'about.title': 'Welcome to the Chalet',
+    'about.main': 'On the shores of the lake of La Balme-de-Sillingy, <strong>Chalet du Tornet</strong> welcomes you from February to early November. Restaurant lunch and dinner (Thursday to Saturday), bar from morning until the last drink, terrace facing the water — a simple, lively place at the heart of a fully equipped estate.',
+    'about.main2': 'We do things simply — local produce, charcuterie from <strong>Maison Baud</strong>, artisanal ice cream, and the pleasure of a beautiful plate shared by the lake.',
+    'about.more': 'Read more',
+    'about.expanded': 'Whether you come with family, as a couple, or with friends, the Chalet adapts to every moment. Indoor dining room, lounge and lakeside terrace in season — and right next to it, the playground, pumptrack, pétanque courts and lake loop. The Chalet is the natural refuelling stop for a real day at the Domaine du Tornet.',
+    'about.highlights.hint': '← Swipe →',
+    'highlight.cuisine.title': 'Traditional & Savoyard cuisine',
+    'highlight.cuisine.desc': 'Raw-milk raclette, tartiflette, the Tornet Burger, MOF butcher cut, local trout, risotto.',
+    'highlight.bar.title': 'Bar & terrace',
+    'highlight.bar.desc': 'From morning until the last drink. Coffees, local spirits, lemonades and ice creams in the afternoon.',
+    'highlight.tour.title': 'Lake loop',
+    'highlight.tour.desc': 'Family loop ~2 km, flat, stroller-friendly — starts right outside the Chalet.',
+    'highlight.domaine.title': 'The Estate',
+    'highlight.domaine.desc': '7 hectares of nature, freely open: lake, 280 m pumptrack, brand-new playground, fitness, pétanque, pontoon, the Gardens Park and its collection of Asian flowering cherry trees. The Chalet is set right in the heart of this green lung. <a href="#domaine" style="color:var(--gold);font-weight:600;white-space:nowrap">Learn more →</a>',
+
+    // Gallery
+    'gallery.tag': 'Photos',
+    'gallery.title': 'Discover the Chalet',
+
+    // Menu
+    'menu.tag': 'Restaurant',
+    'menu.title': 'Our Menu',
+    'menu.intro': 'Traditional and Savoyard cuisine, local produce. Lunch menu €19.90, à la carte, kids menu €13. Raw-milk raclette evenings and weekends.',
+    'formule.hint': '← Swipe →',
+    'formule.totale.name': 'The Full',
+    'formule.totale.desc': 'Starter + Main + Dessert — 1/4 wine, beer or soft drink — Coffee included',
+    'formule.complete.name': 'The Complete',
+    'formule.complete.desc': 'Starter + Main + Dessert — Coffee included',
+    'formule.rapide.name': 'The Quick',
+    'formule.rapide.desc': 'Starter + Main, or Main + Dessert',
+    'formule.express.name': 'The Express',
+    'formule.express.desc': 'Main course only',
+    'menu.enfant.name': 'Kids Menu',
+    'menu.enfant.desc': '1 drink (syrup/soda/juice) · Beef patty, nuggets, ham or trout · Fries, vegetables, gratin or tartiflette · 1 scoop of ice cream, compote or fromage blanc',
+
+    // Bar
+    'bar.tag': 'Bar · Terrace · Lemonade',
+    'bar.title': 'From morning to last call',
+    'bar.intro': 'The Chalet bar lives all day. A coffee, an afternoon ice cream, a sunset aperitif, a drink after the walk. Stay, sit, enjoy the lake.',
+    'bar.rhythm.1.time': 'Morning · 9am',
+    'bar.rhythm.1.title': 'Lakeside coffee',
+    'bar.rhythm.1.desc': 'Espresso €1.60, latte, viennese hot chocolate, teas/herbal infusions.',
+    'bar.rhythm.2.time': 'Afternoon',
+    'bar.rhythm.2.title': 'Ice cream & lemonades',
+    'bar.rhythm.2.desc': 'Signature sundaes, sorbets, garçon-de-café lemonades, diabolos.',
+    'bar.rhythm.3.time': 'Evening',
+    'bar.rhythm.3.title': 'Aperitif at the Chalet',
+    'bar.rhythm.3.desc': 'Sharing boards, Génépi, green Chartreuse, Verveine des Aravis, Irish Coffee.',
+
+    // Domaine
+    'domaine.tag': 'Where you put down the bag',
+    'domaine.title': 'The Tornet Estate',
+    'domaine.intro': '<strong>Seven hectares of lake, freely open, all year round.</strong> The Domaine du Tornet is the living heart of La Balme-de-Sillingy: a lake, a walking loop, a large playground, a pumptrack, a fitness area, pétanque courts, a lakeside pontoon, and the Gardens Park of Haute-Savoie with its national collection of Asian flowering cherry trees.',
+    'domaine.intro2': 'The Chalet is our corner of the Estate. We come here for a coffee before walking around the lake, an aperitif after the pumptrack, a meal on the terrace between two slides at the playground. Our kitchen ends at our walls; the rest of the Estate continues all around.',
+    'domaine.ownership': 'The Estate is developed and managed by the municipality of La Balme-de-Sillingy. We do not own it — we simply welcome you here, from our chalet or our terrace.',
+    'domaine.features.title': 'What you find on the Estate',
+    'domaine.features.hint': '← Swipe →',
+    'feat.lake.t': 'The lake (7 ha)',
+    'feat.lake.d': 'Private lake reserved for fishing, managed by the Balme Pêche Loisirs association. Permit required.',
+    'feat.pump.t': 'Pumptrack (280 m)',
+    'feat.pump.d': 'Three colour-coded courses. MTB, BMX, skate, rollers, balance bikes, scooters.',
+    'feat.workout.t': 'Street workout',
+    'feat.workout.d': 'Multiple structures for strength, gymnastics and freestyle, all levels.',
+    'feat.fitness.t': 'Fitness area',
+    'feat.fitness.d': 'Adult workout space facing the lake, between the Roger Dumas hall and the active mobility track.',
+    'feat.play.t': "Children's playground",
+    'feat.play.d': 'Major new playground inaugurated summer 2025, plus a dedicated toddler area.',
+    'feat.petanque.t': 'Pétanque courts',
+    'feat.petanque.d': 'Several free-access courts. Bring your own boules.',
+    'feat.pontoon.t': 'Observation pontoon',
+    'feat.pontoon.d': 'A wooden walkway over the lake, installed in 2024: ideal for watching the water.',
+    'feat.jardins.t': 'Gardens Park',
+    'feat.jardins.d': 'The Gardens Park of Haute-Savoie and the national collection of Asian flowering cherry trees — spectacular in bloom (March-April).',
+    'feat.camper.t': 'Camper-van area',
+    'feat.camper.d': 'Currently 22 spots, with a 23rd being added. Direct walking access to the lake and the Chalet.',
+    'feat.bike.t': 'Electric bike rental',
+    'feat.bike.d': 'On-site rental — perfect for reaching Annecy via the green way (La Belle Via).',
+    'feat.parking.t': 'Free parking',
+    'feat.parking.d': 'Large parking area redesigned late 2025, EV charging stations, bus parking. Access set back from the roundabout for safety.',
+    'feat.picnic.t': 'Picnic tables',
+    'feat.picnic.d': 'Multiple tables around the lake, relaxation furniture all around since 2024.',
+
+    'domaine.visit.title': 'Plan your visit',
+    'visit.walk.title': 'The lake loop',
+    'visit.walk.desc': 'Family loop all the way around the lake, flat, stabilised. Stroller and wheelchair accessible. Allow half an hour at a relaxed pace with the kids, a bit longer if you stop at the pontoon.',
+    'visit.stat1.n': '~2 km',
+    'visit.stat1.l': 'Distance',
+    'visit.stat2.n': '30 min',
+    'visit.stat2.l': 'Duration',
+    'visit.stat3.n': '0 m',
+    'visit.stat3.l': 'Elevation',
+    'visit.walk.note': 'Green level · very easy · pets welcome on a leash',
+    'visit.prac.title': 'Practical info',
+    'visit.prac.1': 'Free access, all year round',
+    'visit.prac.2': 'Free on-site parking',
+    'visit.prac.3': 'Public toilets',
+    'visit.prac.4': 'Pets welcome',
+    'visit.prac.5': 'EV charging station',
+    'visit.prac.6': 'Fishing: permit required (Balme Pêche Loisirs)',
+
+    'dev.eyebrow': 'The events esplanade',
+    'dev.title': 'The Estate comes alive',
+    'dev.desc': 'In early 2026, the municipality completed a central esplanade dedicated to large events. Throughout the year, the Estate hosts the gatherings that make the village.',
+    'dev.1': 'Lake festival',
+    'dev.2': 'Vintage car meet',
+    'dev.3': 'Family day',
+    'dev.4': 'Young farmers day',
+    'dev.5': 'And local council events',
+    'sources.label': 'Learn more:',
+    'sources.1': 'Development project (Town Hall)',
+    'sources.2': 'Lake Annecy Tourism Office',
+    'sources.3': "Alter'Alpa Tourism",
+
+    // Groupes
+    'groupes.tag': 'Events & groups',
+    'groupes.title': 'A meal for many, an occasion to celebrate',
+    'groupes.desc': "For your events, we offer group menus and the option to privatise part of the restaurant. Write to us with your date, party size and ideas — we'll come back with a tailored proposal.",
+
+    // Hours
+    'hours.tag': 'Useful',
+    'hours.title': 'Hours & Access',
+    'hours.heading': 'Opening hours',
+    'hours.pill': 'Bar · Kitchen',
+    'hours.note': '* and beyond — last drink 00:15',
+
+    'location.title': 'Access',
+    'location.perk_1': 'Free parking on the estate',
+    'location.perk_2': 'Lakeside',
+    'location.perk_3': 'Playground, pumptrack a few steps away',
+    'location.perk_4': 'Lake loop accessible by stroller / wheelchair',
+    'map.link': '📌 View on Google Maps →',
+
+    // Contact
+    'contact.tag': 'Reach us',
+    'contact.title': 'Contact us',
+    'contact.hint': '← Swipe →',
+    'contact.phone': 'Phone',
+    'contact.phone.desc': 'Direct booking',
+    'contact.email': 'Email',
+    'contact.email.desc': 'Groups & quotes',
+    'contact.social': 'Social',
+    'contact.social.desc': 'Events & daily menu',
+
+    // FAQ
+    'faq.tag': 'Questions',
+    'faq.title': 'Frequently asked questions',
+
+    // Footer
+    'footer.tagline': 'Official site · Direct booking · No fees',
+    'footer.domaine': 'The Estate',
+    'footer.groups': 'Groups',
+    'footer.contact': 'Contact',
+    'footer.cadeaux': '🎁 Gift cards',
+    'footer.privacy': 'Privacy',
+    'footer.legal': 'Legal',
+    'footer.copyright': '© 2026 bleu-canard édition, Edmaster & Claudius, all rights reserved',
+
+    // Modal
+    'modal.intro.title': 'Welcome to the Chalet du Tornet',
+    'modal.intro.desc': 'Restaurant · bar · terrace by the lake of La Balme-de-Sillingy, at the heart of the Domaine du Tornet. Savoyard cuisine, local produce, charcuterie from Maison Baud, artisanal ice cream.',
+    'modal.cadeaux.title': 'Give the Chalet du Tornet',
+    'modal.cadeaux.intro': 'A gift card for a birthday, a thank you, or simply to bring joy. Valid for the whole restaurant for 12 months.',
+    'cadeaux.30': 'An aperitif · a sharing board · a moment by the lake',
+    'cadeaux.50': 'A real meal for two · starter, main and a glass of wine',
+    'cadeaux.100': 'A complete moment · family menu · lakeside terrace',
+    'cadeaux.label.duo': 'Duo',
+    'cadeaux.label.popular': 'Most gifted',
+    'cadeaux.label.family': 'Family',
+    'cadeaux.custom': 'Another amount? Ask us — we create the gift card to your idea.',
+    'cadeaux.cta.email': 'Order by email',
+    'cadeaux.fine': 'Delivered in person at the restaurant or by email within 24h. Valid 12 months.',
+    'modal.close': 'Close & explore the site',
+    'modal.domaine.desc': '7 hectares of lake, a walking loop, a playground, a 280 m pumptrack, a fitness area, pétanque courts, a lakeside pontoon, and the Gardens Park of Haute-Savoie with its national collection of Asian flowering cherry trees — spectacular in bloom.'
+  },
+
+  // German and Italian: empty for now. The switcher will mark these as muted
+  // until real translations are filled in. Add them the same way as 'en' above.
+  de: {},
+  it: {}
+};
 
 // ── INTRO MODAL ──
 (function(){
@@ -1617,6 +2049,14 @@ Le Chalet est posé au cœur de ce poumon vert.  <a href="#domaine" style="color
     // (e.g., from a CTA button). Wire close handlers though.
     m.addEventListener('click', function(e){ if (e.target === m) window.closeEventModal(); });
     document.addEventListener('keydown', function(e){ if (e.key === 'Escape') window.closeEventModal(); });
+
+    // Floating CTAs: when data-float-kind="modal", clicking opens this modal.
+    document.querySelectorAll('[data-float-kind="modal"]').forEach(function(btn){
+      btn.addEventListener('click', function(e){
+        e.preventDefault();
+        window.openEventsModal();
+      });
+    });
   }
 
   if (document.readyState === 'loading') {
