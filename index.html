@@ -264,10 +264,30 @@ nav{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-conte
 
 .btn-reserve-fancy:hover{transform:translateY(-3px) scale(1.02);animation-play-state:paused}
 
-/* Floating sticky variant — already round/pill in original CSS, just inherit theatrics */
-.float-fancy{position:relative}
-.float-fancy .float-cutlery{width:14px;height:14px}
-.float-fancy .btn-shimmer{border-radius:inherit}
+/* Floating sticky variant — tighter, contained */
+.float-fancy{position:relative;overflow:hidden}
+.float-fancy .float-cutlery{width:14px;height:14px;flex-shrink:0}
+.float-fancy .btn-shimmer{border-radius:inherit;inset:0}
+.float-fancy .btn-sparkles{inset:0;overflow:hidden;border-radius:inherit}
+.float-fancy .btn-sparkles i{width:3px;height:3px}
+.float-fancy .btn-label-wrap{overflow:visible}
+/* Smaller wiggle on sticky so cutlery doesn't escape */
+.float-fancy .cutlery-fork{animation:cutleryWiggleForkSmall 9s ease-in-out infinite}
+.float-fancy .cutlery-knife{animation:cutleryWiggleKnifeSmall 9s ease-in-out infinite}
+@keyframes cutleryWiggleForkSmall{
+  0%,86%,100%{transform:translateX(0) rotate(0deg)}
+  88%{transform:rotate(-6deg)}
+  92%{transform:rotate(-4deg)}
+  94%{transform:rotate(0deg)}
+}
+@keyframes cutleryWiggleKnifeSmall{
+  0%,86%,100%{transform:translateX(0) rotate(0deg)}
+  88%{transform:rotate(6deg)}
+  92%{transform:rotate(4deg)}
+  94%{transform:rotate(0deg)}
+}
+.float-fancy:hover .cutlery-fork{transform:rotate(-10deg)}
+.float-fancy:hover .cutlery-knife{transform:rotate(10deg)}
 
 /* press feedback */
 .btn-reserve-fancy:active{transform:translateY(0) scale(0.98);transition:transform 0.08s}
@@ -690,7 +710,7 @@ footer .links a:hover{color:var(--gold)}
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 2v9M11 2v9c0 2-1 3-2 3s-2-1-2-3M9 14v8"/></svg>
         </span>
         <span class="btn-label-wrap">
-          <span class="btn-label-main"><span data-cms="cta.reserve">Réserver</span> · <span id="heroPhone" data-cms="brand.phone">04 38 80 22 51</span></span>
+          <span class="btn-label-main"><span class="reserve-text">Réserver</span> · <span id="heroPhone" data-cms="brand.phone">04 38 80 22 51</span></span>
           <span class="btn-shimmer" aria-hidden="true"></span>
           <span class="btn-sparkles" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></span>
         </span>
@@ -1385,7 +1405,7 @@ Le Chalet est posé au cœur de ce poumon vert.  <a href="#domaine" style="color
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 2v9M11 2v9c0 2-1 3-2 3s-2-1-2-3M9 14v8"/></svg>
   </span>
   <span class="btn-label-wrap">
-    <span data-cms="cta.reserve">Réserver</span>
+    <span class="reserve-text">Réserver</span>
     <span class="btn-shimmer" aria-hidden="true"></span>
     <span class="btn-sparkles" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></span>
   </span>
