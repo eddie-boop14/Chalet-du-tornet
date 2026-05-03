@@ -2354,6 +2354,41 @@ window.TORNET_I18N = {
   // Also re-run when admin adds/removes items
   window.addEventListener('tornet:list-changed', recount);
 })();
+
+// ── RESERVE LABEL LOCK ──────────────────────────────────────────────
+// Belt-and-suspenders: force the "Réserver" label on hero & sticky buttons
+// no matter what the CMS hydration injects. Runs on load AND after CMS apply.
+(function(){
+  function forceReserveLabels(){
+    document.querySelectorAll('.reserve-text').forEach(function(el){
+      if (el.textContent.trim() !== 'Réserver') el.textContent = 'Réserver';
+    });
+    // Defensive: nuke any orphan "Appeler" text node inside the fancy buttons
+    document.querySelectorAll('.btn-reserve-fancy').forEach(function(btn){
+      btn.childNodes.forEach(function(n){
+        if (n.nodeType === 3 && /Appeler/.test(n.textContent)) n.textContent = '';
+      });
+      btn.querySelectorAll('span,div').forEach(function(s){
+        if (!s.classList.contains('reserve-text') &&
+            !s.classList.contains('btn-shimmer') &&
+            !s.classList.contains('btn-sparkles') &&
+            !s.classList.contains('cutlery') &&
+            !s.classList.contains('btn-label-wrap') &&
+            !s.classList.contains('btn-label-main') &&
+            s.id !== 'heroPhone' &&
+            /^Appeler$/i.test(s.textContent.trim())) {
+          s.remove();
+        }
+      });
+    });
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', forceReserveLabels);
+  } else {
+    forceReserveLabels();
+  }
+  window.addEventListener('tornet:content-applied', forceReserveLabels);
+})();
 </script>
 
 </body>
