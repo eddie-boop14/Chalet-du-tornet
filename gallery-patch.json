@@ -1,0 +1,68 @@
+[
+  {
+    "url": "feat-table-fleurs-1600.webp",
+    "alt_fr": "Table fleurie au bord du lac",
+    "order": 10,
+    "active": true
+  },
+  {
+    "url": "feat-table-lac-1600.webp",
+    "alt_fr": "Table dressée face au lac",
+    "order": 20,
+    "active": true
+  },
+  {
+    "url": "feat-terrasse-lac-1600.webp",
+    "alt_fr": "Tables de la terrasse face au lac",
+    "order": 30,
+    "active": true
+  },
+  {
+    "url": "feat-aire-jeux-1600.webp",
+    "alt_fr": "Terrasse côté aire de jeux",
+    "order": 40,
+    "active": true
+  },
+  {
+    "url": "feat-interieur-1600.webp",
+    "alt_fr": "Bar — Bienvenue au Chalet du Tornet",
+    "order": 50,
+    "active": true
+  },
+  {
+    "url": "feat-salle-etage-1600.webp",
+    "alt_fr": "Salle à l'étage",
+    "order": 60,
+    "active": true
+  },
+  {
+    "url": "feat-terrasse-entree-1600.webp",
+    "alt_fr": "Terrasse côté entrée",
+    "order": 70,
+    "active": true
+  },
+  {
+    "url": "feat-entree-1600.webp",
+    "alt_fr": "Entrée du Chalet du Tornet — 161 route de Paris",
+    "order": 80,
+    "active": true
+  },
+  {
+    "url": "lac-fontaine.jpg",
+    "alt_fr": "Le lac du Tornet et son jet d'eau",
+    "order": 90,
+    "active": true
+  },
+  {
+    "url": "lac-montagne.jpg",
+    "alt_fr": "Le lac du Tornet et la montagne",
+    "order": 100,
+    "active": true
+  },
+  {
+    "url": "hero-terrasse.jpg",
+    "alt_fr": "Table dressée en terrasse, lumière d'automne",
+    "order": 110,
+    "active": true
+  }
+]
