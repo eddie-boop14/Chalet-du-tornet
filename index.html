@@ -991,12 +991,6 @@ Le Chalet est posé au cœur de ce poumon vert.  <a href="#domaine" style="color
     </div>
     <div class="gallery-img">
       <picture>
-        <source type="image/avif" srcset="feat-table-lac-1600.avif">
-        <img src="feat-table-lac-1600.webp" alt="Table dressée face au lac" loading="lazy" width="1079" height="1105" decoding="async">
-      </picture>
-    </div>
-    <div class="gallery-img">
-      <picture>
         <source type="image/avif" srcset="feat-terrasse-lac-1600.avif">
         <img src="feat-terrasse-lac-1600.webp" alt="Terrasse côté lac" loading="lazy" width="2250" height="3000" decoding="async">
       </picture>
@@ -1017,12 +1011,6 @@ Le Chalet est posé au cœur de ce poumon vert.  <a href="#domaine" style="color
       <picture>
         <source type="image/avif" srcset="feat-salle-etage-1600.avif">
         <img src="feat-salle-etage-1600.webp" alt="Salle à l'étage" loading="lazy" width="2250" height="3000" decoding="async">
-      </picture>
-    </div>
-    <div class="gallery-img">
-      <picture>
-        <source type="image/avif" srcset="feat-terrasse-entree-1600.avif">
-        <img src="feat-terrasse-entree-1600.webp" alt="Terrasse côté entrée" loading="lazy" width="2250" height="3000" decoding="async">
       </picture>
     </div>
     <div class="gallery-img">
@@ -1983,7 +1971,8 @@ Le Chalet est posé au cœur de ce poumon vert.  <a href="#domaine" style="color
     if (data.features)     { applyFeatures(data.features); if (data.features.announcement) showAnnouncement(data.features.announcement); }
     if (data.menu)         renderMenu(data.menu);
     if (data.reviews)      renderReviews(data.reviews);
-    if (data.gallery)      renderGallery(data.gallery);
+    // Gallery is hardcoded in static markup — CMS override disabled by request.
+    // if (data.gallery)      renderGallery(data.gallery);
     if (data.faq)          renderFaq(data.faq);
     if (data.surroundings) renderSurroundings(data.surroundings);
     if (data.floats)       applyFloats(data.floats);
@@ -2683,18 +2672,18 @@ window.TORNET_I18N = {
   // To re-edit: open https://geojson.io, drag pins to correct positions, and update the lat/lng below.
   var LAKE_CENTER = [45.968, 6.0325];
   var pins = [
-    { id:'restaurant', kind:'restaurant', title:'Chalet du Tornet', desc:'Restaurant · Bar · Terrasse face au lac', img:'feat-table-fleurs-1600.webp', lat:45.96991898553179, lng:6.0328690621630585, tag:'Vous êtes ici' },
-    { id:'lac',       kind:'feature', title:'Le lac (7 ha)',          desc:'Lac aménagé, tour à pied, pêche (permis obligatoire).',                          img:'feat-table-lac-1600.webp',         lat:45.96773925876718, lng:6.0332051513750855 },
+    { id:'restaurant', kind:'restaurant', title:'Chalet du Tornet', desc:'Restaurant · Bar · Terrasse face au lac', img:'hero-terrasse.jpg', lat:45.96991898553179, lng:6.0328690621630585, tag:'Vous êtes ici' },
+    { id:'lac',       kind:'feature', title:'Le lac (7 ha)',          desc:'Lac aménagé, tour à pied, pêche (permis obligatoire).',                          img:'',                     lat:45.96773925876718, lng:6.0332051513750855 },
     { id:'pumptrack', kind:'feature', title:'Pumptrack (280 m)',      desc:'VTT, BMX, skate, rollers, draisienne, trottinette.',                              img:'feat-pumptrack.jpg',   lat:45.96503443632659, lng:6.0357849067611085, tag:'2023' },
     { id:'workout',   kind:'feature', title:'Street workout',         desc:'Structures musculation, gymnastique, freestyle.',                                  img:'feat-workout.jpg',     lat:45.96740381723211, lng:6.0316223948154 },
     { id:'fitness',   kind:'feature', title:'Aire de fitness',        desc:'Espace adulte face au lac.',                                                       img:'feat-fitness.jpg',     lat:45.968768299189946, lng:6.031442442634102 },
-    { id:'aire-jeux', kind:'feature', title:'Aire de jeux enfants',   desc:'Inaugurée été 2025 + aire petite enfance.',                                        img:'feat-aire-jeux-1600.webp',   lat:45.9699766658116, lng:6.032286874020258, tag:'Nouveau 2025' },
-    { id:'plage',     kind:'feature', title:'Plage / Ponton',         desc:'Ponton sur le lac, accès libre.',                                                  img:'feat-terrasse-lac-1600.webp',      lat:45.96878599863706, lng:6.032749734725684 },
+    { id:'aire-jeux', kind:'feature', title:'Aire de jeux enfants',   desc:'Inaugurée été 2025 + aire petite enfance.',                                        img:'feat-aire-jeux.jpg',   lat:45.9699766658116, lng:6.032286874020258, tag:'Nouveau 2025' },
+    { id:'plage',     kind:'feature', title:'Plage / Ponton',         desc:'Ponton sur le lac, accès libre.',                                                  img:'',                     lat:45.96878599863706, lng:6.032749734725684 },
     { id:'petanque',  kind:'feature', title:'Pétanque',                desc:'Terrains ombragés, accès libre.',                                                  img:'feat-petanque.jpg',    lat:45.96987047603989, lng:6.031786499895958 },
     { id:'jardins',   kind:'feature', title:'Parc des Jardins',       desc:'Collection nationale de cerisiers à fleurs d\'Asie.',                              img:'feat-jardins.jpg',     lat:45.97054909116912, lng:6.032152677654182 },
-    { id:'voie-verte',kind:'feature', title:'Voie verte',              desc:'Liaison cyclable vers Annecy via la Belle Via.',                                  img:'feat-velos.jpg',  lat:45.97120, lng:6.02950 },
+    { id:'voie-verte',kind:'feature', title:'Voie verte',              desc:'Liaison cyclable vers Annecy via la Belle Via.',                                  img:'feat-velos.jpg',       lat:45.97120, lng:6.02950 },
     { id:'parking',   kind:'feature', title:'Parking gratuit',        desc:'Accès direct depuis la Route de Paris. PMR.',                                      img:'feat-parking.jpg',     lat:45.971237130995064, lng:6.031937334271305 },
-    { id:'camping',   kind:'feature', title:'Aire camping-car',       desc:'Aire dédiée sur le Domaine.',                                                       img:'feat-camping-car.jpg',     lat:45.971127621026056, lng:6.031403037523972 },
+    { id:'camping',   kind:'feature', title:'Aire camping-car',       desc:'Aire dédiée sur le Domaine.',                                                       img:'feat-camping-car.jpg', lat:45.971127621026056, lng:6.031403037523972 },
     { id:'pique-nique',kind:'feature',title:'Aire de pique-nique',    desc:'Tables et bancs en bord de lac.',                                                   img:'feat-pique-nique.jpg', lat:45.966365829188675, lng:6.031871584583087 }
   ];
 
