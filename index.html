@@ -197,6 +197,91 @@ nav{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-conte
 .hero-btns{display:flex;gap:1rem;flex-wrap:wrap;justify-content:center}
 .btn-primary{background:var(--gold);color:var(--white);border:none;padding:1rem 2.25rem;border-radius:var(--r);font-family:'DM Sans',sans-serif;font-weight:700;font-size:0.95rem;cursor:pointer;transition:all 0.25s;text-decoration:none;display:inline-flex;align-items:center;gap:0.5rem;box-shadow:0 4px 20px rgba(201,145,58,0.35)}
 .btn-primary:hover{background:#b8812e;transform:translateY(-2px);box-shadow:0 8px 28px rgba(201,145,58,0.45)}
+
+/* ═══ FANCY RESERVE BUTTON — full theatrics ═══ */
+.btn-reserve-fancy{position:relative;overflow:visible;isolation:isolate;animation:fancyIdleGlow 3.2s ease-in-out infinite;will-change:transform,box-shadow}
+.btn-reserve-fancy .btn-label-wrap{position:relative;display:inline-flex;align-items:center;gap:0.5rem;overflow:visible}
+.btn-reserve-fancy .cutlery{display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;color:#fff;transition:transform 0.5s cubic-bezier(0.34,1.56,0.64,1)}
+.btn-reserve-fancy .cutlery svg{width:100%;height:100%}
+.btn-reserve-fancy .cutlery-fork{transform-origin:right center}
+.btn-reserve-fancy .cutlery-knife{transform-origin:left center}
+.btn-reserve-fancy:hover .cutlery-fork{transform:translateX(-3px) rotate(-12deg)}
+.btn-reserve-fancy:hover .cutlery-knife{transform:translateX(3px) rotate(12deg)}
+
+/* idle wiggle every ~9s — fork & knife twitch like they want attention */
+.btn-reserve-fancy .cutlery-fork{animation:cutleryWiggleFork 9s ease-in-out infinite}
+.btn-reserve-fancy .cutlery-knife{animation:cutleryWiggleKnife 9s ease-in-out infinite}
+@keyframes cutleryWiggleFork{
+  0%,86%,100%{transform:translateX(0) rotate(0deg)}
+  88%{transform:translateX(-2px) rotate(-8deg)}
+  90%{transform:translateX(0) rotate(4deg)}
+  92%{transform:translateX(-2px) rotate(-6deg)}
+  94%{transform:translateX(0) rotate(0deg)}
+}
+@keyframes cutleryWiggleKnife{
+  0%,86%,100%{transform:translateX(0) rotate(0deg)}
+  88%{transform:translateX(2px) rotate(8deg)}
+  90%{transform:translateX(0) rotate(-4deg)}
+  92%{transform:translateX(2px) rotate(6deg)}
+  94%{transform:translateX(0) rotate(0deg)}
+}
+
+/* idle gold glow pulse */
+@keyframes fancyIdleGlow{
+  0%,100%{box-shadow:0 4px 20px rgba(201,145,58,0.35)}
+  50%{box-shadow:0 6px 30px rgba(201,145,58,0.6),0 0 0 4px rgba(201,145,58,0.08)}
+}
+
+/* shimmer sweep on hover */
+.btn-reserve-fancy .btn-shimmer{position:absolute;inset:-1rem -2rem;background:linear-gradient(110deg,transparent 30%,rgba(255,255,255,0.45) 45%,rgba(255,255,255,0.7) 50%,rgba(255,255,255,0.45) 55%,transparent 70%);transform:translateX(-150%) skewX(-20deg);pointer-events:none;z-index:0}
+.btn-reserve-fancy:hover .btn-shimmer{animation:shimmerSweep 0.85s ease-out forwards}
+@keyframes shimmerSweep{
+  0%{transform:translateX(-150%) skewX(-20deg)}
+  100%{transform:translateX(150%) skewX(-20deg)}
+}
+
+/* sparkles — small dots that pop out on hover and on a 12s idle cycle */
+.btn-reserve-fancy .btn-sparkles{position:absolute;inset:-12px;pointer-events:none;z-index:2}
+.btn-reserve-fancy .btn-sparkles i{position:absolute;width:5px;height:5px;background:radial-gradient(circle,#fff 0%,#ffe7a8 40%,transparent 70%);border-radius:50%;opacity:0;filter:drop-shadow(0 0 4px rgba(255,231,168,0.9))}
+.btn-reserve-fancy .btn-sparkles i:nth-child(1){top:5%;left:15%;animation:sparklePop 1.6s ease-out infinite;animation-delay:0s}
+.btn-reserve-fancy .btn-sparkles i:nth-child(2){top:75%;left:8%;animation:sparklePop 1.6s ease-out infinite;animation-delay:0.25s}
+.btn-reserve-fancy .btn-sparkles i:nth-child(3){top:15%;left:55%;animation:sparklePop 1.6s ease-out infinite;animation-delay:0.5s}
+.btn-reserve-fancy .btn-sparkles i:nth-child(4){top:85%;left:65%;animation:sparklePop 1.6s ease-out infinite;animation-delay:0.75s}
+.btn-reserve-fancy .btn-sparkles i:nth-child(5){top:30%;left:90%;animation:sparklePop 1.6s ease-out infinite;animation-delay:1s}
+.btn-reserve-fancy .btn-sparkles i:nth-child(6){top:60%;left:38%;animation:sparklePop 1.6s ease-out infinite;animation-delay:1.25s}
+.btn-reserve-fancy .btn-sparkles{animation:sparklesShown 12s ease-in-out infinite;animation-delay:2s}
+@keyframes sparklesShown{
+  0%,80%,100%{opacity:0}
+  85%,95%{opacity:1}
+}
+.btn-reserve-fancy:hover .btn-sparkles{animation:none;opacity:1}
+@keyframes sparklePop{
+  0%{transform:scale(0) translateY(0);opacity:0}
+  20%{transform:scale(1.3) translateY(-6px);opacity:1}
+  60%{transform:scale(0.6) translateY(-12px);opacity:0.7}
+  100%{transform:scale(0) translateY(-18px);opacity:0}
+}
+
+.btn-reserve-fancy:hover{transform:translateY(-3px) scale(1.02);animation-play-state:paused}
+
+/* Floating sticky variant — already round/pill in original CSS, just inherit theatrics */
+.float-fancy{position:relative}
+.float-fancy .float-cutlery{width:14px;height:14px}
+.float-fancy .btn-shimmer{border-radius:inherit}
+
+/* press feedback */
+.btn-reserve-fancy:active{transform:translateY(0) scale(0.98);transition:transform 0.08s}
+
+/* Reduced motion: kill all the animations gracefully */
+@media (prefers-reduced-motion: reduce){
+  .btn-reserve-fancy,
+  .btn-reserve-fancy .cutlery-fork,
+  .btn-reserve-fancy .cutlery-knife,
+  .btn-reserve-fancy .btn-sparkles,
+  .btn-reserve-fancy .btn-sparkles i,
+  .btn-reserve-fancy:hover .btn-shimmer{animation:none!important}
+  .btn-reserve-fancy .btn-sparkles{display:none}
+}
 .btn-outline{background:transparent;color:var(--white);border:1.5px solid rgba(255,255,255,0.6);padding:0.75rem 1.75rem;border-radius:50px;font-family:'DM Sans',sans-serif;font-weight:600;font-size:0.9rem;cursor:pointer;transition:all 0.25s;text-decoration:none;display:inline-flex;align-items:center;gap:0.5rem}
 .btn-outline:hover{background:rgba(255,255,255,0.12);border-color:var(--white)}
 .btn-primary .lucide,.btn-outline .lucide{width:16px;height:16px}
@@ -600,7 +685,19 @@ footer .links a:hover{color:var(--gold)}
       <span class="hero-pill"><svg class="lucide" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 22 13 3l9 17H2z"/><path d="M12 15l2 3"/></svg> <span data-cms="hero.pill.domaine">Au cœur du Domaine</span></span>
     </div>
     <div class="hero-btns">
-      <a href="tel:+33438802251" class="btn-primary" id="heroCallBtn" data-cms-attr="brand.phone_tel"><svg class="lucide" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg><span><span data-cms="cta.call">Réservation</span> · <span id="heroPhone" data-cms="brand.phone">04 38 80 22 51</span></span></a>
+      <a href="tel:+33438802251" class="btn-primary btn-reserve-fancy" id="heroCallBtn" data-cms-attr="brand.phone_tel">
+        <span class="cutlery cutlery-fork" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 2v9M11 2v9c0 2-1 3-2 3s-2-1-2-3M9 14v8"/></svg>
+        </span>
+        <span class="btn-label-wrap">
+          <span class="btn-label-main"><span data-cms="cta.reserve">Réserver</span> · <span id="heroPhone" data-cms="brand.phone">04 38 80 22 51</span></span>
+          <span class="btn-shimmer" aria-hidden="true"></span>
+          <span class="btn-sparkles" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></span>
+        </span>
+        <span class="cutlery cutlery-knife" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2c0 4-2 7-2 11s2 4 2 4M14 17v5"/></svg>
+        </span>
+      </a>
       <a href="#menu" class="btn-outline"><svg class="lucide" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11v3a1 1 0 0 0 1 1h16a1 1 0 0 0 1-1v-3"/><path d="M12 19v3"/><path d="M4 10h16"/><path d="M8 10V5a4 4 0 0 1 8 0v5"/></svg><span data-cms="cta.menu">Voir la carte</span></a>
     </div>
     <div class="hero-socials">
@@ -1283,9 +1380,18 @@ Le Chalet est posé au cœur de ce poumon vert.  <a href="#domaine" style="color
 </footer>
 
 <!-- Floating CTAs -->
-<a href="tel:+33438802251" id="floatingReserveBtn" aria-label="Appeler" data-cms-attr="brand.phone_tel" data-float-kind="call" data-float-slot="1">
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
-  <span data-cms="cta.call">Appeler</span>
+<a href="tel:+33438802251" id="floatingReserveBtn" class="btn-reserve-fancy float-fancy" aria-label="Réserver" data-cms-attr="brand.phone_tel" data-float-kind="call" data-float-slot="1">
+  <span class="cutlery cutlery-fork float-cutlery" aria-hidden="true">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 2v9M11 2v9c0 2-1 3-2 3s-2-1-2-3M9 14v8"/></svg>
+  </span>
+  <span class="btn-label-wrap">
+    <span data-cms="cta.reserve">Réserver</span>
+    <span class="btn-shimmer" aria-hidden="true"></span>
+    <span class="btn-sparkles" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></span>
+  </span>
+  <span class="cutlery cutlery-knife float-cutlery" aria-hidden="true">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2c0 4-2 7-2 11s2 4 2 4M14 17v5"/></svg>
+  </span>
 </a>
 <a href="#domaine" id="floatingEventsBtn" aria-label="Le Domaine" data-float-kind="scroll" data-float-slot="2">
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
