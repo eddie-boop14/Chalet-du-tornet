@@ -2356,38 +2356,80 @@ window.TORNET_I18N = {
 })();
 
 // ── RESERVE LABEL LOCK ──────────────────────────────────────────────
-// Belt-and-suspenders: force the "Réserver" label on hero & sticky buttons
-// no matter what the CMS hydration injects. Runs on load AND after CMS apply.
+// Hammer approach: anything inside .btn-reserve-fancy that contains
+// "Appeler" gets stripped. Runs on load, after CMS, and via MutationObserver
+// so it catches late injections too.
 (function(){
-  function forceReserveLabels(){
-    document.querySelectorAll('.reserve-text').forEach(function(el){
-      if (el.textContent.trim() !== 'Réserver') el.textContent = 'Réserver';
+  function purgeAppeler(root){
+    if (!root) return;
+    // Walk all text nodes, blank any "Appeler"
+    var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, null);
+    var n;
+    while ((n = walker.nextNode())) {
+      if (/Appeler/i.test(n.nodeValue)) {
+        n.nodeValue = n.nodeValue.replace(/Appeler/gi, '').trim();
+      }
+    }
+    // Remove any element whose ENTIRE textContent is just "Appeler" (and has no other meaningful children)
+    root.querySelectorAll('*').forEach(function(el){
+      if (el.classList.contains('reserve-text')) return;
+      if (el.classList.contains('btn-label-wrap')) return;
+      if (el.classList.contains('btn-label-main')) return;
+      var t = (el.textContent || '').trim();
+      if (/^Appeler$/i.test(t)) el.remove();
     });
-    // Defensive: nuke any orphan "Appeler" text node inside the fancy buttons
-    document.querySelectorAll('.btn-reserve-fancy').forEach(function(btn){
-      btn.childNodes.forEach(function(n){
-        if (n.nodeType === 3 && /Appeler/.test(n.textContent)) n.textContent = '';
-      });
-      btn.querySelectorAll('span,div').forEach(function(s){
-        if (!s.classList.contains('reserve-text') &&
-            !s.classList.contains('btn-shimmer') &&
-            !s.classList.contains('btn-sparkles') &&
-            !s.classList.contains('cutlery') &&
-            !s.classList.contains('btn-label-wrap') &&
-            !s.classList.contains('btn-label-main') &&
-            s.id !== 'heroPhone' &&
-            /^Appeler$/i.test(s.textContent.trim())) {
-          s.remove();
+    // Ensure .reserve-text exists and says Réserver
+    var rt = root.querySelector('.reserve-text');
+    if (rt && rt.textContent.trim() !== 'Réserver') rt.textContent = 'Réserver';
+  }
+
+  function lockAll(){
+    document.querySelectorAll('.btn-reserve-fancy').forEach(purgeAppeler);
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', lockAll);
+  } else {
+    lockAll();
+  }
+  window.addEventListener('tornet:content-applied', lockAll);
+  window.addEventListener('tornet:list-changed', lockAll);
+
+  // MutationObserver — catches anything that injects/changes text inside the buttons
+  // after our cleanup pass.
+  if (window.MutationObserver) {
+    var mo = new MutationObserver(function(mutations){
+      var needsRerun = false;
+      mutations.forEach(function(m){
+        var target = m.target;
+        // Walk up to find if mutation is inside a fancy button
+        var node = target.nodeType === 1 ? target : target.parentElement;
+        while (node) {
+          if (node.classList && node.classList.contains('btn-reserve-fancy')) {
+            needsRerun = true;
+            break;
+          }
+          node = node.parentElement;
         }
       });
+      if (needsRerun) lockAll();
     });
+    if (document.body) {
+      mo.observe(document.body, { childList:true, subtree:true, characterData:true });
+    } else {
+      document.addEventListener('DOMContentLoaded', function(){
+        mo.observe(document.body, { childList:true, subtree:true, characterData:true });
+      });
+    }
   }
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', forceReserveLabels);
-  } else {
-    forceReserveLabels();
-  }
-  window.addEventListener('tornet:content-applied', forceReserveLabels);
+
+  // Expose a debug helper so you can paste in console:
+  // tornetDebugReserveBtn() — shows the inner HTML of both buttons
+  window.tornetDebugReserveBtn = function(){
+    document.querySelectorAll('.btn-reserve-fancy').forEach(function(b, i){
+      console.log('[BUTTON '+i+'] outerHTML:\n' + b.outerHTML);
+    });
+  };
 })();
 </script>
 
