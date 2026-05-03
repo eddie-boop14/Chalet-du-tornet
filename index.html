@@ -2612,6 +2612,9 @@ window.TORNET_I18N = {
   } else {
     update();
   }
+  setInterval(update, 60000); // refresh every minute
+})();
+
 // ── DOMAINE INTERACTIVE MAP ────────────────────────────────────────
 // Leaflet + Esri World Imagery satellite tiles. Free, no API key.
 // Lazy-loaded: only fetches Leaflet JS once the map scrolls into view.
