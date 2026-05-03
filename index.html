@@ -2622,23 +2622,23 @@ window.TORNET_I18N = {
   var mapEl = document.getElementById('domaineMap');
   if (!mapEl) return;
 
-  // Pin data — 1 restaurant (lat/lng confirmed) + 12 features around the lake.
-  // Feature coordinates are APPROXIMATE. Drag in admin (or hand-tune) once verified.
-  var LAKE_CENTER = [45.970952, 6.032109];
+  // Pin data — coordinates set by hand from the actual Domaine satellite view (geojson.io).
+  // To re-edit: open https://geojson.io, drag pins to correct positions, and update the lat/lng below.
+  var LAKE_CENTER = [45.968, 6.0325];
   var pins = [
-    { id:'restaurant', kind:'restaurant', title:'Chalet du Tornet', desc:'Restaurant · Bar · Terrasse face au lac', img:'hero-terrasse.jpg', lat:45.970952, lng:6.032109, tag:'Vous êtes ici' },
-    { id:'lac',       kind:'feature', title:'Le lac (7 ha)',          desc:'Lac aménagé, tour à pied, pêche (permis obligatoire).',                          img:'feat-lac.jpg',         lat:45.97160, lng:6.03150 },
-    { id:'pumptrack', kind:'feature', title:'Pumptrack (280 m)',      desc:'VTT, BMX, skate, rollers, draisienne, trottinette.',                              img:'feat-pumptrack.jpg',   lat:45.97050, lng:6.03330, tag:'2023' },
-    { id:'workout',   kind:'feature', title:'Street workout',         desc:'Structures musculation, gymnastique, freestyle.',                                  img:'feat-workout.jpg',     lat:45.97020, lng:6.03250 },
-    { id:'fitness',   kind:'feature', title:'Aire de fitness',        desc:'Espace adulte face au lac.',                                                       img:'feat-fitness.jpg',     lat:45.97080, lng:6.03060 },
-    { id:'aire-jeux', kind:'feature', title:'Aire de jeux enfants',   desc:'Inaugurée été 2025 + aire petite enfance.',                                        img:'feat-aire-jeux.jpg',   lat:45.97000, lng:6.03190, tag:'Nouveau 2025' },
-    { id:'plage',     kind:'feature', title:'Plage / Ponton',         desc:'Ponton sur le lac, accès libre.',                                                  img:'feat-ponton.jpg',      lat:45.97180, lng:6.03220 },
-    { id:'petanque',  kind:'feature', title:'Pétanque',                desc:'Terrains ombragés, accès libre.',                                                  img:'feat-petanque.jpg',    lat:45.96970, lng:6.03100 },
-    { id:'jardins',   kind:'feature', title:'Parc des Jardins',       desc:'Collection nationale de cerisiers à fleurs d\'Asie.',                              img:'feat-jardins.jpg',     lat:45.97200, lng:6.03060 },
+    { id:'restaurant', kind:'restaurant', title:'Chalet du Tornet', desc:'Restaurant · Bar · Terrasse face au lac', img:'hero-terrasse.jpg', lat:45.96991898553179, lng:6.0328690621630585, tag:'Vous êtes ici' },
+    { id:'lac',       kind:'feature', title:'Le lac (7 ha)',          desc:'Lac aménagé, tour à pied, pêche (permis obligatoire).',                          img:'feat-lac.jpg',         lat:45.96773925876718, lng:6.0332051513750855 },
+    { id:'pumptrack', kind:'feature', title:'Pumptrack (280 m)',      desc:'VTT, BMX, skate, rollers, draisienne, trottinette.',                              img:'feat-pumptrack.jpg',   lat:45.96503443632659, lng:6.0357849067611085, tag:'2023' },
+    { id:'workout',   kind:'feature', title:'Street workout',         desc:'Structures musculation, gymnastique, freestyle.',                                  img:'feat-workout.jpg',     lat:45.96740381723211, lng:6.0316223948154 },
+    { id:'fitness',   kind:'feature', title:'Aire de fitness',        desc:'Espace adulte face au lac.',                                                       img:'feat-fitness.jpg',     lat:45.968768299189946, lng:6.031442442634102 },
+    { id:'aire-jeux', kind:'feature', title:'Aire de jeux enfants',   desc:'Inaugurée été 2025 + aire petite enfance.',                                        img:'feat-aire-jeux.jpg',   lat:45.9699766658116, lng:6.032286874020258, tag:'Nouveau 2025' },
+    { id:'plage',     kind:'feature', title:'Plage / Ponton',         desc:'Ponton sur le lac, accès libre.',                                                  img:'feat-ponton.jpg',      lat:45.96878599863706, lng:6.032749734725684 },
+    { id:'petanque',  kind:'feature', title:'Pétanque',                desc:'Terrains ombragés, accès libre.',                                                  img:'feat-petanque.jpg',    lat:45.96987047603989, lng:6.031786499895958 },
+    { id:'jardins',   kind:'feature', title:'Parc des Jardins',       desc:'Collection nationale de cerisiers à fleurs d\'Asie.',                              img:'feat-jardins.jpg',     lat:45.97054909116912, lng:6.032152677654182 },
     { id:'voie-verte',kind:'feature', title:'Voie verte',              desc:'Liaison cyclable vers Annecy via la Belle Via.',                                  img:'feat-voie-verte.jpg',  lat:45.97120, lng:6.02950 },
-    { id:'parking',   kind:'feature', title:'Parking gratuit',        desc:'Accès direct depuis la Route de Paris. PMR.',                                      img:'feat-parking.jpg',     lat:45.97050, lng:6.03430 },
-    { id:'camping',   kind:'feature', title:'Aire camping-car',       desc:'Aire dédiée sur le Domaine.',                                                       img:'feat-camping.jpg',     lat:45.96920, lng:6.03340 },
-    { id:'pique-nique',kind:'feature',title:'Aire de pique-nique',    desc:'Tables et bancs en bord de lac.',                                                   img:'feat-pique-nique.jpg', lat:45.97140, lng:6.03280 }
+    { id:'parking',   kind:'feature', title:'Parking gratuit',        desc:'Accès direct depuis la Route de Paris. PMR.',                                      img:'feat-parking.jpg',     lat:45.971237130995064, lng:6.031937334271305 },
+    { id:'camping',   kind:'feature', title:'Aire camping-car',       desc:'Aire dédiée sur le Domaine.',                                                       img:'feat-camping.jpg',     lat:45.971127621026056, lng:6.031403037523972 },
+    { id:'pique-nique',kind:'feature',title:'Aire de pique-nique',    desc:'Tables et bancs en bord de lac.',                                                   img:'feat-pique-nique.jpg', lat:45.966365829188675, lng:6.031871584583087 }
   ];
 
   function loadLeaflet(cb){
@@ -2655,9 +2655,7 @@ window.TORNET_I18N = {
   function initMap(){
     var L = window.L;
     var map = L.map(mapEl, {
-      center: LAKE_CENTER,
-      zoom: 17,
-      minZoom: 15,
+      minZoom: 14,
       maxZoom: 19,
       scrollWheelZoom: false, // don't hijack page scroll
       zoomControl: true,
@@ -2669,7 +2667,9 @@ window.TORNET_I18N = {
       maxZoom: 19
     }).addTo(map);
 
+    var bounds = [];
     pins.forEach(function(p){
+      bounds.push([p.lat, p.lng]);
       var html = '<div class="dm-pin dm-pin-' + p.kind + '" aria-label="' + p.title + '">' +
         (p.kind === 'restaurant' ? '\u2605' : '') + '</div>';
       var icon = L.divIcon({
@@ -2689,6 +2689,9 @@ window.TORNET_I18N = {
       '</div>';
       marker.bindPopup(popupHtml, { maxWidth: 240, closeButton: true });
     });
+
+    // Auto-frame all pins with a little padding
+    map.fitBounds(bounds, { padding: [40, 40], maxZoom: 18 });
 
     // Re-enable scroll-wheel zoom only after user clicks the map
     map.on('click', function(){ map.scrollWheelZoom.enable(); });
