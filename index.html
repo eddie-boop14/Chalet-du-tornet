@@ -422,10 +422,292 @@ section{padding:5rem 2rem}
 .accordion-head{background:var(--green);color:var(--white);padding:1.1rem 1.5rem;cursor:pointer;display:flex;justify-content:space-between;align-items:center;font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:600;transition:background 0.2s;user-select:none;border:none;width:100%;text-align:left}
 .accordion-head:hover{background:var(--green2)}
 .accordion-head .accordion-meta{font-family:'DM Sans',sans-serif;font-size:0.66rem;color:rgba(255,255,255,0.7);letter-spacing:1.5px;text-transform:uppercase;font-weight:500;margin-left:auto;margin-right:1rem}
-.accordion-toggle{font-size:1.4rem;transition:transform 0.3s;flex-shrink:0;color:var(--gold-pale)}
+.accordion-toggle{font-size:1.4rem;transition:transform 0.45s cubic-bezier(.22,1,.36,1);flex-shrink:0;color:var(--gold-pale)}
 .accordion.open .accordion-toggle{transform:rotate(45deg)}
-.accordion-body{display:none;padding:1.5rem;background:var(--cream)}
-.accordion.open .accordion-body{display:block;animation:slideDown 0.25s ease}
+
+/* GEM 1 — height animation via grid-rows trick (no JS for the height itself).
+   Inner wrapper ".accordion-inner" is injected by tiny boot script at runtime
+   so this works for both static markup and CMS-rendered accordions. */
+.accordion-body{display:grid;grid-template-rows:0fr;transition:grid-template-rows 420ms cubic-bezier(.22,1,.36,1);background:var(--cream)}
+.accordion-body > .accordion-inner{overflow:hidden;min-height:0;padding:1.5rem}
+.accordion.open .accordion-body{grid-template-rows:1fr}
+
+/* GEM 2 — staggered card reveal when category opens */
+.accordion-body .menu-card,
+.accordion-body .formule-card{
+  opacity:0;
+  transform:translateY(14px);
+  transition:opacity 520ms cubic-bezier(.22,1,.36,1), transform 520ms cubic-bezier(.22,1,.36,1);
+}
+.accordion.open .accordion-body .menu-card,
+.accordion.open .accordion-body .formule-card{opacity:1;transform:translateY(0)}
+.accordion.open .accordion-body .menu-card:nth-child(1){transition-delay:120ms}
+.accordion.open .accordion-body .menu-card:nth-child(2){transition-delay:170ms}
+.accordion.open .accordion-body .menu-card:nth-child(3){transition-delay:220ms}
+.accordion.open .accordion-body .menu-card:nth-child(4){transition-delay:270ms}
+.accordion.open .accordion-body .menu-card:nth-child(5){transition-delay:310ms}
+.accordion.open .accordion-body .menu-card:nth-child(6){transition-delay:340ms}
+.accordion.open .accordion-body .menu-card:nth-child(7){transition-delay:370ms}
+.accordion.open .accordion-body .menu-card:nth-child(n+8){transition-delay:400ms}
+
+/* GEM 3 — Sliding text reveal (line-aware).
+   Two modes auto-selected at runtime:
+   - Per-word: for short single-line phrases (hero H1). Each word lands separately.
+   - Per-line: for wrapping phrases (H1-sub, section H2s). Each visual line slides
+     up as a unit. Cleanly handles long French phrases without breaking layout. */
+.reveal-words{display:inline}
+.reveal-words .rw{
+  display:inline-block;
+  overflow:hidden;
+  vertical-align:top;
+  line-height:inherit;
+  padding-top:.06em;
+  padding-bottom:.12em;
+  margin-top:-.06em;
+  margin-bottom:-.12em;
+}
+.reveal-words .rw > i{
+  display:inline-block;font-style:inherit;font-weight:inherit;
+  transform:translateY(115%);
+  transition:transform 900ms cubic-bezier(.22,1,.36,1);
+  transition-delay:var(--d,0ms);
+  will-change:transform;
+}
+.reveal-words.is-in .rw > i{transform:translateY(0)}
+
+/* Per-line variant — used for multi-line text. The whole line is a clip mask. */
+.reveal-lines{display:block}
+.reveal-lines .rl{
+  display:block;
+  overflow:hidden;
+  line-height:inherit;
+  padding-top:.06em;
+  padding-bottom:.12em;
+  margin-top:-.06em;
+  margin-bottom:-.12em;
+}
+.reveal-lines .rl > i{
+  display:block;font-style:inherit;font-weight:inherit;
+  transform:translateY(115%);
+  transition:transform 1000ms cubic-bezier(.22,1,.36,1);
+  transition-delay:var(--d,0ms);
+  will-change:transform;
+}
+.reveal-lines.is-in .rl > i{transform:translateY(0)}
+
+/* HERO declutter — hide secondary pills + social buttons on mobile so the
+   hero fits in a single screen on phones. Desktop keeps the rich version. */
+@media (max-width: 720px){
+  .hero-pill-secondary{display:none}
+  .hero-socials{display:none}
+}
+
+/* GEM 5 — Per-category textures on accordion headers.
+   Subtle, cinematic — 1-2 particles every couple seconds, soft blur.
+   Pure CSS animations on absolutely-positioned <i> elements layered behind
+   the title. Particles run only while the head is VISIBLE in viewport
+   (controlled by IntersectionObserver adding/removing .tex-on), so 7
+   categories can animate without any perf cost when offscreen.
+   Reduced-motion = layer hidden entirely. */
+.accordion-head{position:relative;overflow:hidden}
+.tex-layer{
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  overflow:hidden;
+  z-index:0;
+  opacity:0;
+  transition:opacity 600ms ease;
+  filter:blur(0.4px);
+}
+.accordion-head.tex-on .tex-layer{opacity:1}
+.accordion-head > span{position:relative;z-index:1}
+.tex-layer i{
+  position:absolute;
+  display:block;
+  pointer-events:none;
+  animation-play-state:paused;
+}
+.accordion-head.tex-on .tex-layer i{animation-play-state:running}
+
+/* —— BUBBLES (Formules Midi) —— champagne rising in the green bar */
+.tex-bubbles i{
+  bottom:-6px;
+  width:5px;height:5px;border-radius:50%;
+  background:radial-gradient(circle at 30% 30%, rgba(255,255,255,.85), rgba(255,255,255,.35) 60%, transparent 70%);
+  animation:texBubble 7s ease-in infinite;
+}
+.tex-bubbles i:nth-child(1){left:8%;  width:4px;height:4px; animation-delay:0s;    animation-duration:6.5s}
+.tex-bubbles i:nth-child(2){left:24%; width:6px;height:6px; animation-delay:1.6s;  animation-duration:8s}
+.tex-bubbles i:nth-child(3){left:42%; width:3px;height:3px; animation-delay:3.2s;  animation-duration:5.8s}
+.tex-bubbles i:nth-child(4){left:62%; width:5px;height:5px; animation-delay:4.5s;  animation-duration:7.2s}
+.tex-bubbles i:nth-child(5){left:80%; width:4px;height:4px; animation-delay:2.4s;  animation-duration:6.8s}
+.tex-bubbles i:nth-child(6){left:91%; width:3px;height:3px; animation-delay:5.5s;  animation-duration:6s}
+@keyframes texBubble{
+  0%   {transform:translateY(0) scale(.6); opacity:0}
+  15%  {opacity:.55}
+  60%  {opacity:.45}
+  100% {transform:translateY(-72px) scale(1); opacity:0}
+}
+
+/* —— STEAM (Plats) —— soft warm wisps drifting up */
+.tex-steam i{
+  bottom:-12px;
+  width:36px;height:36px;border-radius:50%;
+  background:radial-gradient(circle, rgba(255,240,210,.32) 0%, rgba(255,240,210,.14) 40%, transparent 70%);
+  filter:blur(2px);
+  animation:texSteam 9s ease-out infinite;
+}
+.tex-steam i:nth-child(1){left:14%; animation-delay:0s;   animation-duration:8s}
+.tex-steam i:nth-child(2){left:38%; animation-delay:2.6s; animation-duration:9.5s}
+.tex-steam i:nth-child(3){left:62%; animation-delay:4.8s; animation-duration:8.5s}
+.tex-steam i:nth-child(4){left:84%; animation-delay:1.4s; animation-duration:9s}
+@keyframes texSteam{
+  0%   {transform:translateY(0) translateX(0) scale(.7); opacity:0}
+  20%  {opacity:.55}
+  60%  {opacity:.35; transform:translateY(-30px) translateX(6px) scale(1.1)}
+  100% {transform:translateY(-66px) translateX(-4px) scale(1.4); opacity:0}
+}
+
+/* —— DOTS (Menu Enfant) —— playful colored dots floating */
+.tex-dots i{
+  width:5px;height:5px;border-radius:50%;
+  animation:texDots 6s ease-in-out infinite;
+}
+.tex-dots i:nth-child(1){left:10%; top:30%;  background:#f0c987; animation-delay:0s;   animation-duration:5.5s}
+.tex-dots i:nth-child(2){left:28%; top:65%;  background:#d97757; animation-delay:1.5s; animation-duration:6s}
+.tex-dots i:nth-child(3){left:48%; top:25%;  background:#9bb88a; animation-delay:2.8s; animation-duration:5.8s}
+.tex-dots i:nth-child(4){left:66%; top:60%;  background:#e8b4d4; animation-delay:0.8s; animation-duration:6.4s}
+.tex-dots i:nth-child(5){left:84%; top:35%;  background:#f0c987; animation-delay:3.6s; animation-duration:5.2s}
+@keyframes texDots{
+  0%,100% {transform:translateY(0)   scale(.85); opacity:0}
+  20%     {opacity:.85}
+  50%     {transform:translateY(-7px) scale(1.05)}
+  80%     {opacity:.7}
+}
+
+/* —— SUGAR DUST (Desserts Maison) —— powdered sugar falling slowly */
+.tex-sugar i{
+  top:-4px;
+  width:3px;height:3px;border-radius:50%;
+  background:rgba(255,255,255,.9);
+  box-shadow:0 0 4px rgba(255,255,255,.6);
+  animation:texSugar 8s linear infinite;
+}
+.tex-sugar i:nth-child(1){left:12%; animation-delay:0s;    animation-duration:7s;   width:2px;height:2px}
+.tex-sugar i:nth-child(2){left:30%; animation-delay:2.2s;  animation-duration:9s}
+.tex-sugar i:nth-child(3){left:48%; animation-delay:4.4s;  animation-duration:7.5s; width:2px;height:2px}
+.tex-sugar i:nth-child(4){left:64%; animation-delay:1.3s;  animation-duration:8.5s}
+.tex-sugar i:nth-child(5){left:82%; animation-delay:5.5s;  animation-duration:7.8s; width:2px;height:2px}
+.tex-sugar i:nth-child(6){left:92%; animation-delay:3.7s;  animation-duration:9.2s}
+@keyframes texSugar{
+  0%   {transform:translateY(0)    translateX(0)  rotate(0); opacity:0}
+  10%  {opacity:.7}
+  90%  {opacity:.5}
+  100% {transform:translateY(60px) translateX(-8px) rotate(120deg); opacity:0}
+}
+
+/* —— FROST (Glaces) —— sparse frost sparkles twinkling */
+.tex-frost i{
+  width:4px;height:4px;
+  background:transparent;
+  /* 4-pointed sparkle via two crossed gradients */
+  background-image:
+    linear-gradient(0deg, transparent 45%, rgba(220,240,255,.95) 50%, transparent 55%),
+    linear-gradient(90deg, transparent 45%, rgba(220,240,255,.95) 50%, transparent 55%);
+  animation:texFrost 4s ease-in-out infinite;
+}
+.tex-frost i:nth-child(1){left:14%; top:28%; animation-delay:0s;    width:5px;height:5px}
+.tex-frost i:nth-child(2){left:32%; top:62%; animation-delay:1.1s}
+.tex-frost i:nth-child(3){left:52%; top:32%; animation-delay:2.4s;  width:6px;height:6px}
+.tex-frost i:nth-child(4){left:71%; top:58%; animation-delay:0.7s}
+.tex-frost i:nth-child(5){left:88%; top:35%; animation-delay:3.0s;  width:5px;height:5px}
+@keyframes texFrost{
+  0%,100% {opacity:0;   transform:scale(.4) rotate(0deg)}
+  40%     {opacity:.9;  transform:scale(1)  rotate(45deg)}
+  60%     {opacity:.7;  transform:scale(1.1)rotate(60deg)}
+}
+
+/* —— CRUMBS (Planches à partager) —— warm board crumbs falling slow */
+.tex-crumbs i{
+  top:-3px;
+  width:3px;height:2px;border-radius:1px;
+  background:rgba(220,180,120,.7);
+  animation:texCrumbs 10s linear infinite;
+}
+.tex-crumbs i:nth-child(1){left:18%; animation-delay:0s;    animation-duration:9s}
+.tex-crumbs i:nth-child(2){left:40%; animation-delay:3.5s;  animation-duration:11s}
+.tex-crumbs i:nth-child(3){left:64%; animation-delay:6s;    animation-duration:9.5s}
+.tex-crumbs i:nth-child(4){left:86%; animation-delay:1.8s;  animation-duration:10.5s}
+@keyframes texCrumbs{
+  0%   {transform:translateY(0)    rotate(0);   opacity:0}
+  15%  {opacity:.6}
+  85%  {opacity:.5}
+  100% {transform:translateY(60px) rotate(180deg); opacity:0}
+}
+
+/* —— AROMA (Entrées) —— gentle waves rising, lightest of all */
+.tex-aroma i{
+  bottom:0;
+  width:24px;height:18px;border-radius:50%;
+  background:radial-gradient(ellipse, rgba(240,223,192,.22) 0%, transparent 65%);
+  filter:blur(1px);
+  animation:texAroma 8s ease-in-out infinite;
+}
+.tex-aroma i:nth-child(1){left:22%; animation-delay:0s;   animation-duration:7s}
+.tex-aroma i:nth-child(2){left:54%; animation-delay:3.2s; animation-duration:8.5s}
+.tex-aroma i:nth-child(3){left:78%; animation-delay:5.5s; animation-duration:7.5s}
+@keyframes texAroma{
+  0%,100% {transform:translateY(0) scale(.7);  opacity:0}
+  30%     {opacity:.65}
+  60%     {opacity:.4; transform:translateY(-22px) scale(1.2)}
+  100%    {transform:translateY(-50px) scale(1.5); opacity:0}
+}
+
+@media (prefers-reduced-motion: reduce){
+  .tex-layer{display:none}
+}
+
+/* GEM 4 — Forest separator. Inline SVG silhouette tiled horizontally;
+   background-position-x is updated on scroll for a "trees passing by" effect.
+   The element itself is just an empty styled div placed between sections. */
+.tree-divider{
+  --tree-color: #1f3a26;
+  position:relative;
+  height:54px;
+  width:100%;
+  margin:0;
+  overflow:hidden;
+  pointer-events:none;
+  background-color:transparent;
+  background-repeat:repeat-x;
+  background-position:0 100%;
+  background-size:auto 100%;
+  /* SVG set inline by JS so we can control fill color via --tree-color */
+}
+.tree-divider::before,
+.tree-divider::after{
+  content:"";
+  position:absolute;
+  top:0;bottom:0;width:48px;
+  pointer-events:none;
+}
+.tree-divider::before{left:0;background:linear-gradient(to right,var(--bg,var(--cream)) 0%,transparent 100%)}
+.tree-divider::after{right:0;background:linear-gradient(to left,var(--bg,var(--cream)) 0%,transparent 100%)}
+/* Variants for sections that have non-cream backgrounds */
+.tree-divider.on-green{--tree-color:#f0dfc0;--bg:var(--green)}
+.tree-divider.on-cream{--tree-color:#1f3a26;--bg:var(--cream)}
+.tree-divider.on-white{--tree-color:#1f3a26;--bg:#fff}
+@media (max-width: 720px){
+  .tree-divider{height:38px}
+}
+
+@media (prefers-reduced-motion: reduce){
+  .accordion-body{transition:none}
+  .accordion-body .menu-card,.accordion-body .formule-card{transition:none;opacity:1;transform:none}
+  .reveal-words .rw > i,.reveal-lines .rl > i{transform:none;transition:none}
+  .tree-divider{background-position-x:0 !important}
+}
 .carousel{display:flex;overflow-x:auto;gap:1rem;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;padding-bottom:0.75rem}
 .carousel::-webkit-scrollbar{height:4px}
 .carousel::-webkit-scrollbar-track{background:rgba(59,107,76,0.08);border-radius:4px}
@@ -803,10 +1085,10 @@ footer .links a:hover{color:var(--gold)}
         <span class="hero-pill-dot" aria-hidden="true"></span>
         <span class="hero-pill-status-label">Vérification…</span>
       </span>
-      <span class="hero-pill"><svg class="lucide" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> <span data-cms="hero.pill.lake">Terrasse face au lac</span></span>
-      <span class="hero-pill"><svg class="lucide" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 17V7h4a3 3 0 0 1 0 6H9"/></svg> <span data-cms="hero.pill.parking">Parking gratuit</span></span>
-      <span class="hero-pill"><svg class="lucide" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> <span data-cms="hero.pill.bar">Bar toute la journée</span></span>
-      <span class="hero-pill"><svg class="lucide" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 22 13 3l9 17H2z"/><path d="M12 15l2 3"/></svg> <span data-cms="hero.pill.domaine">Au cœur du Domaine</span></span>
+      <span class="hero-pill hero-pill-secondary"><svg class="lucide" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg> <span data-cms="hero.pill.lake">Terrasse face au lac</span></span>
+      <span class="hero-pill hero-pill-secondary"><svg class="lucide" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 17V7h4a3 3 0 0 1 0 6H9"/></svg> <span data-cms="hero.pill.parking">Parking gratuit</span></span>
+      <span class="hero-pill hero-pill-secondary"><svg class="lucide" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> <span data-cms="hero.pill.bar">Bar toute la journée</span></span>
+      <span class="hero-pill hero-pill-secondary"><svg class="lucide" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 22 13 3l9 17H2z"/><path d="M12 15l2 3"/></svg> <span data-cms="hero.pill.domaine">Au cœur du Domaine</span></span>
     </div>
     <div class="hero-btns">
       <a href="tel:+33438802251" class="btn-primary btn-reserve-fancy" id="heroCallBtn" data-cms-attr="brand.phone_tel">
@@ -2810,6 +3092,439 @@ window.TORNET_I18N = {
     io.observe(el);
   } else {
     fetchWeather();
+  }
+})();
+</script>
+
+<!-- ── GEMS — accordion smooth-open + sliding word reveals ───────── -->
+<script>
+(function(){
+  'use strict';
+
+  var REDUCED = (typeof matchMedia === 'function')
+    && matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* 1. Wrap each .accordion-body's children in a single .accordion-inner
+        so the grid-rows height trick has a single padded child to size. */
+  function wrapAccordions(root){
+    var bodies = (root || document).querySelectorAll('.accordion-body');
+    bodies.forEach(function(body){
+      if (body.firstElementChild && body.firstElementChild.classList.contains('accordion-inner')) return;
+      var inner = document.createElement('div');
+      inner.className = 'accordion-inner';
+      while (body.firstChild) inner.appendChild(body.firstChild);
+      body.appendChild(inner);
+    });
+  }
+
+  /* 2. Build a "reveal-words" structure on a target element.
+        Wraps each whitespace-separated token in <span class="rw"><i>word</i></span>
+        so the inner <i> can slide up from clipped overflow. */
+  function splitWords(el){
+    if (!el || el.dataset.rwReady === '1') return;
+    // Don't break if there are child elements — we only split text nodes.
+    // For the use-cases here (hero h1 inner text, accordion-head <span>),
+    // contents are simple enough to handle by walking direct text.
+    var words = [];
+    var nodes = Array.prototype.slice.call(el.childNodes);
+    var frag = document.createDocumentFragment();
+    nodes.forEach(function(n){
+      if (n.nodeType === 3){ // text
+        var parts = n.nodeValue.split(/(\s+)/);
+        parts.forEach(function(p){
+          if (!p) return;
+          if (/^\s+$/.test(p)){ frag.appendChild(document.createTextNode(' ')); return; }
+          var rw = document.createElement('span');
+          rw.className = 'rw';
+          var inner = document.createElement('i');
+          inner.textContent = p;
+          rw.appendChild(inner);
+          frag.appendChild(rw);
+          words.push(inner);
+        });
+      } else {
+        // keep <br>, <span>, etc. as-is
+        frag.appendChild(n);
+      }
+    });
+    el.innerHTML = '';
+    el.appendChild(frag);
+    el.classList.add('reveal-words');
+    el.dataset.rwReady = '1';
+    // Stagger via per-word --d delay
+    words.forEach(function(w, i){
+      w.style.setProperty('--d', (i * 70) + 'ms');
+    });
+    return words.length;
+  }
+
+  function revealWordsIn(el){
+    if (!el) return;
+    el.classList.add('is-in');
+  }
+
+  /* 2b. Line-aware split. Used for text that wraps onto multiple visual lines.
+        Walks the rendered text via Range.getClientRects() to detect where
+        the browser broke each line, then groups characters into per-line
+        clip masks. Each line slides up as a unit — no per-word brittleness. */
+  function splitLines(el){
+    if (!el || el.dataset.rlReady === '1') return;
+    // Capture the original plain text BEFORE we touch the DOM.
+    var fullText = el.textContent.replace(/\s+/g, ' ').trim();
+    if (!fullText) return;
+
+    // Step 1: temporarily wrap each character in a span so we can measure
+    // its line via getClientRects(). Skip pure whitespace runs (collapse).
+    var probe = document.createDocumentFragment();
+    var charSpans = [];
+    var tokens = fullText.split(/(\s+)/);
+    tokens.forEach(function(tok){
+      if (!tok) return;
+      if (/^\s+$/.test(tok)){
+        probe.appendChild(document.createTextNode(' '));
+      } else {
+        // wrap each non-space token in an inline-block span so we can sample
+        // its bounding-box top to determine which visual line it landed on.
+        var s = document.createElement('span');
+        s.textContent = tok;
+        s.style.display = 'inline-block';
+        probe.appendChild(s);
+        charSpans.push(s);
+        // word boundary — append a real space text node so wrapping works
+        probe.appendChild(document.createTextNode(' '));
+      }
+    });
+    // Save original innerHTML so we can restore on failure
+    var orig = el.innerHTML;
+    el.innerHTML = '';
+    el.appendChild(probe);
+
+    // Group spans by their .offsetTop (rounded to handle subpixel)
+    var lines = [];
+    var lastTop = null, currentLine = null;
+    for (var i = 0; i < charSpans.length; i++){
+      var top = Math.round(charSpans[i].offsetTop);
+      if (top !== lastTop){
+        currentLine = [];
+        lines.push(currentLine);
+        lastTop = top;
+      }
+      currentLine.push(charSpans[i].textContent);
+    }
+
+    if (!lines.length){
+      // measurement failed (e.g. element hidden) — restore and bail
+      el.innerHTML = orig;
+      return;
+    }
+
+    // Step 2: rebuild as per-line clip masks
+    el.innerHTML = '';
+    lines.forEach(function(words, idx){
+      var rl = document.createElement('span');
+      rl.className = 'rl';
+      var inner = document.createElement('i');
+      inner.textContent = words.join(' ');
+      inner.style.setProperty('--d', (idx * 110) + 'ms');
+      rl.appendChild(inner);
+      el.appendChild(rl);
+      // Add a literal space between lines so word-boundary respected on copy
+      if (idx < lines.length - 1) el.appendChild(document.createTextNode(' '));
+    });
+    el.classList.add('reveal-lines');
+    el.dataset.rlReady = '1';
+    return lines.length;
+  }
+
+  function revealLinesIn(el){
+    if (!el) return;
+    el.classList.add('is-in');
+  }
+
+  /* Decide which mode (per-word vs per-line) to use for an element based on
+     whether its rendered text wraps. Short single-line phrases keep the
+     punchier per-word effect; multi-line phrases use clean per-line. */
+  function smartReveal(el){
+    if (!el) return null;
+    // Probe: does it wrap? Compare scrollWidth / lineHeight heuristic.
+    var lh = parseFloat(getComputedStyle(el).lineHeight) || 1.2 * parseFloat(getComputedStyle(el).fontSize);
+    var rect = el.getBoundingClientRect();
+    var isMultiLine = rect.height > lh * 1.4;
+    if (isMultiLine){
+      splitLines(el);
+      return 'lines';
+    } else {
+      splitWords(el);
+      return 'words';
+    }
+  }
+
+  function revealAuto(el){
+    if (!el) return;
+    if (el.classList.contains('reveal-lines')) revealLinesIn(el);
+    else if (el.classList.contains('reveal-words')) revealWordsIn(el);
+  }
+
+  /* 3. Hero: slide-reveal on H1 + H1-sub. H1 ("Chalet du Tornet") is short
+        enough to land per-word; H1-sub may wrap on small screens so it uses
+        smartReveal to pick line mode automatically. */
+  function initHero(){
+    if (REDUCED) return;
+    var h1 = document.querySelector('.hero h1');
+    var h1sub = document.querySelector('.hero .hero-h1-sub'); // nested inside h1
+    // Split H1-sub FIRST so the parent walker leaves it intact.
+    if (h1sub) smartReveal(h1sub);
+    // For H1, only split the text nodes around the h1sub span. Use words mode
+    // (the title "Chalet du Tornet" is always short enough for one line).
+    if (h1) splitWords(h1);
+    requestAnimationFrame(function(){
+      setTimeout(function(){
+        revealAuto(h1);
+        revealAuto(h1sub);
+      }, 180);
+    });
+  }
+
+  /* 3b. Section titles: every <h2> inside a <section class="reveal"> gets
+        the slide-reveal, fired by IntersectionObserver as it scrolls into
+        view. Uses line-aware mode for wrapping titles. */
+  function initSectionTitles(){
+    if (REDUCED) return;
+    var titles = document.querySelectorAll('section h2');
+    if (!titles.length) return;
+    titles.forEach(function(h2){
+      // Skip if already inside a reveal-words/lines wrapper
+      if (h2.classList.contains('reveal-words') || h2.classList.contains('reveal-lines')) return;
+      smartReveal(h2);
+    });
+    if (!('IntersectionObserver' in window)){
+      titles.forEach(revealAuto);
+      return;
+    }
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if (e.isIntersecting){
+          revealAuto(e.target);
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.25, rootMargin: '0px 0px -60px 0px' });
+    titles.forEach(function(h2){ io.observe(h2); });
+  }
+
+  /* 4. Accordion heads: split the title <span> and reveal when the
+        whole #menu section scrolls into view — once. */
+  function initAccordionHeads(){
+    if (REDUCED) return;
+    var heads = document.querySelectorAll('.accordion-head > span:first-child');
+    heads.forEach(splitWords);
+    var menu = document.getElementById('menu');
+    if (!menu) return;
+    if (!('IntersectionObserver' in window)){
+      heads.forEach(function(s){ revealWordsIn(s); });
+      return;
+    }
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if (e.isIntersecting){
+          io.disconnect();
+          heads.forEach(function(s, i){
+            setTimeout(function(){ revealWordsIn(s); }, i * 70);
+          });
+        }
+      });
+    }, { threshold: 0.15 });
+    io.observe(menu);
+  }
+
+  /* 5. Re-run the wrapper after CMS rebuilds the menu (it replaces innerHTML
+        of #menuAccordions). Narrow scope = quiet observer. */
+  function watchForRebuilds(){
+    var box = document.getElementById('menuAccordions');
+    if (!box || !('MutationObserver' in window)) return;
+    var mo = new MutationObserver(function(){
+      wrapAccordions(box);
+      injectAllTextures(box);
+      // Reveal heads on freshly rendered accordions (menu is on screen by now).
+      var heads = box.querySelectorAll('.accordion-head > span:first-child');
+      heads.forEach(function(s){
+        if (s.dataset.rwReady === '1') return;
+        if (REDUCED) return;
+        splitWords(s);
+        revealWordsIn(s);
+      });
+    });
+    mo.observe(box, { childList: true });
+  }
+
+  /* 5b. Per-category texture overlays — bubbles, steam, sugar dust, etc.
+        Inject ONE absolutely-positioned div with N <i> particles into each
+        accordion-head, picked from a name-keyed map. Pure CSS animations,
+        paused when accordion closed (CSS handles pause via .open selector). */
+  // Map keyed by lowercased keyword found in the head title.
+  // Order matters — first match wins.
+  var TEXTURE_MAP = [
+    { match: /formule/i,                        kind: 'bubbles', count: 6 },
+    { match: /planche/i,                        kind: 'crumbs',  count: 4 },
+    { match: /entr[ée]e/i,                      kind: 'aroma',   count: 3 },
+    { match: /plat/i,                           kind: 'steam',   count: 4 },
+    { match: /enfant/i,                         kind: 'dots',    count: 5 },
+    { match: /dessert/i,                        kind: 'sugar',   count: 6 },
+    { match: /glace/i,                          kind: 'frost',   count: 5 }
+  ];
+
+  function pickTexture(label){
+    for (var i = 0; i < TEXTURE_MAP.length; i++){
+      if (TEXTURE_MAP[i].match.test(label)) return TEXTURE_MAP[i];
+    }
+    return null;
+  }
+
+  function injectTexture(head){
+    if (!head || head.dataset.texReady === '1') return;
+    var titleSpan = head.querySelector('span:not([class])') || head.querySelector('span');
+    var label = titleSpan ? titleSpan.textContent : '';
+    var pick = pickTexture(label);
+    if (!pick) return;
+    var layer = document.createElement('span');
+    layer.className = 'tex-layer tex-' + pick.kind;
+    layer.setAttribute('aria-hidden', 'true');
+    for (var i = 0; i < pick.count; i++){
+      layer.appendChild(document.createElement('i'));
+    }
+    // Append AT END so :first-child selectors elsewhere (CMS recount,
+    // accordion-head reveal split) still find the title span correctly.
+    head.appendChild(layer);
+    head.dataset.texReady = '1';
+  }
+
+  function injectAllTextures(root){
+    var heads = (root || document).querySelectorAll('.accordion-head');
+    heads.forEach(injectTexture);
+  }
+
+  /* Toggle .tex-on whenever the head scrolls into / out of view.
+     This means particles only animate while visible — no perf hit when
+     scrolled away. Visibility is what makes the texture feel like
+     ambient atmosphere instead of a "wait for tap" reward. */
+  function watchTextureVisibility(){
+    if (REDUCED) return;
+    if (!('IntersectionObserver' in window)) {
+      // Fallback: just turn them all on
+      document.querySelectorAll('.accordion-head').forEach(function(h){
+        h.classList.add('tex-on');
+      });
+      return;
+    }
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if (e.isIntersecting) e.target.classList.add('tex-on');
+        else                   e.target.classList.remove('tex-on');
+      });
+    }, { rootMargin: '40px' });
+    document.querySelectorAll('.accordion-head').forEach(function(h){ io.observe(h); });
+    // Re-observe after CMS rebuild:
+    var box = document.getElementById('menuAccordions');
+    if (box && 'MutationObserver' in window){
+      var mo = new MutationObserver(function(){
+        box.querySelectorAll('.accordion-head').forEach(function(h){
+          if (h.dataset.texObserved !== '1'){
+            io.observe(h);
+            h.dataset.texObserved = '1';
+          }
+        });
+      });
+      mo.observe(box, { childList: true });
+    }
+  }
+
+  var TREES_PATHS = '<rect x=\"0\" y=\"50\" width=\"360\" height=\"4\"/> <path d=\"M-0.5 50.0 L2.3 47.8 L0.2 45.5 L2.6 43.2 L1.0 41.0 L3.0 38.8 L2.0 36.5 L3.5 34.2 L3.4 32.0 L4.0 32.0 L4.6 32.0 L4.5 34.2 L6.0 36.5 L5.0 38.8 L7.0 41.0 L5.4 43.2 L7.8 45.5 L5.7 47.8 L8.5 50.0 z\"/><path d=\"M9.4 50.0 L13.6 46.8 L10.5 43.5 L14.0 40.2 L11.7 37.0 L14.6 33.8 L13.1 30.5 L15.3 27.2 L15.4 24.0 L16.0 24.0 L16.6 24.0 L16.7 27.2 L18.9 30.5 L17.4 33.8 L20.3 37.0 L18.0 40.2 L21.5 43.5 L18.4 46.8 L22.6 50.0 z\"/><path d=\"M24.5 50.0 L26.7 47.7 L25.2 45.3 L27.1 43.0 L26.2 40.7 L27.5 38.3 L27.4 36.0 L28.0 36.0 L28.6 36.0 L28.5 38.3 L29.8 40.7 L28.9 43.0 L30.8 45.3 L29.3 47.7 L31.5 50.0 z\"/><path d=\"M30.9 50.0 L36.6 46.4 L32.1 42.8 L37.1 39.2 L33.3 35.6 L37.6 32.0 L34.8 28.4 L38.3 24.8 L36.5 21.2 L39.1 17.6 L39.4 14.0 L40.0 14.0 L40.6 14.0 L40.9 17.6 L43.5 21.2 L41.7 24.8 L45.2 28.4 L42.4 32.0 L46.7 35.6 L42.9 39.2 L47.9 42.8 L43.4 46.4 L49.1 50.0 z\"/><path d=\"M48.5 50.0 L52.0 47.2 L49.3 44.5 L52.3 41.8 L50.3 39.0 L52.8 36.2 L51.6 33.5 L53.4 30.8 L53.4 28.0 L54.0 28.0 L54.6 28.0 L54.6 30.8 L56.4 33.5 L55.2 36.2 L57.7 39.0 L55.7 41.8 L58.7 44.5 L56.0 47.2 L59.5 50.0 z\"/><path d=\"M64.0 50.0 L66.6 47.3 L64.8 44.7 L66.9 42.0 L65.9 39.3 L67.5 36.7 L67.4 34.0 L68.0 34.0 L68.6 34.0 L68.5 36.7 L70.1 39.3 L69.1 42.0 L71.2 44.7 L69.4 47.3 L72.0 50.0 z\"/><path d=\"M74.4 50.0 L79.2 47.0 L75.4 44.0 L79.6 41.0 L76.4 38.0 L80.0 35.0 L77.6 32.0 L80.5 29.0 L79.1 26.0 L81.2 23.0 L81.4 20.0 L82.0 20.0 L82.6 20.0 L82.8 23.0 L84.9 26.0 L83.5 29.0 L86.4 32.0 L84.0 35.0 L87.6 38.0 L84.4 41.0 L88.6 44.0 L84.8 47.0 L89.6 50.0 z\"/><path d=\"M91.0 50.0 L92.9 48.0 L91.6 46.0 L93.2 44.0 L92.4 42.0 L93.6 40.0 L93.4 38.0 L94.0 38.0 L94.6 38.0 L94.4 40.0 L95.6 42.0 L94.8 44.0 L96.4 46.0 L95.1 48.0 L97.0 50.0 z\"/><path d=\"M97.9 50.0 L104.2 46.0 L99.2 42.0 L104.8 38.0 L100.6 34.0 L105.4 30.0 L102.2 26.0 L106.1 22.0 L104.2 18.0 L107.0 14.0 L107.4 10.0 L108.0 10.0 L108.6 10.0 L109.0 14.0 L111.8 18.0 L109.9 22.0 L113.8 26.0 L110.6 30.0 L115.4 34.0 L111.2 38.0 L116.8 42.0 L111.8 46.0 L118.1 50.0 z\"/><path d=\"M119.0 50.0 L122.2 47.5 L119.8 45.0 L122.5 42.5 L120.7 40.0 L122.9 37.5 L121.8 35.0 L123.4 32.5 L123.4 30.0 L124.0 30.0 L124.6 30.0 L124.6 32.5 L126.2 35.0 L125.1 37.5 L127.3 40.0 L125.5 42.5 L128.2 45.0 L125.8 47.5 L129.0 50.0 z\"/><path d=\"M130.9 50.0 L135.4 47.2 L131.8 44.4 L135.7 41.6 L132.8 38.8 L136.2 36.0 L133.9 33.2 L136.6 30.4 L135.3 27.6 L137.3 24.8 L137.4 22.0 L138.0 22.0 L138.6 22.0 L138.7 24.8 L140.7 27.6 L139.4 30.4 L142.1 33.2 L139.8 36.0 L143.2 38.8 L140.3 41.6 L144.2 44.4 L140.6 47.2 L145.1 50.0 z\"/><path d=\"M148.5 50.0 L150.7 47.7 L149.2 45.3 L151.1 43.0 L150.2 40.7 L151.5 38.3 L151.4 36.0 L152.0 36.0 L152.6 36.0 L152.5 38.3 L153.8 40.7 L152.9 43.0 L154.8 45.3 L153.3 47.7 L155.5 50.0 z\"/><path d=\"M159.4 50.0 L164.8 46.6 L160.5 43.2 L165.3 39.8 L161.7 36.4 L165.8 33.0 L163.1 29.6 L166.3 26.2 L164.7 22.8 L167.1 19.4 L167.4 16.0 L168.0 16.0 L168.6 16.0 L168.9 19.4 L171.3 22.8 L169.7 26.2 L172.9 29.6 L170.2 33.0 L174.3 36.4 L170.7 39.8 L175.5 43.2 L171.2 46.6 L176.6 50.0 z\"/><path d=\"M176.5 50.0 L180.0 47.2 L177.3 44.5 L180.3 41.8 L178.3 39.0 L180.8 36.2 L179.6 33.5 L181.4 30.8 L181.4 28.0 L182.0 28.0 L182.6 28.0 L182.6 30.8 L184.4 33.5 L183.2 36.2 L185.7 39.0 L183.7 41.8 L186.7 44.5 L184.0 47.2 L187.5 50.0 z\"/><path d=\"M192.0 50.0 L194.6 47.3 L192.8 44.7 L194.9 42.0 L193.9 39.3 L195.5 36.7 L195.4 34.0 L196.0 34.0 L196.6 34.0 L196.5 36.7 L198.1 39.3 L197.1 42.0 L199.2 44.7 L197.4 47.3 L200.0 50.0 z\"/><path d=\"M203.4 50.0 L207.6 46.8 L204.5 43.5 L208.0 40.2 L205.7 37.0 L208.6 33.8 L207.1 30.5 L209.3 27.2 L209.4 24.0 L210.0 24.0 L210.6 24.0 L210.7 27.2 L212.9 30.5 L211.4 33.8 L214.3 37.0 L212.0 40.2 L215.5 43.5 L212.4 46.8 L216.6 50.0 z\"/><path d=\"M214.4 50.0 L220.4 46.2 L215.6 42.4 L220.9 38.6 L217.0 34.8 L221.5 31.0 L218.5 27.2 L222.2 23.4 L220.4 19.6 L223.0 15.8 L223.4 12.0 L224.0 12.0 L224.6 12.0 L225.0 15.8 L227.6 19.6 L225.8 23.4 L229.5 27.2 L226.5 31.0 L231.0 34.8 L227.1 38.6 L232.4 42.4 L227.6 46.2 L233.6 50.0 z\"/><path d=\"M235.5 50.0 L238.3 47.8 L236.2 45.5 L238.6 43.2 L237.0 41.0 L239.0 38.8 L238.0 36.5 L239.5 34.2 L239.4 32.0 L240.0 32.0 L240.6 32.0 L240.5 34.2 L242.0 36.5 L241.0 38.8 L243.0 41.0 L241.4 43.2 L243.8 45.5 L241.7 47.8 L244.5 50.0 z\"/><path d=\"M250.5 50.0 L252.7 47.7 L251.2 45.3 L253.1 43.0 L252.2 40.7 L253.5 38.3 L253.4 36.0 L254.0 36.0 L254.6 36.0 L254.5 38.3 L255.8 40.7 L254.9 43.0 L256.8 45.3 L255.3 47.7 L257.5 50.0 z\"/><path d=\"M260.4 50.0 L265.2 47.0 L261.4 44.0 L265.6 41.0 L262.4 38.0 L266.0 35.0 L263.6 32.0 L266.5 29.0 L265.1 26.0 L267.2 23.0 L267.4 20.0 L268.0 20.0 L268.6 20.0 L268.8 23.0 L270.9 26.0 L269.5 29.0 L272.4 32.0 L270.0 35.0 L273.6 38.0 L270.4 41.0 L274.6 44.0 L270.8 47.0 L275.6 50.0 z\"/><path d=\"M276.5 50.0 L280.0 47.2 L277.3 44.5 L280.3 41.8 L278.3 39.0 L280.8 36.2 L279.6 33.5 L281.4 30.8 L281.4 28.0 L282.0 28.0 L282.6 28.0 L282.6 30.8 L284.4 33.5 L283.2 36.2 L285.7 39.0 L283.7 41.8 L286.7 44.5 L284.0 47.2 L287.5 50.0 z\"/><path d=\"M286.4 50.0 L292.4 46.2 L287.6 42.4 L292.9 38.6 L289.0 34.8 L293.5 31.0 L290.5 27.2 L294.2 23.4 L292.4 19.6 L295.0 15.8 L295.4 12.0 L296.0 12.0 L296.6 12.0 L297.0 15.8 L299.6 19.6 L297.8 23.4 L301.5 27.2 L298.5 31.0 L303.0 34.8 L299.1 38.6 L304.4 42.4 L299.6 46.2 L305.6 50.0 z\"/><path d=\"M307.0 50.0 L310.2 47.5 L307.8 45.0 L310.5 42.5 L308.7 40.0 L310.9 37.5 L309.8 35.0 L311.4 32.5 L311.4 30.0 L312.0 30.0 L312.6 30.0 L312.6 32.5 L314.2 35.0 L313.1 37.5 L315.3 40.0 L313.5 42.5 L316.2 45.0 L313.8 47.5 L317.0 50.0 z\"/><path d=\"M322.0 50.0 L324.6 47.3 L322.8 44.7 L324.9 42.0 L323.9 39.3 L325.5 36.7 L325.4 34.0 L326.0 34.0 L326.6 34.0 L326.5 36.7 L328.1 39.3 L327.1 42.0 L329.2 44.7 L327.4 47.3 L330.0 50.0 z\"/><path d=\"M332.9 50.0 L337.4 47.2 L333.8 44.4 L337.7 41.6 L334.8 38.8 L338.2 36.0 L335.9 33.2 L338.6 30.4 L337.3 27.6 L339.3 24.8 L339.4 22.0 L340.0 22.0 L340.6 22.0 L340.7 24.8 L342.7 27.6 L341.4 30.4 L344.1 33.2 L341.8 36.0 L345.2 38.8 L342.3 41.6 L346.2 44.4 L342.6 47.2 L347.1 50.0 z\"/><path d=\"M351.5 50.0 L354.3 47.8 L352.2 45.5 L354.6 43.2 L353.0 41.0 L355.0 38.8 L354.0 36.5 L355.5 34.2 L355.4 32.0 L356.0 32.0 L356.6 32.0 L356.5 34.2 L358.0 36.5 L357.0 38.8 L359.0 41.0 L357.4 43.2 L359.8 45.5 L357.7 47.8 L360.5 50.0 z\"/>';
+
+  function buildTreeDataUrl(fillColor){
+    var svg = '<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 360 54\" preserveAspectRatio=\"none\">'
+            + '<g fill=\"' + fillColor + '\">' + TREES_PATHS + '</g></svg>';
+    return 'url("data:image/svg+xml;utf8,' + encodeURIComponent(svg) + '")';
+  }
+
+  // Sections to insert dividers AFTER (anchor IDs). Pre-rendered fill color and
+  // background are matched to the section that follows so the strip blends in.
+  // Format: {after: <id>, fill: <tree color>, bg: <strip background>}.
+  var DIVIDER_PLAN = [
+    { after: 'about',   fill: '#1f3a26', bg: 'var(--cream)' },  // before gallery (cream)
+    { after: 'menu',    fill: '#f0dfc0', bg: 'var(--green)'  }, // before bar (green) — gold trees on green
+    { after: 'bar',     fill: '#1f3a26', bg: 'var(--green-mist)' } // before domaine
+  ];
+
+  function insertDividers(){
+    DIVIDER_PLAN.forEach(function(plan){
+      var sec = document.getElementById(plan.after);
+      if (!sec) return;
+      // Don't double-insert if boot is called twice somehow
+      if (sec.nextElementSibling && sec.nextElementSibling.classList && sec.nextElementSibling.classList.contains('tree-divider')) return;
+      var div = document.createElement('div');
+      div.className = 'tree-divider';
+      div.setAttribute('aria-hidden','true');
+      div.style.backgroundColor = plan.bg;
+      div.style.backgroundImage = buildTreeDataUrl(plan.fill);
+      div.style.setProperty('--bg', plan.bg);
+      sec.parentNode.insertBefore(div, sec.nextSibling);
+    });
+  }
+
+  function initTreeScroll(){
+    if (REDUCED) return;
+    var dividers = document.querySelectorAll('.tree-divider');
+    if (!dividers.length) return;
+    // Speed: pixels of tree-shift per pixel of page scroll. 0.18 ≈ trees drift
+    // about one tree-width every ~5 screen heights — gentle, not gimmicky.
+    var SPEED = 0.18;
+    var ticking = false;
+    function update(){
+      ticking = false;
+      var y = window.scrollY || window.pageYOffset || 0;
+      // Negative shift = trees move LEFT as page scrolls DOWN
+      var shift = -(y * SPEED);
+      // Tile width is 360 SVG units rendered at element-height aspect ratio.
+      // Background-position-x in pixels works fine — modulo handled by repeat.
+      var posStr = shift + 'px 100%';
+      for (var i = 0; i < dividers.length; i++){
+        dividers[i].style.backgroundPosition = posStr;
+      }
+    }
+    function onScroll(){
+      if (!ticking){
+        ticking = true;
+        requestAnimationFrame(update);
+      }
+    }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    update(); // initial paint
+  }
+
+  function boot(){
+    wrapAccordions(document);
+    injectAllTextures(document);
+    initHero();
+    initAccordionHeads();
+    watchForRebuilds();
+    insertDividers();
+    initTreeScroll();
+    watchTextureVisibility();
+    // Section H2 line splits depend on accurate text measurement — wait
+    // until web fonts have loaded so getBoundingClientRect reflects the
+    // final layout (otherwise lines may break differently after font swap).
+    if (document.fonts && document.fonts.ready && document.fonts.ready.then){
+      document.fonts.ready.then(initSectionTitles);
+    } else {
+      // Fallback: short delay to let initial fonts apply
+      setTimeout(initSectionTitles, 200);
+    }
+  }
+
+  if (document.readyState === 'loading'){
+    document.addEventListener('DOMContentLoaded', boot);
+  } else {
+    boot();
   }
 })();
 </script>
