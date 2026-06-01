@@ -42,6 +42,11 @@ Hours apply during the open season (February to early November). Confirm by phon
 - À la carte examples: Burger du Tornet €22, duck terrine with foie gras €12
 - Group menus and full-venue privatisation available for events
 
+## Other formats
+
+- [Extended reference](https://chaletdutornet.com/llms-full.txt): full menu, all Domaine features, getting there.
+- Localized briefs (same content, per language): [FR](https://chaletdutornet.com/llms-fr.txt) · [EN](https://chaletdutornet.com/llms-en.txt) · [DE](https://chaletdutornet.com/llms-de.txt) · [IT](https://chaletdutornet.com/llms-it.txt) · [NL](https://chaletdutornet.com/llms-nl.txt) · [ES](https://chaletdutornet.com/llms-es.txt)
+
 ## Legal
 
 - [Mentions légales (legal notice)](https://chaletdutornet.com/mentions-legales.html)

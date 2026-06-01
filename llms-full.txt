@@ -1,0 +1,76 @@
+# Chalet du Tornet — full reference
+
+> Lakeside restaurant, bar and terrace at the heart of the Domaine du Tornet, on the shore of Lake La Balme-de-Sillingy (Haute-Savoie, France) — about 20 minutes from Annecy. Generous traditional and Savoyard cuisine, a bar open all day, and a terrace facing the water. Open February to early November. This file is the extended version of /llms.txt.
+
+## Identity & contact
+
+- Name: Chalet du Tornet (restaurant · bar · terrace)
+- Address: 161 Route de Paris, 74330 La Balme-de-Sillingy, Haute-Savoie, France
+- Coordinates: 45.970952, 6.032109
+- Phone: +33 4 38 80 22 51
+- Email: chaletdutornet74@gmail.com
+- Price range: €€ · Payment: cash and card · Reservations accepted
+- Cuisine: French, Savoyard, traditional — local produce
+- Season: open February to early November
+- Rating: ~4.0 from 600+ reviews
+
+## Language editions
+
+The full site is a standalone page per language; French is the reference and the others are complete translations.
+
+- Français (reference): https://chaletdutornet.com/
+- English: https://chaletdutornet.com/en.html
+- Deutsch: https://chaletdutornet.com/de.html
+- Italiano: https://chaletdutornet.com/it.html
+- Nederlands: https://chaletdutornet.com/nl.html
+- Español: https://chaletdutornet.com/es.html
+
+Localized machine-readable briefs: /llms-fr.txt, /llms-en.txt, /llms-de.txt, /llms-it.txt, /llms-nl.txt, /llms-es.txt
+
+## Opening hours
+
+Bar service and kitchen have separate hours.
+
+- Monday–Wednesday: Bar 09:00–17:00 · Kitchen 11:45–13:45
+- Thursday–Friday: Bar 09:00–23:00 · Kitchen 11:45–13:45 (lunch) and 19:00–21:30 (dinner)
+- Saturday: Bar 09:30–23:00 · Kitchen 11:45–14:45 (lunch) and 19:00–21:30 (dinner)
+- Sunday: Bar 09:30–17:30 · Kitchen 11:45–14:45
+
+Hours apply during the open season (February to early November). Confirm by phone for holidays and private events.
+
+## Food & drink
+
+- Traditional & Savoyard cuisine with local produce: raw-milk raclette, tartiflette, the "Burger du Tornet", MOF butcher's cut, trout from the region, risotto.
+- Daily set menu (menu du jour) from €19.90 · also à la carte.
+- À la carte examples: Burger du Tornet €22 · duck terrine with foie gras €12.
+- Children's menu €13: one drink (cordial/soda/juice) · beef patty, nuggets, ham or trout · fries, vegetables, gratin or tartiflette · a treat.
+- Bar from morning to the last drink: coffees, local spirits, lemonades, and ice cream in the afternoon.
+- Group menus and full-venue privatisation available for events.
+
+## The Domaine du Tornet
+
+The Chalet sits inside the Domaine du Tornet — about 7 hectares of free-access nature owned and managed by the commune of La Balme-de-Sillingy (the Chalet welcomes visitors there but does not own the park). Features:
+
+- The lake (7 ha): private fishing lake managed by the Balme Pêche Loisirs association; permit required.
+- Pumptrack (280 m): three colour-coded lines for MTB, BMX, skate, rollers, balance bikes, scooters.
+- Street workout: structures for strength, gymnastics and freestyle, all levels.
+- Fitness area: adult area facing the lake.
+- Children's playground: major new playground opened summer 2025, plus a dedicated toddler area.
+- Pétanque courts: several, free access (bring your own boules).
+- Observation pontoon: wooden deck over the lake, installed 2024.
+- Parc des Jardins: Gardens of Haute-Savoie park and the national collection of Asian flowering cherry trees — spectacular in bloom (March–April).
+- Camping-car area: 22 pitches (a 23rd being added), direct walking access to the lake and the Chalet.
+- E-bike rental: on site — ideal for reaching Annecy via the "La Belle Via" greenway.
+- Free parking: large car park renewed late 2025, EV charging points, bus parking.
+- Picnic tables and relaxation furniture around the lake.
+
+## Getting there
+
+- ~20 minutes from Annecy · in La Balme-de-Sillingy, Haute-Savoie.
+- Bike access via the greenway (voie verte / La Belle Via).
+- Free parking on site; wheelchair access (PMR).
+
+## Legal
+
+- Mentions légales (legal notice): https://chaletdutornet.com/mentions-legales.html
+- Politique de confidentialité (privacy policy): https://chaletdutornet.com/politique-confidentialite.html
