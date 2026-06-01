@@ -1,2 +1,24 @@
 [build.processing.html]
   pretty_urls = true
+
+# Canonicalize the host so Google indexes a single URL (fixes the http/https +
+# netlify.app duplication seen in Search Console). HTTP -> HTTPS is handled by
+# Netlify's "Force HTTPS" domain setting (enable it in the dashboard); these rules
+# fold the www and *.netlify.app variants into the apex https:// domain.
+[[redirects]]
+  from = "https://www.chaletdutornet.com/*"
+  to = "https://chaletdutornet.com/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "https://chalet-du-tornet.netlify.app/*"
+  to = "https://chaletdutornet.com/:splat"
+  status = 301
+  force = true
+
+[[redirects]]
+  from = "http://chalet-du-tornet.netlify.app/*"
+  to = "https://chaletdutornet.com/:splat"
+  status = 301
+  force = true
