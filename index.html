@@ -21,6 +21,13 @@
 <meta name="twitter:title" content="Chalet du Tornet — Restaurant · Bar · Terrasse">
 <meta name="twitter:description" content="Restaurant chalet en bord de lac à La Balme-de-Sillingy, au cœur du Domaine du Tornet. Cuisine traditionnelle et savoyarde.">
 <link rel="canonical" href="https://chaletdutornet.com/">
+<link rel="alternate" hreflang="fr" href="https://chaletdutornet.com/">
+<link rel="alternate" hreflang="en" href="https://chaletdutornet.com/en.html">
+<link rel="alternate" hreflang="nl" href="https://chaletdutornet.com/nl.html">
+<link rel="alternate" hreflang="de" href="https://chaletdutornet.com/de.html">
+<link rel="alternate" hreflang="it" href="https://chaletdutornet.com/it.html">
+<link rel="alternate" hreflang="es" href="https://chaletdutornet.com/es.html">
+<link rel="alternate" hreflang="x-default" href="https://chaletdutornet.com/">
 <link rel="icon" href="/favicon.ico" sizes="any">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png">
@@ -32,7 +39,6 @@
 <link rel="preload" as="image" href="hero-terrasse.jpg" fetchpriority="high">
 <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=DM+Sans:wght@300;400;500;600;700&display=swap" onload="this.onload=null;this.rel='stylesheet'">
 <noscript><link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet"></noscript>
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
 <title>Chalet du Tornet · Restaurant au bord du Lac de La Balme-de-Sillingy (Annecy)</title>
 
 <script type="application/ld+json">
@@ -103,11 +109,11 @@
   --ink:#0d1a11;
   --green:#3B6B4C;--green2:#2f5740;--green3:#5a8c6a;
   --green-pale:#d8e6dc;--green-mist:#eef3ef;
-  --gold:#c9913a;--gold2:#d4a574;--gold-pale:#f0dfc0;
+  --gold:#946312;--gold2:#d4a574;--gold-pale:#f0dfc0;
   --stars:#fbbf24;
   --cream:#f5f1e8;--cream2:#ede8de;
   --white:#ffffff;
-  --text:#2b3a2e;--muted:#6f7a6f;
+  --text:#2b3a2e;--muted:#626d62;
   --r:6px;
 }
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
@@ -357,7 +363,7 @@ section{padding:5rem 2rem}
 .review-card.intro{background:linear-gradient(135deg,var(--green) 0%,var(--green2) 100%);color:var(--white);border:none;display:flex;flex-direction:column;justify-content:center;align-items:flex-start;gap:0.6rem;padding:1.25rem 1.3rem}
 .review-card.intro .intro-eyebrow{display:inline-flex;align-items:center;gap:0.4rem;font-size:0.65rem;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold-pale);font-weight:600}
 .review-card.intro .intro-eyebrow svg{width:12px;height:12px}
-.review-card.intro h3{font-family:'Cormorant Garamond',serif;color:var(--white);font-size:1.25rem;font-weight:500;line-height:1.2;margin:0}
+.review-card.intro h2{font-family:'Cormorant Garamond',serif;color:var(--white);font-size:1.25rem;font-weight:500;line-height:1.2;margin:0}
 .review-card.intro .intro-score{display:flex;align-items:baseline;gap:0.5rem;padding-top:0.3rem}
 .review-card.intro .intro-score-big{font-size:1.8rem;font-weight:700;color:var(--white);font-family:'Cormorant Garamond',serif;line-height:1}
 .review-card.intro .intro-stars{color:var(--stars);font-size:0.85rem;letter-spacing:1px}
@@ -400,7 +406,7 @@ section{padding:5rem 2rem}
 .highlight-card:hover{transform:translateY(-3px);box-shadow:0 8px 22px rgba(59,107,76,0.12)}
 .highlight-icon{font-size:1.6rem;flex-shrink:0;margin:0;color:var(--green);line-height:1}
 .highlight-icon .lucide{width:1.7rem;height:1.7rem;vertical-align:middle;stroke-width:1.8}
-.highlight-card h4{font-size:0.88rem;color:var(--green);margin-bottom:0.15rem;line-height:1.2}
+.highlight-card h3{font-size:0.88rem;color:var(--green);margin-bottom:0.15rem;line-height:1.2}
 .highlight-card p{color:var(--muted);font-size:0.78rem;margin:0;line-height:1.45}
 @media(max-width:480px){
   .about-highlights .highlight-card{flex:0 0 230px;padding:0.9rem}
@@ -747,7 +753,7 @@ section{padding:5rem 2rem}
 .rhythm-card .rhythm-time{color:var(--gold-pale);font-size:0.68rem;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;display:flex;align-items:center;gap:0.4rem;white-space:nowrap}
 .rhythm-card .rhythm-time .dot{width:6px;height:6px;background:var(--gold);border-radius:50%;flex-shrink:0}
 .rhythm-card .rhythm-body{display:flex;flex-wrap:wrap;align-items:baseline;gap:0.3rem 0.65rem;min-width:0}
-.rhythm-card h4{color:#fff;font-size:1.05rem;margin:0;line-height:1.2;white-space:nowrap}
+.rhythm-card h3{color:#fff;font-size:1.05rem;margin:0;line-height:1.2;white-space:nowrap}
 .rhythm-card p{color:rgba(255,255,255,0.72);font-size:0.8rem;line-height:1.45;margin:0}
 @media(max-width:560px){
   .rhythm-card{grid-template-columns:1fr;gap:0.25rem;padding:0.75rem 0.9rem}
@@ -863,7 +869,7 @@ section{padding:5rem 2rem}
 .contact-card:hover{transform:translateY(-3px);box-shadow:0 10px 28px rgba(59,107,76,0.12)}
 .contact-icon{width:52px;height:52px;border-radius:50%;background:var(--green-pale);color:var(--green);display:flex;align-items:center;justify-content:center;margin:0 auto 1rem}
 .contact-icon svg{width:24px;height:24px}
-.contact-card h4{color:var(--green);margin-bottom:0.2rem;font-size:1.08rem}
+.contact-card h3{color:var(--green);margin-bottom:0.2rem;font-size:1.08rem}
 .contact-card .sub{font-size:0.7rem;color:var(--muted);letter-spacing:1px;text-transform:uppercase;margin-bottom:0.75rem}
 .contact-card a{color:var(--gold);font-weight:600;font-size:0.88rem;display:inline-block;margin-top:0.2rem}
 
@@ -1043,7 +1049,7 @@ footer .links a:hover{color:var(--gold)}
 
 <header>
   <nav>
-    <a href="#" class="logo" id="brand-name"><img src="logo.png" alt="Chalet du Tornet" width="40" height="40" decoding="async">Chalet du <em>Tornet</em></a>
+    <a href="#" class="logo" id="brand-name"><picture><source type="image/webp" srcset="logo.webp"><img src="logo.png" alt="Chalet du Tornet" width="40" height="40" decoding="async"></picture>Chalet du <em>Tornet</em></a>
     <ul class="nav-links" id="navLinks">
       <li><a href="#about" data-cms="nav.about">À Propos</a></li>
       <li><a href="#menu" data-cms="nav.menu">Carte</a></li>
@@ -1055,12 +1061,14 @@ footer .links a:hover{color:var(--gold)}
     </ul>
     <div class="nav-cta">
       <div class="lang-switch" id="lang-switch" role="group" aria-label="Langue">
-        <button type="button" class="lang-btn active" data-lang="fr" aria-pressed="true">FR</button>
-        <button type="button" class="lang-btn" data-lang="en" aria-pressed="false">EN</button>
-        <button type="button" class="lang-btn" data-lang="de" aria-pressed="false">DE</button>
-        <button type="button" class="lang-btn" data-lang="it" aria-pressed="false">IT</button>
+        <a href="/" class="lang-btn active" data-lang="fr" aria-pressed="true" hreflang="fr">FR</a>
+        <a href="/en.html" class="lang-btn" data-lang="en" aria-pressed="false" hreflang="en">EN</a>
+        <a href="/nl.html" class="lang-btn" data-lang="nl" aria-pressed="false" hreflang="nl">NL</a>
+        <a href="/de.html" class="lang-btn" data-lang="de" aria-pressed="false" hreflang="de">DE</a>
+        <a href="/it.html" class="lang-btn" data-lang="it" aria-pressed="false" hreflang="it">IT</a>
+        <a href="/es.html" class="lang-btn" data-lang="es" aria-pressed="false" hreflang="es">ES</a>
       </div>
-      <a href="tel:+33438802251" class="btn-call" id="hdrCall" data-cms-attr="brand.phone_tel">
+      <a href="tel:+33438802251" class="btn-call" id="hdrCall" aria-label="Appeler le Chalet du Tornet" data-cms-attr="brand.phone_tel">
         <svg class="lucide" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" width="14" height="14"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
         <span class="phone-number-header" id="hdrPhone" data-cms="brand.phone">04 38 80 22 51</span>
       </a>
@@ -1132,7 +1140,7 @@ footer .links a:hover{color:var(--gold)}
           <svg viewBox="0 0 24 24" fill="currentColor"><path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/><path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/><path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/><path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/></svg>
           <span data-cms="reviews.eyebrow">Ils en parlent</span>
         </span>
-        <h3 data-cms="reviews.title">Ce que disent nos clients</h3>
+        <h2 class="no-reveal" data-cms="reviews.title">Ce que disent nos clients</h2>
         <div class="intro-score">
           <span class="intro-score-big" data-cms="reviews.rating">4,0</span>
           <div>
@@ -1222,28 +1230,28 @@ footer .links a:hover{color:var(--gold)}
         <div class="highlight-card">
           <span class="highlight-icon"><svg class="lucide" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 2v7c0 1.1.9 2 2 2h1v11a1 1 0 0 0 2 0V11h1c1.1 0 2-.9 2-2V2"/><path d="M7 2v9M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h1v5a1 1 0 0 0 2 0z"/></svg></span>
           <div>
-            <h4 data-cms="highlight.cuisine.title">Cuisine traditionnelle et savoyarde</h4>
+            <h3 data-cms="highlight.cuisine.title">Cuisine traditionnelle et savoyarde</h3>
             <p data-cms="highlight.cuisine.desc"> Raclette au lait cru, tartiflette, Burger du Tornet, pièce du boucher MOF, truite de nos regions, risotto.</p>
           </div>
         </div>
         <div class="highlight-card">
           <span class="highlight-icon"><svg class="lucide" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 2v3M16 2v3M3 9h18M5 4h14a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/></svg></span>
           <div>
-            <h4 data-cms="highlight.bar.title">Bar & terrasse</h4>
+            <h3 data-cms="highlight.bar.title">Bar & terrasse</h3>
             <p data-cms="highlight.bar.desc">Du matin au dernier verre. Cafés, spiritueux locaux, limonades et glaces l'après-midi.</p>
           </div>
         </div>
         <div class="highlight-card">
           <span class="highlight-icon"><svg class="lucide" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10"/><path d="M12 2a15.3 15.3 0 0 0-4 10 15.3 15.3 0 0 0 4 10"/><path d="M2 12h20"/></svg></span>
           <div>
-            <h4 data-cms="highlight.tour.title">Tour du lac</h4>
+            <h3 data-cms="highlight.tour.title">Tour du lac</h3>
             <p data-cms="highlight.tour.desc">Boucle famille ~2 km, plate, accessible en poussette — à sortir juste devant le Chalet.</p>
           </div>
         </div>
         <div class="highlight-card">
           <span class="highlight-icon"><svg class="lucide" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></span>
           <div>
-            <h4 data-cms="highlight.domaine.title">Le Domaine</h4>
+            <h3 data-cms="highlight.domaine.title">Le Domaine</h3>
             <p data-cms="highlight.domaine.desc">7 hectares de nature en accès libre : lac, pumptrack 280 m, aire de jeux flambant neuve, fitness, pétanque, ponton, Parc des Jardins et sa collection de cerisiers d’Asie.  
 Le Chalet est posé au cœur de ce poumon vert.  <a href="#domaine" style="color:var(--gold);font-weight:600;white-space:nowrap">En savoir plus →</a></p>
           </div>
@@ -1267,38 +1275,44 @@ Le Chalet est posé au cœur de ce poumon vert.  <a href="#domaine" style="color
   <div class="gallery-scroll" id="galleryScroll">
     <div class="gallery-img">
       <picture>
-        <source type="image/avif" srcset="feat-table-fleurs-1600.avif">
-        <img src="feat-table-fleurs-1600.webp" alt="Table fleurie au bord du lac" loading="lazy" width="1179" height="1181" decoding="async">
+        <source type="image/avif" sizes="(max-width:700px) 75vw, 360px" srcset="feat-table-fleurs-480.avif 480w, feat-table-fleurs-800.avif 800w, feat-table-fleurs-1200.avif 1200w, feat-table-fleurs-1600.avif 1600w">
+        <source type="image/webp" sizes="(max-width:700px) 75vw, 360px" srcset="feat-table-fleurs-480.webp 480w, feat-table-fleurs-800.webp 800w, feat-table-fleurs-1200.webp 1200w, feat-table-fleurs-1600.webp 1600w">
+        <img src="feat-table-fleurs-800.webp" alt="Table fleurie au bord du lac" loading="lazy" width="1179" height="1181" decoding="async">
       </picture>
     </div>
     <div class="gallery-img">
       <picture>
-        <source type="image/avif" srcset="feat-terrasse-lac-1600.avif">
-        <img src="feat-terrasse-lac-1600.webp" alt="Terrasse côté lac" loading="lazy" width="2250" height="3000" decoding="async">
+        <source type="image/avif" sizes="(max-width:700px) 75vw, 360px" srcset="feat-terrasse-lac-480.avif 480w, feat-terrasse-lac-800.avif 800w, feat-terrasse-lac-1200.avif 1200w, feat-terrasse-lac-1600.avif 1600w">
+        <source type="image/webp" sizes="(max-width:700px) 75vw, 360px" srcset="feat-terrasse-lac-480.webp 480w, feat-terrasse-lac-800.webp 800w, feat-terrasse-lac-1200.webp 1200w, feat-terrasse-lac-1600.webp 1600w">
+        <img src="feat-terrasse-lac-800.webp" alt="Terrasse côté lac" loading="lazy" width="2250" height="3000" decoding="async">
       </picture>
     </div>
     <div class="gallery-img">
       <picture>
-        <source type="image/avif" srcset="feat-aire-jeux-1600.avif">
-        <img src="feat-aire-jeux-1600.webp" alt="Terrasse côté aire de jeux" loading="lazy" width="4000" height="3000" decoding="async">
+        <source type="image/avif" sizes="(max-width:700px) 75vw, 360px" srcset="feat-aire-jeux-480.avif 480w, feat-aire-jeux-800.avif 800w, feat-aire-jeux-1200.avif 1200w, feat-aire-jeux-1600.avif 1600w">
+        <source type="image/webp" sizes="(max-width:700px) 75vw, 360px" srcset="feat-aire-jeux-480.webp 480w, feat-aire-jeux-800.webp 800w, feat-aire-jeux-1200.webp 1200w, feat-aire-jeux-1600.webp 1600w">
+        <img src="feat-aire-jeux-800.webp" alt="Terrasse côté aire de jeux" loading="lazy" width="4000" height="3000" decoding="async">
       </picture>
     </div>
     <div class="gallery-img">
       <picture>
-        <source type="image/avif" srcset="feat-interieur-1600.avif">
-        <img src="feat-interieur-1600.webp" alt="Bar — Bienvenue au Chalet du Tornet" loading="lazy" width="4000" height="3000" decoding="async">
+        <source type="image/avif" sizes="(max-width:700px) 75vw, 360px" srcset="feat-interieur-480.avif 480w, feat-interieur-800.avif 800w, feat-interieur-1200.avif 1200w, feat-interieur-1600.avif 1600w">
+        <source type="image/webp" sizes="(max-width:700px) 75vw, 360px" srcset="feat-interieur-480.webp 480w, feat-interieur-800.webp 800w, feat-interieur-1200.webp 1200w, feat-interieur-1600.webp 1600w">
+        <img src="feat-interieur-800.webp" alt="Bar — Bienvenue au Chalet du Tornet" loading="lazy" width="4000" height="3000" decoding="async">
       </picture>
     </div>
     <div class="gallery-img">
       <picture>
-        <source type="image/avif" srcset="feat-terrasse-entree-1600.avif">
-        <img src="feat-terrasse-entree-1600.webp" alt="Salle à l'étage" loading="lazy" width="2250" height="3000" decoding="async">
+        <source type="image/avif" sizes="(max-width:700px) 75vw, 360px" srcset="feat-terrasse-entree-480.avif 480w, feat-terrasse-entree-800.avif 800w, feat-terrasse-entree-1200.avif 1200w, feat-terrasse-entree-1600.avif 1600w">
+        <source type="image/webp" sizes="(max-width:700px) 75vw, 360px" srcset="feat-terrasse-entree-480.webp 480w, feat-terrasse-entree-800.webp 800w, feat-terrasse-entree-1200.webp 1200w, feat-terrasse-entree-1600.webp 1600w">
+        <img src="feat-terrasse-entree-800.webp" alt="Salle à l'étage" loading="lazy" width="2250" height="3000" decoding="async">
       </picture>
     </div>
     <div class="gallery-img">
       <picture>
-        <source type="image/avif" srcset="feat-entree-1600.avif">
-        <img src="feat-entree-1600.webp" alt="Entrée du Chalet du Tornet" loading="lazy" width="4080" height="3060" decoding="async">
+        <source type="image/avif" sizes="(max-width:700px) 75vw, 360px" srcset="feat-entree-480.avif 480w, feat-entree-800.avif 800w, feat-entree-1200.avif 1200w, feat-entree-1600.avif 1600w">
+        <source type="image/webp" sizes="(max-width:700px) 75vw, 360px" srcset="feat-entree-480.webp 480w, feat-entree-800.webp 800w, feat-entree-1200.webp 1200w, feat-entree-1600.webp 1600w">
+        <img src="feat-entree-800.webp" alt="Entrée du Chalet du Tornet" loading="lazy" width="4080" height="3060" decoding="async">
       </picture>
     </div>
   </div>
@@ -1475,21 +1489,21 @@ Le Chalet est posé au cœur de ce poumon vert.  <a href="#domaine" style="color
       <div class="rhythm-card">
         <div class="rhythm-time"><span class="dot"></span><span data-cms="bar.rhythm.1.time">Matin · 9h</span></div>
         <div class="rhythm-body">
-          <h4 data-cms="bar.rhythm.1.title">Le café du lac</h4>
+          <h3 data-cms="bar.rhythm.1.title">Le café du lac</h3>
           <p data-cms="bar.rhythm.1.desc">Expresso 1,60€, latte, chocolat viennois, thés/verveines.</p>
         </div>
       </div>
       <div class="rhythm-card">
         <div class="rhythm-time"><span class="dot"></span><span data-cms="bar.rhythm.2.time">Après-midi</span></div>
         <div class="rhythm-body">
-          <h4 data-cms="bar.rhythm.2.title">Glaces & limonades</h4>
+          <h3 data-cms="bar.rhythm.2.title">Glaces & limonades</h3>
           <p data-cms="bar.rhythm.2.desc">Coupes signature, sorbets, limonades garçon de café,  diabolos.</p>
         </div>
       </div>
       <div class="rhythm-card">
         <div class="rhythm-time"><span class="dot"></span><span data-cms="bar.rhythm.3.time">Le soir</span></div>
         <div class="rhythm-body">
-          <h4 data-cms="bar.rhythm.3.title">L'apéro au Chalet</h4>
+          <h3 data-cms="bar.rhythm.3.title">L'apéro au Chalet</h3>
           <p data-cms="bar.rhythm.3.desc">Planches à partager, Génépi, Chartreuse verte, Verveine des Aravis, Irish Coffee.</p>
         </div>
       </div>
@@ -1748,19 +1762,19 @@ Le Chalet est posé au cœur de ce poumon vert.  <a href="#domaine" style="color
     <div class="contact-grid">
       <div class="contact-card">
         <div class="contact-icon"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div>
-        <h4 data-cms="contact.phone">Téléphone</h4>
+        <h3 data-cms="contact.phone">Téléphone</h3>
         <div class="sub" data-cms="contact.phone.desc">Réservation directe</div>
         <a href="tel:+33438802251" id="contact-phone" data-cms="brand.phone" data-cms-attr="brand.phone_tel">04 38 80 22 51</a>
       </div>
       <div class="contact-card">
         <div class="contact-icon"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></div>
-        <h4 data-cms="contact.email">Email</h4>
+        <h3 data-cms="contact.email">Email</h3>
         <div class="sub" data-cms="contact.email.desc">Groupes & devis</div>
         <a href="mailto:chaletdutornet74@gmail.com" id="contact-email" data-cms="brand.email" data-cms-attr="brand.email">chaletdutornet74@gmail.com</a>
       </div>
       <div class="contact-card">
         <div class="contact-icon"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg></div>
-        <h4 data-cms="contact.social">Réseaux sociaux</h4>
+        <h3 data-cms="contact.social">Réseaux sociaux</h3>
         <div class="sub" data-cms="contact.social.desc">Événement & Menu du jour</div>
         <a href="https://www.instagram.com/chaletdutornet/" id="contact-ig" target="_blank" rel="noopener" data-cms-attr="social.instagram_url" style="margin-right:0.4rem">Instagram</a>
         <a href="https://www.facebook.com/chaletdutornet" id="contact-fb" target="_blank" rel="noopener" data-cms-attr="social.facebook_url">Facebook</a>
@@ -1885,7 +1899,7 @@ Le Chalet est posé au cœur de ce poumon vert.  <a href="#domaine" style="color
       <div id="intro" class="event-tab-content active">
         <!-- TODO: Swap the <img> below for a <video src="videos/intro.mp4" autoplay muted loop playsinline ...> once you have a clip -->
         <div class="intro-hero-block">
-          <img src="hero-terrasse.jpg" alt="Terrasse du Chalet du Tornet face au lac" id="intro-hero-img" width="1600" height="1067" decoding="async">
+          <img src="hero-terrasse.jpg" alt="Terrasse du Chalet du Tornet face au lac" id="intro-hero-img" width="1179" height="1181" decoding="async">
           <h3 id="modal-title" data-cms="modal.intro.title">Bienvenue au Chalet du Tornet</h3>
           <p data-cms="modal.intro.desc">Restaurant · bar · terrasse au bord du lac de La Balme-de-Sillingy, au cœur du Domaine du Tornet. Cuisine savoyarde, produits locaux, charcuterie Maison Baud, glaces artisanales.</p>
         </div>
@@ -2203,11 +2217,14 @@ Le Chalet est posé au cœur de ce poumon vert.  <a href="#domaine" style="color
       // with AVIF source + WebP fallback. Only references files that actually exist.
       var m = url.match(/^(.*?)-1600\.(avif|webp)$/i);
       if (m) {
-        var base = m[1];
+        var base = _escA(m[1]);
+        var sz = '(max-width:700px) 75vw, 360px';
+        var set = function(ext){ return base+'-480.'+ext+' 480w, '+base+'-800.'+ext+' 800w, '+base+'-1200.'+ext+' 1200w, '+base+'-1600.'+ext+' 1600w'; };
         return '<div class="gallery-img">' +
           '<picture>' +
-            '<source type="image/avif" srcset="' + _escA(base) + '-1600.avif">' +
-            '<img src="' + _escA(base) + '-1600.webp" alt="' + alt + '" loading="lazy" width="1600" height="1067" decoding="async">' +
+            '<source type="image/avif" sizes="' + sz + '" srcset="' + set('avif') + '">' +
+            '<source type="image/webp" sizes="' + sz + '" srcset="' + set('webp') + '">' +
+            '<img src="' + base + '-800.webp" alt="' + alt + '" loading="lazy" width="1600" height="1067" decoding="async">' +
           '</picture>' +
           '</div>';
       }
@@ -2340,123 +2357,33 @@ Le Chalet est posé au cœur de ce poumon vert.  <a href="#domaine" style="color
 
 })();
 
-// ── LANGUAGE SWITCHER (FR / EN / DE / IT) ──────────────────────────
-// Translations for non-FR languages live in window.TORNET_I18N below
-// (or in content.json's i18n.{lang} maps once admin/CMS supplies them).
-// FR is always the source of truth. Missing keys fall back to FR.
+// ── LANGUAGE SWITCHER (FR / EN / NL / DE / IT / ES) ──────────
+// Each language is its own standalone page (/, /en.html, /nl.html,
+// /de.html, /it.html, /es.html) and the switcher links straight to them.
+// This script only drives the mobile dropdown, which collapses to the
+// active language until tapped. No in-page translation happens here.
 (function(){
   'use strict';
-  var LANG_KEY = 'tornet_lang';
-  var FR_SNAPSHOT = null;   // captures the original DOM text once (= FR)
-  var current = 'fr';
-
-  function captureFR(){
-    if (FR_SNAPSHOT) return;
-    FR_SNAPSHOT = {};
-    var sanitize = window.tornetSanitize || function(s){ return s; };
-    var nodes = document.querySelectorAll('[data-cms]');
-    for (var i=0;i<nodes.length;i++){
-      var el = nodes[i];
-      if (el.querySelector('[data-cms]')) continue;
-      var k = el.getAttribute('data-cms');
-      // Sanitize as we capture so a corrupted CMS hydrate doesn't poison
-      // the FR snapshot — otherwise switching FR<->EN<->FR locks in pollution.
-      FR_SNAPSHOT[k] = sanitize(el.innerHTML);
-    }
-  }
-
-  function applyLang(lang){
-    captureFR();
-    var sanitize = window.tornetSanitize || function(s){ return s; };
-    var dict = (window.TORNET_I18N && window.TORNET_I18N[lang]) || null;
-    var nodes = document.querySelectorAll('[data-cms]');
-    for (var i=0;i<nodes.length;i++){
-      var el = nodes[i];
-      if (el.querySelector('[data-cms]')) continue;
-      var k = el.getAttribute('data-cms');
-      var v;
-      if (lang === 'fr' || !dict) {
-        v = FR_SNAPSHOT[k];
-      } else if (Object.prototype.hasOwnProperty.call(dict, k) && dict[k]) {
-        v = dict[k];
-      } else {
-        v = FR_SNAPSHOT[k]; // graceful fallback to FR
-      }
-      if (v == null) continue;
-      var clean = sanitize(v);
-      if (/<[a-z][\s\S]*?>/i.test(clean)) {
-        el.innerHTML = clean;
-      } else {
-        el.textContent = clean;
-      }
-    }
-    document.documentElement.setAttribute('lang', lang);
-    current = lang;
-    try { localStorage.setItem(LANG_KEY, lang); } catch(_){}
-    updateButtons();
-  }
-
-  function updateButtons(){
-    var btns = document.querySelectorAll('#lang-switch .lang-btn');
-    for (var i=0;i<btns.length;i++){
-      var b = btns[i];
-      var l = b.getAttribute('data-lang');
-      var active = (l === current);
-      b.classList.toggle('active', active);
-      b.setAttribute('aria-pressed', active ? 'true' : 'false');
-      // Mark languages with no translations as visually muted
-      var hasTrans = (l === 'fr') || (window.TORNET_I18N && window.TORNET_I18N[l] && Object.keys(window.TORNET_I18N[l]).length > 0);
-      if (!hasTrans) b.setAttribute('data-empty', '1');
-      else           b.removeAttribute('data-empty');
-    }
-  }
-
   function init(){
     var sw = document.getElementById('lang-switch');
     if (!sw) return;
-
-    // Wire clicks
     sw.addEventListener('click', function(e){
       var b = e.target.closest('.lang-btn');
       if (!b) return;
-      var l = b.getAttribute('data-lang');
-      if (b.hasAttribute('data-empty')) {
-        // Mobile: still let "open" the dropdown to show what's there
-        if (sw.classList.contains('open')) { sw.classList.remove('open'); return; }
-        return;
-      }
-      // Mobile dropdown behaviour
-      if (window.matchMedia('(max-width: 600px)').matches) {
-        if (!sw.classList.contains('open')) {
-          sw.classList.add('open');
-          return;
-        }
+      if (!window.matchMedia('(max-width: 600px)').matches) return; // desktop: links navigate
+      if (!sw.classList.contains('open')) {       // first tap expands the switcher
+        e.preventDefault();
+        sw.classList.add('open');
+      } else if (b.classList.contains('active')) { // tapping the current language closes it
+        e.preventDefault();
         sw.classList.remove('open');
-      }
-      applyLang(l);
+      }                                            // tapping another language follows its link
     });
-
-    // Click outside closes mobile dropdown
+    // Click outside closes the mobile dropdown
     document.addEventListener('click', function(e){
       if (!sw.contains(e.target)) sw.classList.remove('open');
     });
-
-    // Restore saved choice
-    var saved = null;
-    try { saved = localStorage.getItem(LANG_KEY); } catch(_){}
-    // Apply saved language only after CMS has hydrated (so FR snapshot reflects latest content)
-    function applyOnceReady(){
-      // Defer one tick so the live CMS hydrate has run (it fires on DOMContentLoaded too)
-      setTimeout(function(){
-        captureFR();
-        if (saved && saved !== 'fr') applyLang(saved);
-        else updateButtons();
-      }, 60);
-    }
-    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', applyOnceReady);
-    else applyOnceReady();
   }
-
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
   else init();
 })();
@@ -2528,222 +2455,6 @@ Le Chalet est posé au cœur de ce poumon vert.  <a href="#domaine" style="color
   // Re-run after CMS hydration in case content.json points to a video
   window.addEventListener('tornet:content-applied', function(){ swapMedia(); });
 })();
-
-// ── TRANSLATIONS ────────────────────────────────────────────────────
-// Hardcoded by the developer. Owner doesn't touch these from admin.
-// Add/edit translations here. Empty objects = language tab will be muted
-// in the switcher until real translations are present.
-window.TORNET_I18N = {
-  en: {
-    // Navigation
-    'nav.about': 'About',
-    'nav.menu': 'Menu',
-    'nav.bar': 'Bar',
-    'nav.domaine': 'The Estate',
-    'nav.faq': 'FAQ',
-    'nav.close': 'Close',
-
-    // Hero
-    'hero.eyebrow': 'Restaurant · Bar · Terrace — Lake of La Balme-de-Sillingy',
-    'hero.sub': 'Generous traditional cuisine · Lakeside terrace · Haute-Savoie',
-    'hero.pill.lake': 'Lakeside terrace',
-    'hero.pill.parking': 'Free parking',
-    'hero.pill.bar': 'Bar all day',
-    'hero.pill.domaine': 'Inside the Estate',
-    'cta.call': 'Reservation',
-    'cta.menu': 'See the menu',
-    'cta.domaine': 'Estate',
-
-    // Reviews
-    'reviews.eyebrow': 'They talk about us',
-    'reviews.title': 'What our guests say',
-    'reviews.count': 'Google reviews',
-    'reviews.swipe': 'Swipe',
-    'reviews.cta': 'See all reviews on Google',
-    'reviews.cta.sub': '622 reviews · 4.0 ★',
-
-    // About
-    'about.tag': 'Our story',
-    'about.title': 'Welcome to the Chalet',
-    'about.main': 'On the shores of the lake of La Balme-de-Sillingy, <strong>Chalet du Tornet</strong> welcomes you from February to early November. Restaurant lunch and dinner (Thursday to Saturday), bar from morning until the last drink, terrace facing the water — a simple, lively place at the heart of a fully equipped estate.',
-    'about.main2': 'We do things simply — local produce, charcuterie from <strong>Maison Baud</strong>, artisanal ice cream, and the pleasure of a beautiful plate shared by the lake.',
-    'about.more': 'Read more',
-    'about.expanded': 'Whether you come with family, as a couple, or with friends, the Chalet adapts to every moment. Indoor dining room, lounge and lakeside terrace in season — and right next to it, the playground, pumptrack, pétanque courts and lake loop. The Chalet is the natural refuelling stop for a real day at the Domaine du Tornet.',
-    'about.highlights.hint': '← Swipe →',
-    'highlight.cuisine.title': 'Traditional & Savoyard cuisine',
-    'highlight.cuisine.desc': 'Raw-milk raclette, tartiflette, the Tornet Burger, MOF butcher cut, local trout, risotto.',
-    'highlight.bar.title': 'Bar & terrace',
-    'highlight.bar.desc': 'From morning until the last drink. Coffees, local spirits, lemonades and ice creams in the afternoon.',
-    'highlight.tour.title': 'Lake loop',
-    'highlight.tour.desc': 'Family loop ~2 km, flat, stroller-friendly — starts right outside the Chalet.',
-    'highlight.domaine.title': 'The Estate',
-    'highlight.domaine.desc': '7 hectares of nature, freely open: lake, 280 m pumptrack, brand-new playground, fitness, pétanque, pontoon, the Gardens Park and its collection of Asian flowering cherry trees. The Chalet is set right in the heart of this green lung. <a href="#domaine" style="color:var(--gold);font-weight:600;white-space:nowrap">Learn more →</a>',
-
-    // Gallery
-    'gallery.tag': 'Photos',
-    'gallery.title': 'Discover the Chalet',
-
-    // Menu
-    'menu.tag': 'Restaurant',
-    'menu.title': 'Our Menu',
-    'menu.intro': 'Traditional and Savoyard cuisine, local produce. Lunch menu €19.90, à la carte, kids menu €13. Raw-milk raclette evenings and weekends.',
-    'formule.hint': '← Swipe →',
-    'formule.totale.name': 'The Full',
-    'formule.totale.desc': 'Starter + Main + Dessert — 1/4 wine, beer or soft drink — Coffee included',
-    'formule.complete.name': 'The Complete',
-    'formule.complete.desc': 'Starter + Main + Dessert — Coffee included',
-    'formule.rapide.name': 'The Quick',
-    'formule.rapide.desc': 'Starter + Main, or Main + Dessert',
-    'formule.express.name': 'The Express',
-    'formule.express.desc': 'Main course only',
-    'menu.enfant.name': 'Kids Menu',
-    'menu.enfant.desc': '1 drink (syrup/soda/juice) · Beef patty, nuggets, ham or trout · Fries, vegetables, gratin or tartiflette · 1 scoop of ice cream, compote or fromage blanc',
-
-    // Bar
-    'bar.tag': 'Bar · Terrace · Lemonade',
-    'bar.title': 'From morning to last call',
-    'bar.intro': 'The Chalet bar lives all day. A coffee, an afternoon ice cream, a sunset aperitif, a drink after the walk. Stay, sit, enjoy the lake.',
-    'bar.rhythm.1.time': 'Morning · 9am',
-    'bar.rhythm.1.title': 'Lakeside coffee',
-    'bar.rhythm.1.desc': 'Espresso €1.60, latte, viennese hot chocolate, teas/herbal infusions.',
-    'bar.rhythm.2.time': 'Afternoon',
-    'bar.rhythm.2.title': 'Ice cream & lemonades',
-    'bar.rhythm.2.desc': 'Signature sundaes, sorbets, garçon-de-café lemonades, diabolos.',
-    'bar.rhythm.3.time': 'Evening',
-    'bar.rhythm.3.title': 'Aperitif at the Chalet',
-    'bar.rhythm.3.desc': 'Sharing boards, Génépi, green Chartreuse, Verveine des Aravis, Irish Coffee.',
-
-    // Domaine
-    'domaine.tag': 'Where you put down the bag',
-    'domaine.title': 'The Tornet Estate',
-    'domaine.intro': '<strong>Seven hectares of lake, freely open, all year round.</strong> The Domaine du Tornet is the living heart of La Balme-de-Sillingy: a lake, a walking loop, a large playground, a pumptrack, a fitness area, pétanque courts, a lakeside pontoon, and the Gardens Park of Haute-Savoie with its national collection of Asian flowering cherry trees.',
-    'domaine.intro2': 'The Chalet is our corner of the Estate. We come here for a coffee before walking around the lake, an aperitif after the pumptrack, a meal on the terrace between two slides at the playground. Our kitchen ends at our walls; the rest of the Estate continues all around.',
-    'domaine.ownership': 'The Estate is developed and managed by the municipality of La Balme-de-Sillingy. We do not own it — we simply welcome you here, from our chalet or our terrace.',
-    'domaine.features.title': 'What you find on the Estate',
-    'domaine.features.hint': '← Swipe →',
-    'feat.lake.t': 'The lake (7 ha)',
-    'feat.lake.d': 'Private lake reserved for fishing, managed by the Balme Pêche Loisirs association. Permit required.',
-    'feat.pump.t': 'Pumptrack (280 m)',
-    'feat.pump.d': 'Three colour-coded courses. MTB, BMX, skate, rollers, balance bikes, scooters.',
-    'feat.workout.t': 'Street workout',
-    'feat.workout.d': 'Multiple structures for strength, gymnastics and freestyle, all levels.',
-    'feat.fitness.t': 'Fitness area',
-    'feat.fitness.d': 'Adult workout space facing the lake, between the Roger Dumas hall and the active mobility track.',
-    'feat.play.t': "Children's playground",
-    'feat.play.d': 'Major new playground inaugurated summer 2025, plus a dedicated toddler area.',
-    'feat.petanque.t': 'Pétanque courts',
-    'feat.petanque.d': 'Several free-access courts. Bring your own boules.',
-    'feat.pontoon.t': 'Observation pontoon',
-    'feat.pontoon.d': 'A wooden walkway over the lake, installed in 2024: ideal for watching the water.',
-    'feat.jardins.t': 'Gardens Park',
-    'feat.jardins.d': 'The Gardens Park of Haute-Savoie and the national collection of Asian flowering cherry trees — spectacular in bloom (March-April).',
-    'feat.camper.t': 'Camper-van area',
-    'feat.camper.d': 'Currently 22 spots, with a 23rd being added. Direct walking access to the lake and the Chalet.',
-    'feat.bike.t': 'Electric bike rental',
-    'feat.bike.d': 'On-site rental — perfect for reaching Annecy via the green way (La Belle Via).',
-    'feat.parking.t': 'Free parking',
-    'feat.parking.d': 'Large parking area redesigned late 2025, EV charging stations, bus parking. Access set back from the roundabout for safety.',
-    'feat.picnic.t': 'Picnic tables',
-    'feat.picnic.d': 'Multiple tables around the lake, relaxation furniture all around since 2024.',
-
-    'domaine.visit.title': 'Plan your visit',
-    'visit.walk.title': 'The lake loop',
-    'visit.walk.desc': 'Family loop all the way around the lake, flat, stabilised. Stroller and wheelchair accessible. Allow half an hour at a relaxed pace with the kids, a bit longer if you stop at the pontoon.',
-    'visit.stat1.n': '~2 km',
-    'visit.stat1.l': 'Distance',
-    'visit.stat2.n': '30 min',
-    'visit.stat2.l': 'Duration',
-    'visit.stat3.n': '0 m',
-    'visit.stat3.l': 'Elevation',
-    'visit.walk.note': 'Green level · very easy · pets welcome on a leash',
-    'visit.prac.title': 'Practical info',
-    'visit.prac.1': 'Free access, all year round',
-    'visit.prac.2': 'Free on-site parking',
-    'visit.prac.3': 'Public toilets',
-    'visit.prac.4': 'Pets welcome',
-    'visit.prac.5': 'EV charging station',
-    'visit.prac.6': 'Fishing: permit required (Balme Pêche Loisirs)',
-
-    'dev.eyebrow': 'The events esplanade',
-    'dev.title': 'The Estate comes alive',
-    'dev.desc': 'In early 2026, the municipality completed a central esplanade dedicated to large events. Throughout the year, the Estate hosts the gatherings that make the village.',
-    'dev.1': 'Lake festival',
-    'dev.2': 'Vintage car meet',
-    'dev.3': 'Family day',
-    'dev.4': 'Young farmers day',
-    'dev.5': 'And local council events',
-    'sources.label': 'Learn more:',
-    'sources.1': 'Development project (Town Hall)',
-    'sources.2': 'Lake Annecy Tourism Office',
-    'sources.3': "Alter'Alpa Tourism",
-
-    // Groupes
-    'groupes.tag': 'Events & groups',
-    'groupes.title': 'A meal for many, an occasion to celebrate',
-    'groupes.desc': "For your events, we offer group menus and the option to privatise part of the restaurant. Write to us with your date, party size and ideas — we'll come back with a tailored proposal.",
-
-    // Hours
-    'hours.tag': 'Useful',
-    'hours.title': 'Hours & Access',
-    'hours.heading': 'Opening hours',
-    'hours.pill': 'Bar · Kitchen',
-    'hours.note': '* and beyond — last drink 00:15',
-
-    'location.title': 'Access',
-    'location.perk_1': 'Free parking on the estate',
-    'location.perk_2': 'Lakeside',
-    'location.perk_3': 'Playground, pumptrack a few steps away',
-    'location.perk_4': 'Lake loop accessible by stroller / wheelchair',
-    'map.link': '📌 View on Google Maps →',
-
-    // Contact
-    'contact.tag': 'Reach us',
-    'contact.title': 'Contact us',
-    'contact.hint': '← Swipe →',
-    'contact.phone': 'Phone',
-    'contact.phone.desc': 'Direct booking',
-    'contact.email': 'Email',
-    'contact.email.desc': 'Groups & quotes',
-    'contact.social': 'Social',
-    'contact.social.desc': 'Events & daily menu',
-
-    // FAQ
-    'faq.tag': 'Questions',
-    'faq.title': 'Frequently asked questions',
-
-    // Footer
-    'footer.tagline': 'Official site · Direct booking · No fees',
-    'footer.domaine': 'The Estate',
-    'footer.groups': 'Groups',
-    'footer.contact': 'Contact',
-    'footer.cadeaux': '🎁 Gift cards',
-    'footer.privacy': 'Privacy',
-    'footer.legal': 'Legal',
-    'footer.copyright': '© 2026 bleu-canard édition, Edmaster & Claudius, all rights reserved',
-
-    // Modal
-    'modal.intro.title': 'Welcome to the Chalet du Tornet',
-    'modal.intro.desc': 'Restaurant · bar · terrace by the lake of La Balme-de-Sillingy, at the heart of the Domaine du Tornet. Savoyard cuisine, local produce, charcuterie from Maison Baud, artisanal ice cream.',
-    'modal.cadeaux.title': 'Give the Chalet du Tornet',
-    'modal.cadeaux.intro': 'A gift card for a birthday, a thank you, or simply to bring joy. Valid for the whole restaurant for 12 months.',
-    'cadeaux.30': 'An aperitif · a sharing board · a moment by the lake',
-    'cadeaux.50': 'A real meal for two · starter, main and a glass of wine',
-    'cadeaux.100': 'A complete moment · family menu · lakeside terrace',
-    'cadeaux.label.duo': 'Duo',
-    'cadeaux.label.popular': 'Most gifted',
-    'cadeaux.label.family': 'Family',
-    'cadeaux.custom': 'Another amount? Ask us — we create the gift card to your idea.',
-    'cadeaux.cta.email': 'Order by email',
-    'cadeaux.fine': 'Delivered in person at the restaurant or by email within 24h. Valid 12 months.',
-    'modal.close': 'Close & explore the site',
-    'modal.domaine.desc': '7 hectares of lake, a walking loop, a playground, a 280 m pumptrack, a fitness area, pétanque courts, a lakeside pontoon, and the Gardens Park of Haute-Savoie with its national collection of Asian flowering cherry trees — spectacular in bloom.'
-  },
-
-  // German and Italian: empty for now. The switcher will mark these as muted
-  // until real translations are filled in. Add them the same way as 'en' above.
-  de: {},
-  it: {}
-};
 
 // ── INTRO MODAL ──
 (function(){
@@ -2971,6 +2682,15 @@ window.TORNET_I18N = {
 
   function loadLeaflet(cb){
     if (window.L) return cb();
+    if (!document.getElementById('leaflet-css')) {
+      var lcss = document.createElement('link');
+      lcss.id = 'leaflet-css';
+      lcss.rel = 'stylesheet';
+      lcss.href = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.css';
+      lcss.integrity = 'sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=';
+      lcss.crossOrigin = '';
+      document.head.appendChild(lcss);
+    }
     var s = document.createElement('script');
     s.src = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js';
     s.integrity = 'sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=';
@@ -3290,7 +3010,7 @@ window.TORNET_I18N = {
         view. Uses line-aware mode for wrapping titles. */
   function initSectionTitles(){
     if (REDUCED) return;
-    var titles = document.querySelectorAll('section h2');
+    var titles = document.querySelectorAll('section h2:not(.no-reveal)');
     if (!titles.length) return;
     titles.forEach(function(h2){
       // Skip if already inside a reveal-words/lines wrapper

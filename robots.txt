@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://chalet-du-tornet.netlify.app/sitemap.xml
+Sitemap: https://chaletdutornet.com/sitemap.xml
